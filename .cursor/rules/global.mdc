@@ -1,0 +1,47 @@
+---
+description: "Global baseline: process, quality gates, and project context."
+globs: "**"
+alwaysApply: true
+---
+
+# Global Rules
+
+## Project
+- Next.js 15 + React 19 + TypeScript + Tailwind CSS v4
+- Deploy: Cloudflare Workers via OpenNext + Wrangler
+- Profile: mostly static informational website
+
+## Rule precedence
+1. `global.mdc`
+2. Scope rules: `frontend.mdc`, `site-design.mdc`, `cloudflare-deploy.mdc`
+3. Explicit user instruction in chat
+
+## Process
+1. Plan non-trivial work: goal, scope, constraints, acceptance criteria.
+2. Work in small slices; one feature step per session when possible.
+3. Do not modify unrelated files.
+4. On drift or fix loops: stop, reset context, narrow scope.
+5. Stubborn bugs: diagnose first (no edits), then minimal fix with evidence.
+
+## Prompt contract (feature work)
+- Context, To-do, Not-to-do, Acceptance criteria
+- Allowed and forbidden files when scope is narrow
+
+## Before accepting changes
+Review diff for: unrelated edits, deletions, new dependencies, secrets, config side effects.
+
+## Validation (required for meaningful code changes)
+```bash
+pnpm lint
+pnpm build
+pnpm exec tsc --noEmit   # when TypeScript-heavy
+```
+Do not proceed if checks fail. Never disable strict/lint to force green unless explicitly asked.
+
+## Safety
+- No secrets in tracked files.
+- Deployment/config files are sensitive; edit only when in scope (see `cloudflare-deploy.mdc`).
+
+## Context hygiene
+- Keep context lean; reset chat between slices if quality drops.
+- Prefer concrete file references over long doc dumps.

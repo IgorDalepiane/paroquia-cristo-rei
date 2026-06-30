@@ -1,0 +1,37 @@
+---
+description: "App code: Next.js App Router, React, TypeScript, Tailwind."
+globs: "src/**,public/**"
+alwaysApply: false
+---
+
+# Frontend & App Rules
+
+## Architecture
+- Static-first; no backend/data layer unless explicitly required.
+- Pages/layouts in `src/app/`; components when extracted; styling via Tailwind or `globals.css` tokens.
+- Avoid premature abstractions; incremental edits over broad rewrites.
+- Preserve existing patterns before introducing new ones.
+
+## Next.js
+- App Router under `src/app/`.
+- Metadata in `layout.tsx` or route-level exports.
+- Use `next/image` for local images with meaningful `alt`.
+
+## TypeScript & React
+- `strict: true`; avoid `any` unless justified.
+- Functional components; split files that become hard to review.
+
+## Styling
+- Tailwind utilities for local styling; shared tokens in `globals.css`.
+- Prefer classes/tokens over inline styles when equivalent.
+
+## Content & accessibility
+- Preserve Portuguese user-facing text unless asked to change.
+- Semantic HTML (`main`, logical heading order).
+- Maintain contrast and readability after style changes.
+
+## Do not
+- One-shot full page/app rewrites.
+- New libraries for small styling/content tasks.
+- Disable lint/type checks to fix issues.
+- Bulk rename/move without explicit request.

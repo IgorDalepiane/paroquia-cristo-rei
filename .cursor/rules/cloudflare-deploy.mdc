@@ -1,0 +1,25 @@
+---
+description: "Protected deploy and runtime configuration."
+globs: "wrangler.jsonc,open-next.config.ts,next.config.ts,cloudflare-env.d.ts,package.json,public/_headers"
+alwaysApply: false
+---
+
+# Cloudflare & Deploy
+
+Edit these files only when explicitly in task scope.
+
+## Rules
+1. Do not change `wrangler.jsonc` compatibility/runtime flags casually.
+2. Do not remove OpenNext init in `next.config.ts` without verified replacement.
+3. No secrets in tracked files; use Cloudflare secrets workflow.
+4. Do not alter deploy scripts in `package.json` without stating impact.
+5. Keep `wrangler.jsonc` valid JSONC; preserve assets/worker entry paths unless intentional.
+
+## Before merging config changes
+- State why and expected deploy/runtime impact.
+- Keep change minimal and reversible.
+- Run `pnpm lint`, `pnpm build`, and `pnpm preview` when runtime behavior may change.
+
+## Do not
+- Mix feature work and deploy config in one broad patch.
+- "Cleanup" sensitive configs without a direct requirement.
