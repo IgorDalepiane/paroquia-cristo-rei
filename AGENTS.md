@@ -36,11 +36,13 @@ pnpm cf:upload    # PR preview upload (Cloudflare non-production branches)
 
 Cloudflare Workers Builds dashboard commands (do not use `pnpm deploy` — conflicts with pnpm built-in):
 
-| Setting               | Command          |
-| --------------------- | ---------------- |
-| Build                 | `pnpm build`     |
-| Deploy (production)   | `pnpm cf:deploy` |
-| Non-production deploy | `pnpm cf:upload` |
+| Setting               | Command                                        |
+| --------------------- | ---------------------------------------------- |
+| Build                 | _(empty — OpenNext runs inside deploy/upload)_ |
+| Deploy (production)   | `pnpm cf:deploy`                               |
+| Non-production deploy | `pnpm cf:upload`                               |
+
+`pnpm build` is for local quick checks only — not used in CI or Cloudflare pipelines (OpenNext invokes it internally).
 
 ## Off-limits (without explicit approval)
 
