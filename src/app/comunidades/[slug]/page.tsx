@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { communities, getCommunityBySlug } from "@/content/communities";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -16,9 +18,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const community = getCommunityBySlug(slug);
   if (!community) return { title: "Comunidade não encontrada" };
+
+  const path = `/comunidades/${slug}`;
   return {
-    title: community.name,
-    description: community.summary,
+    ...pageMetadata({
+      title: community.name,
+      description: community.summary,
+      path,
+    }),
   };
 }
 
@@ -29,6 +36,13 @@ export default async function ComunidadePage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Início", path: "/" },
+          { name: "Comunidades", path: "/comunidades" },
+          { name: community.name, path: `/comunidades/${slug}` },
+        ])}
+      />
       <PageTitleBar title={community.name} />
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-3xl">

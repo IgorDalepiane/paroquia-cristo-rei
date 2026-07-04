@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { siteConfig } from "@/content/site";
 import { confessionSchedules, massSchedules } from "@/content/schedules";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Horários",
   description: "Horários de missas, confissões e atendimento da secretaria.",
-};
+  path: "/horarios",
+});
 
 export default function HorariosPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Início", path: "/" },
+          { name: "Horários", path: "/horarios" },
+        ])}
+      />
       <PageTitleBar title="Horários" />
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-3xl">

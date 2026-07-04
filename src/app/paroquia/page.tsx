@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Paróquia",
   description: "História, clero e vida pastoral da Paróquia Cristo Rei.",
-};
+  path: "/paroquia",
+});
 
 export default function ParoquiaPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Início", path: "/" },
+          { name: "Paróquia", path: "/paroquia" },
+        ])}
+      />
       <PageTitleBar title="Paróquia" />
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-3xl space-y-12">

@@ -13,7 +13,7 @@ export function ChurchHeroImage({
 }: ChurchHeroImageProps) {
   return (
     <Image
-      src="/images/igreja-hero.jpg"
+      src="/images/igreja-hero.webp"
       alt="Fachada da Paróquia Cristo Rei com torre e cruz"
       fill
       priority={priority}

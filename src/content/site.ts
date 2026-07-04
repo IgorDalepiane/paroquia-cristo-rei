@@ -1,13 +1,22 @@
 export const siteConfig = {
   name: "Paróquia Cristo Rei",
   shortName: "Cristo Rei",
+  url: "https://paroquiacristorei.org.br",
   description:
     "Paróquia Cristo Rei — comunidade de fé, 24 comunidades, horários de missas e vida pastoral.",
   heroTagline: "Bento Gonçalves — RS",
   heroSubtitle: "Vida pastoral",
   contact: {
-    address: "Endereço a definir — Paróquia Cristo Rei",
-    city: "Cidade, Estado",
+    address: "Av. Dr. Antônio Casagrande, 27-89",
+    neighborhood: "Cidade Alta",
+    city: "Bento Gonçalves",
+    state: "RS",
+    postalCode: "95700-000",
+    country: "BR",
+    geo: {
+      latitude: -29.1723674,
+      longitude: -51.5202798,
+    },
     phone: "(00) 0000-0000",
     email: "contato@paroquiacristorei.org.br",
     whatsapp: "",
@@ -36,3 +45,16 @@ export const navItems = [
   { label: "Galeria", href: "/galeria" },
   { label: "Contato", href: "/contato" },
 ] as const;
+
+export function formatContactLines() {
+  const { contact } = siteConfig;
+  return {
+    street: `${contact.address} — ${contact.neighborhood}`,
+    locality: `${contact.city} — ${contact.state} · CEP ${contact.postalCode}`,
+  };
+}
+
+export function googleMapsUrl() {
+  const { geo } = siteConfig.contact;
+  return `https://www.google.com/maps?q=${geo.latitude},${geo.longitude}`;
+}

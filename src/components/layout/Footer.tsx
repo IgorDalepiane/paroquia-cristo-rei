@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoBrandText, LogoIcon } from "@/components/layout/LogoBrand";
 import { quickScheduleHighlight } from "@/content/schedules";
-import { navItems, siteConfig } from "@/content/site";
+import { navItems, formatContactLines, siteConfig } from "@/content/site";
 
 const socialLinks = [
   { label: "Instagram", href: siteConfig.social.instagram || "#", key: "instagram" },
@@ -36,6 +36,7 @@ function SocialIcon({ type }: { type: (typeof socialLinks)[number]["key"] }) {
 
 export function Footer() {
   const footerNavItems = navItems.filter((item) => item.href !== "/contato");
+  const contactLines = formatContactLines();
 
   return (
     <footer className="border-t border-border bg-footer-bg text-foreground">
@@ -74,7 +75,8 @@ export function Footer() {
           <div>
             <h2 className="font-display normal-case text-xl text-foreground">Secretaria paroquial</h2>
             <ul className="mt-5 space-y-3 text-base leading-relaxed">
-              <li className="text-foreground/80">{siteConfig.contact.address}</li>
+              <li className="text-foreground/80">{contactLines.street}</li>
+              <li className="text-foreground/80">{contactLines.locality}</li>
               <li>
                 <a href={`tel:${siteConfig.contact.phone}`} className="text-accent hover:text-accent-light">
                   {siteConfig.contact.phone}
@@ -109,9 +111,9 @@ export function Footer() {
           <div>
             <h2 className="font-display normal-case text-xl text-foreground">Localização</h2>
             <p className="mt-5 text-base leading-relaxed text-foreground/80">
-              {siteConfig.contact.address}
+              {contactLines.street}
               <br />
-              {siteConfig.contact.city}
+              {contactLines.locality}
             </p>
           </div>
 

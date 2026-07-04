@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageTitleBar } from "@/components/ui/PageTitleBar";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { formatNewsDate, getNewsBySlug, newsArticles } from "@/content/news";
+import {
+  articleJsonLd,
+  breadcrumbJsonLd,
+  canonicalPath,
+  defaultOpenGraph,
+  defaultTwitter,
+} from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -17,9 +24,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const article = getNewsBySlug(slug);
   if (!article) return { title: "Notícia não encontrada" };
+
+  const path = `/noticias/${slug}`;
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: canonicalPath(path),
+    openGraph: defaultOpenGraph({
+      type: "article",
+      title: article.title,
+      description: article.excerpt,
+      url: path,
+      publishedTime: article.date,
+    }),
+    twitter: defaultTwitter({
+      title: article.title,
+      description: article.excerpt,
+    }),
   };
 }
 
@@ -32,7 +53,21 @@ export default async function NoticiaPage({ params }: PageProps) {
 
   return (
     <>
-      <PageTitleBar title="Notícias" />
+      <JsonLd
+        data={[
+          articleJsonLd({
+            title: article.title,
+            description: article.excerpt,
+            slug,
+            date: article.date,
+          }),
+          breadcrumbJsonLd([
+            { name: "Início", path: "/" },
+            { name: "Notícias", path: "/noticias" },
+            { name: article.title, path: `/noticias/${slug}` },
+          ]),
+        ]}
+      />
       <article className="section-padding">
         <div className="container-wide mx-auto max-w-3xl">
           <ScrollReveal>
