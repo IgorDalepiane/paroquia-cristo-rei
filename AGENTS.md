@@ -29,9 +29,18 @@ If output degrades or fixes loop: new chat, narrower scope, diagnose before patc
 pnpm dev          # local dev (Turbopack)
 pnpm lint
 pnpm build
-pnpm preview      # Cloudflare preview
-pnpm deploy       # production deploy
+pnpm preview      # Cloudflare preview (local)
+pnpm cf:deploy    # production deploy (Cloudflare main branch)
+pnpm cf:upload    # PR preview upload (Cloudflare non-production branches)
 ```
+
+Cloudflare Workers Builds dashboard commands (do not use `pnpm deploy` — conflicts with pnpm built-in):
+
+| Setting | Command |
+| ------- | ------- |
+| Build | `pnpm build` |
+| Deploy (production) | `pnpm cf:deploy` |
+| Non-production deploy | `pnpm cf:upload` |
 
 ## Off-limits (without explicit approval)
 
