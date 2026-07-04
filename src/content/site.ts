@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Paróquia Cristo Rei",
   shortName: "Cristo Rei",
-  url: "https://paroquiacristorei.org.br",
+  url: "https://paroquiacristoreibg.org.br",
   description:
     "Paróquia Cristo Rei — comunidade de fé, 24 comunidades, horários de missas e vida pastoral.",
   heroTagline: "Bento Gonçalves — RS",
@@ -18,7 +18,7 @@ export const siteConfig = {
       longitude: -51.5202798,
     },
     phone: "(00) 0000-0000",
-    email: "contato@paroquiacristorei.org.br",
+    email: "contato@paroquiacristoreibg.org.br",
     whatsapp: "",
   },
   social: {

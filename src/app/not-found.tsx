@@ -15,7 +15,7 @@ export default function NotFound() {
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "Página não encontrada",
-          isPartOf: { "@id": "https://paroquiacristorei.org.br/#website" },
+          isPartOf: { "@id": "https://paroquiacristoreibg.org.br/#website" },
         }}
       />
       <div className="section-padding">
