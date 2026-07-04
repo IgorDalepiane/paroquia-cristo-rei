@@ -11,7 +11,11 @@ export function GalleryPreviewSection() {
       <div className="container-wide">
         <ScrollReveal>
           <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Memória viva" title="Galeria" displayTitle="fotográfica" />
+            <SectionHeading
+              eyebrow="Memória viva"
+              title="Galeria"
+              displayTitle="fotográfica"
+            />
             <ButtonLink href="/galeria" variant="outline" className="shrink-0">
               Ver galeria completa
             </ButtonLink>

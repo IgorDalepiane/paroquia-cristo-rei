@@ -32,8 +32,9 @@ export default function ComunidadesPage() {
               eyebrow="Paróquia Cristo Rei"
             />
             <p className="-mt-6 mb-10 max-w-2xl text-muted">
-              Cada comunidade tem sua história, devoção e serviço. Use a busca para
-              encontrar por nome, bairro ou padroeiro. Conteúdo em atualização.
+              Cada comunidade tem sua história, devoção e serviço. Use a busca
+              para encontrar por nome, bairro ou padroeiro. Conteúdo em
+              atualização.
             </p>
           </ScrollReveal>
           <ScrollReveal>

@@ -23,7 +23,10 @@ function ScheduleCardContent() {
 
 export function QuickScheduleSection() {
   return (
-    <section id="horarios" className="section-padding border-b border-border bg-muted-bg">
+    <section
+      id="horarios"
+      className="section-padding border-b border-border bg-muted-bg"
+    >
       <div className="container-wide">
         <ScrollReveal>
           <SectionHeading
@@ -39,7 +42,11 @@ export function QuickScheduleSection() {
               <div className="flex-1">
                 <ScheduleCardContent />
               </div>
-              <ButtonLink href="/horarios" variant="outline" className="shrink-0">
+              <ButtonLink
+                href="/horarios"
+                variant="outline"
+                className="shrink-0"
+              >
                 Ver todos os horários
               </ButtonLink>
             </div>

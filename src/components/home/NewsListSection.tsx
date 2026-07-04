@@ -12,7 +12,11 @@ export function NewsListSection() {
       <div className="container-wide">
         <ScrollReveal>
           <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading eyebrow="Fique por dentro" title="Últimas" displayTitle="notícias" />
+            <SectionHeading
+              eyebrow="Fique por dentro"
+              title="Últimas"
+              displayTitle="notícias"
+            />
             <ButtonLink href="/noticias" variant="outline" className="shrink-0">
               Ver todas as notícias
             </ButtonLink>
@@ -36,7 +40,9 @@ export function NewsListSection() {
                     <h3 className="text-lg font-medium text-foreground transition-colors group-hover:text-accent">
                       {article.title}
                     </h3>
-                    <p className="mt-2 line-clamp-2 text-sm text-muted">{article.excerpt}</p>
+                    <p className="mt-2 line-clamp-2 text-sm text-muted">
+                      {article.excerpt}
+                    </p>
                   </div>
                 </Link>
               </li>

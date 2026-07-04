@@ -144,7 +144,12 @@ type ArticleJsonLdOptions = {
   date: string;
 };
 
-export function articleJsonLd({ title, description, slug, date }: ArticleJsonLdOptions) {
+export function articleJsonLd({
+  title,
+  description,
+  slug,
+  date,
+}: ArticleJsonLdOptions) {
   const url = siteUrl(`/noticias/${slug}`);
   return {
     "@context": "https://schema.org",

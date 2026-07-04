@@ -20,7 +20,11 @@ export function CommunitiesPreviewSection() {
                 title="Nossa"
                 displayTitle="comunidade"
               />
-              <ButtonLink href="/comunidades" variant="outline" className="shrink-0">
+              <ButtonLink
+                href="/comunidades"
+                variant="outline"
+                className="shrink-0"
+              >
                 Ver as 24 comunidades
               </ButtonLink>
             </div>

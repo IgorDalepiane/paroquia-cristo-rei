@@ -16,7 +16,9 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
           }`}
         >
           <div className="absolute inset-0 flex items-end bg-gradient-to-t from-primary/60 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:opacity-100">
-            <span className="text-sm text-white/90 line-clamp-2">{article.excerpt}</span>
+            <span className="text-sm text-white/90 line-clamp-2">
+              {article.excerpt}
+            </span>
           </div>
         </div>
         <div>
@@ -32,7 +34,9 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
           </h3>
           <div
             className={`mt-3 h-0.5 w-12 rounded-full transition-all group-hover:w-16 ${
-              featured ? "bg-accent-gold" : "bg-border group-hover:bg-accent-gold"
+              featured
+                ? "bg-accent-gold"
+                : "bg-border group-hover:bg-accent-gold"
             }`}
           />
         </div>

@@ -15,8 +15,16 @@ export function NewsPreviewSection() {
         <div className="container-wide">
           <ScrollReveal>
             <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-              <SectionHeading eyebrow="Fique por dentro" title="Últimas" displayTitle="notícias" />
-              <ButtonLink href="/noticias" variant="outline" className="shrink-0">
+              <SectionHeading
+                eyebrow="Fique por dentro"
+                title="Últimas"
+                displayTitle="notícias"
+              />
+              <ButtonLink
+                href="/noticias"
+                variant="outline"
+                className="shrink-0"
+              >
                 Ver todas as notícias
               </ButtonLink>
             </div>

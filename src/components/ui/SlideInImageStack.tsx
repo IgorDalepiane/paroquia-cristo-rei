@@ -13,7 +13,10 @@ type SlideInImageStackProps = {
   className?: string;
 };
 
-export function SlideInImageStack({ images, className = "" }: SlideInImageStackProps) {
+export function SlideInImageStack({
+  images,
+  className = "",
+}: SlideInImageStackProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -36,7 +39,10 @@ export function SlideInImageStack({ images, className = "" }: SlideInImageStackP
   }, []);
 
   return (
-    <div ref={ref} className={`relative h-[420px] w-full max-w-lg ${className}`}>
+    <div
+      ref={ref}
+      className={`relative h-[420px] w-full max-w-lg ${className}`}
+    >
       {images.map((image, index) => {
         const offset = index * 48;
         const zIndex = images.length - index;
@@ -64,7 +70,10 @@ export function SlideInImageStack({ images, className = "" }: SlideInImageStackP
                 sizes="(max-width: 768px) 100vw, 480px"
               />
             ) : (
-              <div className="placeholder-photo h-full w-full" aria-label={image.alt} />
+              <div
+                className="placeholder-photo h-full w-full"
+                aria-label={image.alt}
+              />
             )}
           </div>
         );

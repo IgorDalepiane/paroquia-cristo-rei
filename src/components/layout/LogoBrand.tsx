@@ -23,17 +23,26 @@ const sizeClasses = {
   },
 };
 
-export function LogoBrandText({ size = "md", showLocation = false }: LogoBrandTextProps) {
+export function LogoBrandText({
+  size = "md",
+  showLocation = false,
+}: LogoBrandTextProps) {
   const sizes = sizeClasses[size];
 
   return (
     <span className="flex flex-col">
-      <span className={`font-medium uppercase text-muted ${sizes.eyebrow}`}>Paróquia</span>
-      <span className={`mt-0.5 font-brand font-semibold uppercase text-foreground ${sizes.name}`}>
+      <span className={`font-medium uppercase text-muted ${sizes.eyebrow}`}>
+        Paróquia
+      </span>
+      <span
+        className={`mt-0.5 font-brand font-semibold uppercase text-foreground ${sizes.name}`}
+      >
         Cristo Rei
       </span>
       {showLocation ? (
-        <span className={`mt-1 font-medium uppercase text-muted ${sizes.location}`}>
+        <span
+          className={`mt-1 font-medium uppercase text-muted ${sizes.location}`}
+        >
           Bento Gonçalves — RS
         </span>
       ) : null}
@@ -47,7 +56,11 @@ type LogoIconProps = {
   priority?: boolean;
 };
 
-export function LogoIcon({ size = 48, className = "", priority = false }: LogoIconProps) {
+export function LogoIcon({
+  size = 48,
+  className = "",
+  priority = false,
+}: LogoIconProps) {
   return (
     <Image
       src="/images/logo-icon.png"

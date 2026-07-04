@@ -20,7 +20,9 @@ export default function NotFound() {
       />
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-lg text-center">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">404</p>
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            404
+          </p>
           <h1 className="font-display normal-case mt-4 text-3xl text-foreground md:text-4xl">
             Página não encontrada
           </h1>

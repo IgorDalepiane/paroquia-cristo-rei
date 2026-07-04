@@ -30,7 +30,10 @@ export function ButtonLink({
   className = "",
 }: ButtonLinkProps) {
   return (
-    <Link href={href} className={`${baseClass} ${variants[variant]} ${className}`}>
+    <Link
+      href={href}
+      className={`${baseClass} ${variants[variant]} ${className}`}
+    >
       {children}
     </Link>
   );
