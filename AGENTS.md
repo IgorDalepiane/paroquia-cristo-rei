@@ -36,10 +36,10 @@ pnpm cf:upload    # PR preview upload (Cloudflare non-production branches)
 
 Cloudflare Workers Builds dashboard commands (do not use `pnpm deploy` — conflicts with pnpm built-in):
 
-| Setting | Command |
-| ------- | ------- |
-| Build | `pnpm build` |
-| Deploy (production) | `pnpm cf:deploy` |
+| Setting               | Command          |
+| --------------------- | ---------------- |
+| Build                 | `pnpm build`     |
+| Deploy (production)   | `pnpm cf:deploy` |
 | Non-production deploy | `pnpm cf:upload` |
 
 ## Off-limits (without explicit approval)
