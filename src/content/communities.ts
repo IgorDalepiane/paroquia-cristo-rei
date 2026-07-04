@@ -40,7 +40,10 @@ const COMMUNITY_NAMES = [
   "Comunidade Nossa Senhora de Lourdes - Ceará",
 ] as const;
 
-function parseCommunityName(name: string): { patron?: string; neighborhood: string } {
+function parseCommunityName(name: string): {
+  patron?: string;
+  neighborhood: string;
+} {
   const withoutPrefix = name.replace(/^Comunidade\s+/, "");
   const dashIndex = withoutPrefix.indexOf(" - ");
 

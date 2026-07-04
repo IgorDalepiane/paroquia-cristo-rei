@@ -24,8 +24,8 @@ export default function GaleriaPage() {
       <div className="section-padding">
         <div className="container-wide">
           <p className="mb-10 max-w-2xl text-muted">
-            Placeholders de layout — substituir por fotografias autênticas da matriz,
-            celebrações e comunidades quando disponíveis.
+            Placeholders de layout — substituir por fotografias autênticas da
+            matriz, celebrações e comunidades quando disponíveis.
           </p>
           <div className="grid auto-rows-[200px] grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             {galleryItems.map((item, index) => {
@@ -39,7 +39,9 @@ export default function GaleriaPage() {
                       <span className="text-xs uppercase tracking-wider text-accent-gold">
                         {galleryCategoryLabels[item.category]}
                       </span>
-                      <span className="text-sm font-medium text-white">{item.title}</span>
+                      <span className="text-sm font-medium text-white">
+                        {item.title}
+                      </span>
                     </figcaption>
                   </figure>
                 </ScrollReveal>

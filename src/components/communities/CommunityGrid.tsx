@@ -36,7 +36,9 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
       </label>
 
       {filtered.length === 0 ? (
-        <p className="text-muted">Nenhuma comunidade encontrada para &ldquo;{query}&rdquo;.</p>
+        <p className="text-muted">
+          Nenhuma comunidade encontrada para &ldquo;{query}&rdquo;.
+        </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((community) => (

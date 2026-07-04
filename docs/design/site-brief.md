@@ -4,15 +4,15 @@ Living document for **approved** design and content decisions.
 
 ## Status
 
-| Gate | State | Notes |
-|------|-------|-------|
-| Plan approved | Done | Collaborative workflow with approval between phases |
-| Rules persisted (Fase 0) | Done | `docs/design/` + `.cursor/rules/site-design.mdc` |
-| Reference prints received | Done | 24 prints — Paróquia São Pelegrino (see `reference-sao-pelegrino.md`) |
-| Layout direction chosen | Done | Editorial imersivo + hub de comunidades |
-| Brand assets collected | **Provisional** | Placeholders in code; awaiting official logo, colors, photos |
-| Content questionnaire | Done | V1 essencial; defaults for motion/menu documented below |
-| Implementation slices | Done | V1 scaffold implemented — pending asset swap + user review |
+| Gate                      | State           | Notes                                                                 |
+| ------------------------- | --------------- | --------------------------------------------------------------------- |
+| Plan approved             | Done            | Collaborative workflow with approval between phases                   |
+| Rules persisted (Fase 0)  | Done            | `docs/design/` + `.cursor/rules/site-design.mdc`                      |
+| Reference prints received | Done            | 24 prints — Paróquia São Pelegrino (see `reference-sao-pelegrino.md`) |
+| Layout direction chosen   | Done            | Editorial imersivo + hub de comunidades                               |
+| Brand assets collected    | **Provisional** | Placeholders in code; awaiting official logo, colors, photos          |
+| Content questionnaire     | Done            | V1 essencial; defaults for motion/menu documented below               |
+| Implementation slices     | Done            | V1 scaffold implemented — pending asset swap + user review            |
 
 ## Goals
 
@@ -24,17 +24,17 @@ Living document for **approved** design and content decisions.
 
 ### Routes
 
-| Rota | Conteúdo |
-|------|----------|
-| `/` | Hero imersivo + horários rápidos + notícias + comunidades + galeria |
-| `/horarios` | Missas, confissões, secretaria, abertura |
-| `/comunidades` | Hub das 24 comunidades (grid + busca) |
-| `/comunidades/[slug]` | História, fotos, contato local |
-| `/noticias` | Grid de notícias |
-| `/noticias/[slug]` | Artigo |
-| `/paroquia` | História, clero, pastorais resumidas |
-| `/contato` | Endereço, formulário, redes, secretaria |
-| `/galeria` | Fotos da paróquia |
+| Rota                  | Conteúdo                                                            |
+| --------------------- | ------------------------------------------------------------------- |
+| `/`                   | Hero imersivo + horários rápidos + notícias + comunidades + galeria |
+| `/horarios`           | Missas, confissões, secretaria, abertura                            |
+| `/comunidades`        | Hub das 24 comunidades (grid + busca)                               |
+| `/comunidades/[slug]` | História, fotos, contato local                                      |
+| `/noticias`           | Grid de notícias                                                    |
+| `/noticias/[slug]`    | Artigo                                                              |
+| `/paroquia`           | História, clero, pastorais resumidas                                |
+| `/contato`            | Endereço, formulário, redes, secretaria                             |
+| `/galeria`            | Fotos da paróquia                                                   |
 
 ### Navigation (5 items)
 
@@ -86,17 +86,17 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 
 ## Assets needed from parish
 
-| Asset | Status | Notes |
-|-------|--------|-------|
-| Logo | Placeholder | `public/logo.svg` — replace with official PNG/SVG |
-| Color palette | Provisional | Update `globals.css` tokens when received |
-| Church photos (hero/gallery) | Placeholder | Gradient/placeholder blocks until photos provided |
-| Community list + slugs | Placeholder | 24 entries in `src/content/communities.ts` |
-| Community stories & photos | Placeholder | Per-community pages ready for content swap |
-| Mass schedule data | Placeholder | `src/content/schedules.ts` |
-| News samples | Placeholder | 6 sample articles in `src/content/news.ts` |
-| Hero tagline | Placeholder | `src/content/site.ts` — `heroTagline` |
-| Contact address / map / social | Placeholder | `src/content/site.ts` |
+| Asset                          | Status      | Notes                                             |
+| ------------------------------ | ----------- | ------------------------------------------------- |
+| Logo                           | Placeholder | `public/logo.svg` — replace with official PNG/SVG |
+| Color palette                  | Provisional | Update `globals.css` tokens when received         |
+| Church photos (hero/gallery)   | Placeholder | Gradient/placeholder blocks until photos provided |
+| Community list + slugs         | Placeholder | 24 entries in `src/content/communities.ts`        |
+| Community stories & photos     | Placeholder | Per-community pages ready for content swap        |
+| Mass schedule data             | Placeholder | `src/content/schedules.ts`                        |
+| News samples                   | Placeholder | 6 sample articles in `src/content/news.ts`        |
+| Hero tagline                   | Placeholder | `src/content/site.ts` — `heroTagline`             |
+| Contact address / map / social | Placeholder | `src/content/site.ts`                             |
 
 ## Reference material
 

@@ -37,13 +37,16 @@ function MobileNav({
     >
       <ul className="flex flex-col gap-1">
         {navItems.map((item) => {
-          const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const active =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (
             <li key={item.href}>
               <Link
                 href={item.href}
                 className={`block rounded-lg px-3 py-3 text-sm font-medium ${
-                  active ? "bg-accent/10 text-accent" : "text-foreground hover:bg-muted-bg"
+                  active
+                    ? "bg-accent/10 text-accent"
+                    : "text-foreground hover:bg-muted-bg"
                 }`}
                 onClick={onClose}
               >
@@ -65,7 +68,8 @@ export function Header() {
   const closeMenu = () => setOpen(false);
 
   const navLinks = mainNavItems.map((item) => {
-    const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+    const active =
+      pathname === item.href || pathname.startsWith(`${item.href}/`);
     return (
       <Link key={item.href} href={item.href} className={navLinkClass(active)}>
         {item.label}
@@ -154,7 +158,9 @@ export function Header() {
 
       <header
         className={`fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-white shadow-[0_1px_0_rgb(0_0_0/0.04),0_8px_24px_rgb(0_0_0/0.04)] transition-opacity duration-200 ${
-          compact ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+          compact
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!compact}
       >

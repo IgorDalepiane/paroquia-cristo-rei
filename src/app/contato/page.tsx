@@ -28,7 +28,9 @@ export default function ContatoPage() {
         <div className="container-wide grid gap-12 lg:grid-cols-2">
           <ScrollReveal>
             <div>
-              <h2 className="mb-6 font-display normal-case text-2xl text-foreground">Secretaria paroquial</h2>
+              <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
+                Secretaria paroquial
+              </h2>
               <address className="not-italic space-y-3 text-muted">
                 <p>{contactLines.street}</p>
                 <p>{contactLines.locality}</p>
@@ -43,18 +45,26 @@ export default function ContatoPage() {
                   </a>
                 </p>
                 <p>
-                  <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-accent">
+                  <a
+                    href={`tel:${siteConfig.contact.phone}`}
+                    className="hover:text-accent"
+                  >
                     {siteConfig.contact.phone}
                   </a>
                 </p>
                 <p>
-                  <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-accent">
+                  <a
+                    href={`mailto:${siteConfig.contact.email}`}
+                    className="hover:text-accent"
+                  >
                     {siteConfig.contact.email}
                   </a>
                 </p>
               </address>
               <div className="mt-8 space-y-2 text-sm text-muted">
-                <p className="font-semibold text-foreground">Horário de atendimento</p>
+                <p className="font-semibold text-foreground">
+                  Horário de atendimento
+                </p>
                 <p>{siteConfig.secretaryHours.weekdays}</p>
                 <p>{siteConfig.secretaryHours.saturday}</p>
               </div>
@@ -63,12 +73,18 @@ export default function ContatoPage() {
 
           <ScrollReveal>
             <form className="space-y-5 rounded-2xl border border-border bg-surface p-8 shadow-sm">
-              <h2 className="font-display normal-case text-xl text-foreground">Envie uma mensagem</h2>
+              <h2 className="font-display normal-case text-xl text-foreground">
+                Envie uma mensagem
+              </h2>
               <p className="text-sm text-muted">
-                Formulário visual — integração com envio de e-mail pode ser adicionada na V2.
+                Formulário visual — integração com envio de e-mail pode ser
+                adicionada na V2.
               </p>
               <div>
-                <label htmlFor="nome" className="mb-1 block text-sm font-medium">
+                <label
+                  htmlFor="nome"
+                  className="mb-1 block text-sm font-medium"
+                >
                   Nome
                 </label>
                 <input
@@ -80,7 +96,10 @@ export default function ContatoPage() {
                 />
               </div>
               <div>
-                <label htmlFor="email" className="mb-1 block text-sm font-medium">
+                <label
+                  htmlFor="email"
+                  className="mb-1 block text-sm font-medium"
+                >
                   E-mail
                 </label>
                 <input
@@ -92,7 +111,10 @@ export default function ContatoPage() {
                 />
               </div>
               <div>
-                <label htmlFor="mensagem" className="mb-1 block text-sm font-medium">
+                <label
+                  htmlFor="mensagem"
+                  className="mb-1 block text-sm font-medium"
+                >
                   Mensagem
                 </label>
                 <textarea

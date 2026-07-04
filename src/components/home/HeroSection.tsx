@@ -3,7 +3,10 @@ import { ChurchHeroImage } from "@/components/home/ChurchHeroImage";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[calc(100dvh-5rem)] overflow-hidden" aria-label="Destaque principal">
+    <section
+      className="relative min-h-[calc(100dvh-5rem)] overflow-hidden"
+      aria-label="Destaque principal"
+    >
       <div className="absolute inset-0">
         <ChurchHeroImage priority objectPosition="center center" />
         <div

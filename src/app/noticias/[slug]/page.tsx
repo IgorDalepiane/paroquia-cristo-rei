@@ -20,7 +20,9 @@ export async function generateStaticParams() {
   return newsArticles.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = getNewsBySlug(slug);
   if (!article) return { title: "Notícia não encontrada" };
@@ -83,7 +85,10 @@ export default async function NoticiaPage({ params }: PageProps) {
             <h1 className="font-display normal-case mt-3 text-balance text-3xl leading-tight md:text-4xl">
               {article.title}
             </h1>
-            <div className="mt-4 aspect-[21/9] rounded-2xl placeholder-photo" aria-hidden />
+            <div
+              className="mt-4 aspect-[21/9] rounded-2xl placeholder-photo"
+              aria-hidden
+            />
           </ScrollReveal>
 
           <ScrollReveal>

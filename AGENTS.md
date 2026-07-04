@@ -6,12 +6,12 @@ Static informational website: **Next.js 15**, **React 19**, **TypeScript**, **Ta
 
 Detailed rules live in [`.cursor/rules/`](.cursor/rules/):
 
-| File | When it applies |
-|------|-----------------|
-| `global.mdc` | Always — process, validation, safety |
-| `frontend.mdc` | Editing `src/` or `public/` |
-| `site-design.mdc` | Site UX/visual work — approval gates, quality checks ([`docs/design/site-brief.md`](docs/design/site-brief.md), [`docs/design/site-design-rules.md`](docs/design/site-design-rules.md)) |
-| `cloudflare-deploy.mdc` | Editing deploy/config files |
+| File                    | When it applies                                                                                                                                                                         |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `global.mdc`            | Always — process, validation, safety                                                                                                                                                    |
+| `frontend.mdc`          | Editing `src/` or `public/`                                                                                                                                                             |
+| `site-design.mdc`       | Site UX/visual work — approval gates, quality checks ([`docs/design/site-brief.md`](docs/design/site-brief.md), [`docs/design/site-design-rules.md`](docs/design/site-design-rules.md)) |
+| `cloudflare-deploy.mdc` | Editing deploy/config files                                                                                                                                                             |
 
 ## Workflow
 
