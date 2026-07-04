@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { siteConfig } from "@/content/site";
+import { formatContactLines, googleMapsUrl, siteConfig } from "@/content/site";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contato",
-  description: "Entre em contato com a Paróquia Cristo Rei.",
-};
+  description:
+    "Entre em contato com a Paróquia Cristo Rei em Bento Gonçalves — RS. Endereço, e-mail e horário da secretaria.",
+  path: "/contato",
+});
 
 export default function ContatoPage() {
+  const contactLines = formatContactLines();
+
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Início", path: "/" },
+          { name: "Contato", path: "/contato" },
+        ])}
+      />
       <PageTitleBar title="Contato" />
       <div className="section-padding">
         <div className="container-wide grid gap-12 lg:grid-cols-2">
@@ -18,8 +30,18 @@ export default function ContatoPage() {
             <div>
               <h2 className="mb-6 font-display normal-case text-2xl text-foreground">Secretaria paroquial</h2>
               <address className="not-italic space-y-3 text-muted">
-                <p>{siteConfig.contact.address}</p>
-                <p>{siteConfig.contact.city}</p>
+                <p>{contactLines.street}</p>
+                <p>{contactLines.locality}</p>
+                <p>
+                  <a
+                    href={googleMapsUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent"
+                  >
+                    Ver no Google Maps
+                  </a>
+                </p>
                 <p>
                   <a href={`tel:${siteConfig.contact.phone}`} className="hover:text-accent">
                     {siteConfig.contact.phone}

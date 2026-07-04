@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { galleryCategoryLabels, galleryItems } from "@/content/gallery";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Galeria",
   description: "Fotos da Paróquia Cristo Rei e das comunidades.",
-};
+  path: "/galeria",
+});
 
 export default function GaleriaPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Início", path: "/" },
+          { name: "Galeria", path: "/galeria" },
+        ])}
+      />
       <PageTitleBar title="Galeria" />
       <div className="section-padding">
         <div className="container-wide">
