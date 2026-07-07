@@ -1,0 +1,22 @@
+name: Promote to Production
+
+on:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: promote-production
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - run: git push origin HEAD:production --force

@@ -30,17 +30,35 @@ pnpm dev          # local dev (Turbopack)
 pnpm lint
 pnpm build
 pnpm preview      # Cloudflare preview (local)
-pnpm cf:deploy    # production deploy (Cloudflare main branch)
-pnpm cf:upload    # PR preview upload (Cloudflare non-production branches)
+pnpm cf:deploy:prod  # production deploy (production branch only)
+pnpm cf:upload    # preview version upload (main + feature branches)
 ```
 
-Cloudflare Workers Builds dashboard commands (do not use `pnpm deploy` — conflicts with pnpm built-in):
+Cloudflare Workers Builds (single project, Igordalepiane account). Do not use `pnpm deploy` — conflicts with pnpm built-in.
 
-| Setting               | Command                                        |
-| --------------------- | ---------------------------------------------- |
-| Build                 | _(empty — OpenNext runs inside deploy/upload)_ |
-| Deploy (production)   | `pnpm cf:deploy`                               |
-| Non-production deploy | `pnpm cf:upload`                               |
+| Trigger                | Mechanism                                         | Command               | URL                          |
+| ---------------------- | ------------------------------------------------- | --------------------- | ---------------------------- |
+| Push to `main`         | Workers Builds (non-prod)                         | `pnpm cf:upload`      | Preview version URL          |
+| Push to feature branch | Workers Builds (non-prod)                         | `pnpm cf:upload`      | Preview version URL          |
+| Push tag `v*`          | GHA promotes `production` branch → Workers Builds | `pnpm cf:deploy:prod` | `paroquiacristoreibg.org.br` |
+
+Workers Builds dashboard settings:
+
+| Setting                    | Command                                        |
+| -------------------------- | ---------------------------------------------- |
+| Build                      | _(empty — OpenNext runs inside deploy/upload)_ |
+| Production branch          | `production`                                   |
+| Deploy (production branch) | `pnpm cf:deploy:prod`                          |
+| Non-production deploy      | `pnpm cf:upload`                               |
+
+**Release:** after merging to `main` and verifying (preview URL or `pnpm preview` locally):
+
+```bash
+git tag v0.2.0
+git push origin v0.2.0
+```
+
+The `promote-production` workflow resets the `production` branch to the tagged commit; Cloudflare deploys automatically. No Cloudflare secrets in GitHub.
 
 `pnpm build` is for local quick checks only — not used in CI or Cloudflare pipelines (OpenNext invokes it internally).
 
