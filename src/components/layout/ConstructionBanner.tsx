@@ -27,8 +27,8 @@ export function ConstructionBanner() {
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 text-center text-base leading-snug font-medium md:gap-3.5 md:text-lg">
         <WarningIcon />
         <p>
-          <span className="font-bold">Site em construção.</span> As informações exibidas podem não
-          estar corretas.
+          <span className="font-bold">Site em construção.</span> As informações
+          exibidas podem não estar corretas.
         </p>
       </div>
     </div>
