@@ -21,6 +21,17 @@
       "enabled": false,
     },
   },
+  "keep_vars": true,
+  "routes": [
+    {
+      "pattern": "paroquiacristoreibg.org.br/*",
+      "zone_name": "paroquiacristoreibg.org.br",
+    },
+    {
+      "pattern": "www.paroquiacristoreibg.org.br/*",
+      "zone_name": "paroquiacristoreibg.org.br",
+    },
+  ],
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
