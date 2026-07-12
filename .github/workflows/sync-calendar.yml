@@ -1,0 +1,67 @@
+name: Sync calendar
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-calendar
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Sync calendars
+        env:
+          AGENDA_ICAL_URLS_JSON_ARRAY: ${{ vars.AGENDA_ICAL_URLS_JSON_ARRAY }}
+        run: pnpm sync:calendar
+      - name: Create PR if events changed
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore(calendar): sync events from Google Calendar"
+          branch: bot/calendar-sync
+          delete-branch: true
+          title: "chore(calendar): sync events"
+          body: |
+            Automated calendar sync from Google Calendar iCal feeds.
+            Merged automatically if CI passes.
+          labels: calendar-sync
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+      - name: Wait for merge and promote to production
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge --wait "${{ steps.cpr.outputs.pull-request-number }}"
+          git fetch origin main production
+          git checkout production
+          git checkout origin/main -- src/content/events.generated.ts
+          if git diff --quiet -- src/content/events.generated.ts; then
+            echo "No production changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/events.generated.ts
+          git commit -m "chore(calendar): sync events [production]"
+          git push origin production

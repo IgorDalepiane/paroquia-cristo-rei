@@ -180,6 +180,52 @@ export function articleJsonLd({
   };
 }
 
+type EventJsonLdOptions = {
+  id: string;
+  title: string;
+  description?: string;
+  start: string;
+  end: string | null;
+  location?: string;
+};
+
+export function eventJsonLd({
+  id,
+  title,
+  description,
+  start,
+  end,
+  location,
+}: EventJsonLdOptions) {
+  const url = siteUrl(`/agenda?event=${id}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: title,
+    ...(description ? { description } : {}),
+    startDate: start,
+    endDate: end ?? start,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    location: location
+      ? {
+          "@type": "Place",
+          name: location,
+        }
+      : {
+          "@type": "Place",
+          name: siteConfig.name,
+          address: siteConfig.contact.address,
+        },
+    organizer: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    url,
+  };
+}
+
 export function rootMetadata(): Metadata {
   return {
     metadataBase: new URL(siteConfig.url),

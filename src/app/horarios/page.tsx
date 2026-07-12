@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { calendarEvents } from "@/content/events.generated";
 import { siteConfig } from "@/content/site";
-import { confessionSchedules, massSchedules } from "@/content/schedules";
+import {
+  confessionSchedules,
+  SCHEDULE_UNAVAILABLE_FALLBACK,
+} from "@/content/schedules";
+import { getMatrizWeeklySchedule } from "@/lib/calendar/matriz-schedule";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -13,6 +19,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function HorariosPage() {
+  const massSchedules = getMatrizWeeklySchedule(calendarEvents);
+
   return (
     <>
       <JsonLd
@@ -29,20 +37,35 @@ export default function HorariosPage() {
               <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
                 Horários de missas
               </h2>
-              <ul className="space-y-4">
-                {massSchedules.map((entry) => (
-                  <li
-                    key={entry.day}
-                    className="border-b border-border pb-4 last:border-0"
-                  >
-                    <p className="font-semibold text-accent">{entry.day}:</p>
-                    <p className="mt-1 text-muted">{entry.times.join(" · ")}</p>
-                    {entry.note ? (
-                      <p className="mt-1 text-sm text-accent">* {entry.note}</p>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
+              {massSchedules.length > 0 ? (
+                <ul className="space-y-4">
+                  {massSchedules.map((entry) => (
+                    <li
+                      key={entry.day}
+                      className="border-b border-border pb-4 last:border-0"
+                    >
+                      <p className="font-semibold text-accent">{entry.day}:</p>
+                      <p className="mt-1 text-muted">
+                        {entry.times.join(" · ")}
+                      </p>
+                      {entry.note ? (
+                        <p className="mt-1 text-sm text-accent">
+                          * {entry.note}
+                        </p>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-muted">{SCHEDULE_UNAVAILABLE_FALLBACK}</p>
+              )}
+              <p className="mt-6 text-sm text-muted">
+                Horários das comunidades na{" "}
+                <Link href="/agenda" className="text-accent hover:underline">
+                  agenda paroquial
+                </Link>
+                .
+              </p>
             </section>
           </ScrollReveal>
 
@@ -54,7 +77,7 @@ export default function HorariosPage() {
               <ul className="space-y-3">
                 {confessionSchedules.map((entry) => (
                   <li key={entry.day}>
-                    <span className="font-semibold">{entry.day}:</span>{" "}
+                    <span className="text-muted">{entry.day}:</span>{" "}
                     <span className="text-muted">
                       {entry.times.join(" · ")}
                     </span>

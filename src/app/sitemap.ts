@@ -21,6 +21,11 @@ const staticRoutes: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
   {
+    url: `${siteConfig.url}/agenda`,
+    changeFrequency: "daily",
+    priority: 0.9,
+  },
+  {
     url: `${siteConfig.url}/noticias`,
     changeFrequency: "weekly",
     priority: 0.8,
