@@ -6,15 +6,8 @@ import {
   trimCalendarEvent,
   trimCalendarSources,
 } from "./normalize";
-import {
-  buildSources,
-  parseFeed,
-  readCalendarLabel,
-} from "./parse-ical";
-import {
-  createSanitizeStats,
-  sanitizeCalendarEvent,
-} from "./sanitize-pii";
+import { buildSources, parseFeed, readCalendarLabel } from "./parse-ical";
+import { createSanitizeStats, sanitizeCalendarEvent } from "./sanitize-pii";
 import { slugify } from "./slugify";
 import { writeGeneratedFile } from "./write-output";
 
@@ -33,7 +26,9 @@ async function main(): Promise<void> {
       body = await fetchIcal(url);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      console.error(`Failed to fetch calendar ${i + 1}/${urls.length}: ${message}`);
+      console.error(
+        `Failed to fetch calendar ${i + 1}/${urls.length}: ${message}`,
+      );
       process.exit(1);
     }
 
@@ -53,7 +48,8 @@ async function main(): Promise<void> {
     allEvents
       .map((event) => ({
         ...event,
-        calendarSlug: slugByLabel.get(event.calendarLabel) ?? event.calendarSlug,
+        calendarSlug:
+          slugByLabel.get(event.calendarLabel) ?? event.calendarSlug,
       }))
       .map(trimCalendarEvent)
       .map((event) => sanitizeCalendarEvent(event, stats)),

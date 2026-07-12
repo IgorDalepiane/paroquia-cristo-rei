@@ -126,11 +126,7 @@ function DayColumn({
         today ? "bg-muted-bg ring-1 ring-accent/20" : "bg-background"
       }`}
     >
-      <DayHeader
-        dayKey={dayKey}
-        weekdayLabel={weekdayLabel}
-        today={today}
-      />
+      <DayHeader dayKey={dayKey} weekdayLabel={weekdayLabel} today={today} />
       <div className="mt-2 space-y-1.5">
         {visible.length === 0 ? (
           <p className="py-2 text-center text-xs text-muted">—</p>

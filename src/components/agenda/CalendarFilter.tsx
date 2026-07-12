@@ -28,9 +28,7 @@ export function CalendarFilter({
             onClick={() => onToggle(source.slug)}
             aria-pressed={!isHidden}
             className={`cursor-pointer rounded-full border px-3 py-1 text-sm text-foreground transition-all ${
-              isHidden
-                ? "opacity-45 grayscale"
-                : "opacity-100 hover:opacity-90"
+              isHidden ? "opacity-45 grayscale" : "opacity-100 hover:opacity-90"
             }`}
             style={{
               backgroundColor: color,

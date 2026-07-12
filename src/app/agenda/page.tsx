@@ -2,15 +2,8 @@ import type { Metadata } from "next";
 import { AgendaView } from "@/components/agenda/AgendaView";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
-import {
-  calendarEvents,
-  calendarSources,
-} from "@/content/events.generated";
-import {
-  breadcrumbJsonLd,
-  eventJsonLd,
-  pageMetadata,
-} from "@/lib/seo";
+import { calendarEvents, calendarSources } from "@/content/events.generated";
+import { breadcrumbJsonLd, eventJsonLd, pageMetadata } from "@/lib/seo";
 import { getUpcomingEvents } from "@/lib/calendar/events";
 
 export const metadata: Metadata = pageMetadata({
@@ -26,8 +19,7 @@ type AgendaPageProps = {
 
 export default async function AgendaPage({ searchParams }: AgendaPageProps) {
   const params = await searchParams;
-  const eventId =
-    typeof params.event === "string" ? params.event : undefined;
+  const eventId = typeof params.event === "string" ? params.event : undefined;
 
   const upcomingEvents = getUpcomingEvents(calendarEvents);
 

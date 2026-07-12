@@ -8,8 +8,7 @@ export type SanitizeStats = {
 const LOCATION_ALLOWLIST =
   /igreja|matriz|comunidade|capela|sal[aã]o|col[eé]gio|sagrado\s+cora[cç][aã]o|par[oó]quia|bento\s+gon[cç]alves/i;
 
-const PHONE_KEYWORDS =
-  /telefone|contato|celular|whatsapp|fone/i;
+const PHONE_KEYWORDS = /telefone|contato|celular|whatsapp|fone/i;
 
 const PHONE_PATTERNS = [
   /\+55\s*\d{2}\s*9?\d{4,5}[\s-]?\d{4}/i,
@@ -22,10 +21,7 @@ const PHONE_PATTERNS = [
 const ADDRESS_KEYWORDS =
   /\bru[aá]\b|\bavenida\b|\bav\.?\b|\bapto\b|\bapartamento\b|\bap\.?\s+\d|\bresidem\b|\bresidimos\b|\bendere[cç]o\b|\bnosso\s+endere[cç]o\b|\bcep\b|\bprogresso\b|\blinha\s+\d+/i;
 
-const ADDRESS_NUMBER_PATTERNS = [
-  /\d{3,5}\/\d{2,4}/,
-  /\d{5}-?\d{3}/,
-];
+const ADDRESS_NUMBER_PATTERNS = [/\d{3,5}\/\d{2,4}/, /\d{5}-?\d{3}/];
 
 const PERSONAL_KEYWORDS =
   /\bnoiva\b|\bnoivo\b|nome\s+completo|documentos|encaminhados/i;

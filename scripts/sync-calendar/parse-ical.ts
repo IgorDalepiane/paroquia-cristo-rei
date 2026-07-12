@@ -64,7 +64,8 @@ function expandEvent(
     });
   }
 
-  const start = event.start instanceof Date ? event.start : new Date(event.start);
+  const start =
+    event.start instanceof Date ? event.start : new Date(event.start);
   const end =
     event.end instanceof Date
       ? event.end
@@ -99,9 +100,7 @@ function instanceToEvent(
     instance.end instanceof Date ? instance.end : new Date(instance.end);
 
   const title = textValue(instance.summary) || "Evento";
-  const description = stripHtml(
-    textValue(instance.event.description ?? ""),
-  );
+  const description = stripHtml(textValue(instance.event.description ?? ""));
   const location = textValue(instance.event.location ?? "") || undefined;
 
   return {

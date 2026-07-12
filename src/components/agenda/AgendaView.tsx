@@ -80,9 +80,7 @@ export function AgendaView({
     const event = events.find((item) => item.id === initialEventId);
     if (!event) return;
 
-    setWeekStartKey(
-      clampWeekStart(getEventWeekStart(event), now, windowEnd),
-    );
+    setWeekStartKey(clampWeekStart(getEventWeekStart(event), now, windowEnd));
     setModalState({ type: "event", event });
   }, [initialEventId, events, now, windowEnd]);
 

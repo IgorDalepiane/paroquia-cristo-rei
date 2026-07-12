@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  calendarEvents,
-  calendarSources,
-} from "@/content/events.generated";
+import { calendarEvents, calendarSources } from "@/content/events.generated";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -48,10 +45,7 @@ export function EventsPreviewSection() {
                     href={`/agenda?event=${event.id}`}
                     className="group grid gap-4 md:grid-cols-[160px_1fr]"
                   >
-                    <time
-                      className="text-sm text-muted"
-                      dateTime={event.start}
-                    >
+                    <time className="text-sm text-muted" dateTime={event.start}>
                       {formatEventDateShort(event)}
                     </time>
                     <div>

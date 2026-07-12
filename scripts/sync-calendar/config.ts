@@ -22,7 +22,9 @@ export function readCalendarUrls(): string[] {
     process.exit(1);
   }
 
-  const urls = parsed.filter((item): item is string => typeof item === "string");
+  const urls = parsed.filter(
+    (item): item is string => typeof item === "string",
+  );
   if (urls.length !== parsed.length) {
     console.error(`${ENV_KEY} must contain only URL strings.`);
     process.exit(1);

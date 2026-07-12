@@ -154,10 +154,7 @@ export function getEventWeekStart(event: CalendarEvent): string {
   return startOfWeekSunday(new Date(event.start));
 }
 
-export function canGoToPreviousWeek(
-  weekStartKey: string,
-  now: Date,
-): boolean {
+export function canGoToPreviousWeek(weekStartKey: string, now: Date): boolean {
   const min = startOfWeekSunday(now);
   return weekStartKey > min;
 }

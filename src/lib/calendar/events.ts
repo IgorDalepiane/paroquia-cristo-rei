@@ -141,7 +141,9 @@ export function formatEventRange(event: CalendarEvent): string | null {
 
 export function googleCalendarAddUrl(event: CalendarEvent): string {
   const start = new Date(event.start);
-  const end = event.end ? new Date(event.end) : new Date(start.getTime() + 3600000);
+  const end = event.end
+    ? new Date(event.end)
+    : new Date(start.getTime() + 3600000);
 
   const fmt = (date: Date, allDay: boolean) => {
     const y = date.getUTCFullYear();

@@ -1,24 +1,25 @@
 import type { CalendarEvent, CalendarSource } from "../../src/content/events";
 
 export function trimCalendarEvent(event: CalendarEvent): CalendarEvent {
+  const { description, location, ...rest } = event;
   const trimmed: CalendarEvent = {
-    ...event,
+    ...rest,
     title: event.title.trim(),
     calendarLabel: event.calendarLabel.trim(),
     calendarSlug: event.calendarSlug.trim(),
   };
 
-  if (event.description !== undefined) {
-    const description = event.description.trim();
-    if (description) {
-      trimmed.description = description;
+  if (description !== undefined) {
+    const trimmedDescription = description.trim();
+    if (trimmedDescription) {
+      trimmed.description = trimmedDescription;
     }
   }
 
-  if (event.location !== undefined) {
-    const location = event.location.trim();
-    if (location) {
-      trimmed.location = location;
+  if (location !== undefined) {
+    const trimmedLocation = location.trim();
+    if (trimmedLocation) {
+      trimmed.location = trimmedLocation;
     }
   }
 
