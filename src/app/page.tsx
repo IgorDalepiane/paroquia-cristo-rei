@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DiscoverSection } from "@/components/home/DiscoverSection";
+import { EventsPreviewSection } from "@/components/home/EventsPreviewSection";
 import { GalleryPreviewSection } from "@/components/home/GalleryPreviewSection";
 import { HeroSection } from "@/components/home/HeroSection";
 import { NewsListSection } from "@/components/home/NewsListSection";
@@ -29,6 +30,7 @@ export default function Home() {
     <>
       <HeroSection />
       <QuickScheduleSection />
+      <EventsPreviewSection />
       <NewsListSection />
       <DiscoverSection />
       <GalleryPreviewSection />

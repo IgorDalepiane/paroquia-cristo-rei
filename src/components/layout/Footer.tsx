@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { LogoBrandText, LogoIcon } from "@/components/layout/LogoBrand";
-import { quickScheduleHighlight } from "@/content/schedules";
+import { calendarEvents } from "@/content/events.generated";
+import {
+  quickScheduleHighlight,
+  SCHEDULE_UNAVAILABLE_FALLBACK,
+} from "@/content/schedules";
 import { navItems, formatContactLines, siteConfig } from "@/content/site";
+import { getSundayMatrizTimesLine } from "@/lib/calendar/matriz-schedule";
 
 const socialLinks = [
   {
@@ -60,6 +65,7 @@ function SocialIcon({ type }: { type: (typeof socialLinks)[number]["key"] }) {
 export function Footer() {
   const footerNavItems = navItems.filter((item) => item.href !== "/contato");
   const contactLines = formatContactLines();
+  const sundayTimes = getSundayMatrizTimesLine(calendarEvents);
 
   return (
     <footer className="border-t border-border bg-footer-bg text-foreground">
@@ -171,7 +177,7 @@ export function Footer() {
                 </span>
                 <br />
                 <span className="text-foreground/80">
-                  {quickScheduleHighlight.times}
+                  {sundayTimes ?? SCHEDULE_UNAVAILABLE_FALLBACK}
                 </span>
               </li>
               <li className="text-foreground/80">
