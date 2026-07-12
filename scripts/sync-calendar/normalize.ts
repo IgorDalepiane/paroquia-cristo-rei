@@ -36,8 +36,25 @@ export function trimCalendarSources(
   }));
 }
 
+export function compareCalendarEvents(
+  a: CalendarEvent,
+  b: CalendarEvent,
+): number {
+  const byStart = new Date(a.start).getTime() - new Date(b.start).getTime();
+  if (byStart !== 0) return byStart;
+
+  const byEnd = (a.end ?? "").localeCompare(b.end ?? "");
+  if (byEnd !== 0) return byEnd;
+
+  const bySlug = a.calendarSlug.localeCompare(b.calendarSlug);
+  if (bySlug !== 0) return bySlug;
+
+  const byTitle = a.title.localeCompare(b.title, "pt-BR");
+  if (byTitle !== 0) return byTitle;
+
+  return a.id.localeCompare(b.id);
+}
+
 export function normalizeEvents(events: CalendarEvent[]): CalendarEvent[] {
-  return [...events].sort(
-    (a, b) => new Date(a.start).getTime() - new Date(b.start).getTime(),
-  );
+  return [...events].sort(compareCalendarEvents);
 }

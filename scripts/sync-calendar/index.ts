@@ -7,6 +7,7 @@ import {
   trimCalendarSources,
 } from "./normalize";
 import { buildSources, parseFeed, readCalendarLabel } from "./parse-ical";
+import { syncAnchorDate } from "./parish-time";
 import { createSanitizeStats, sanitizeCalendarEvent } from "./sanitize-pii";
 import { slugify } from "./slugify";
 import { writeGeneratedFile } from "./write-output";
@@ -14,7 +15,8 @@ import { writeGeneratedFile } from "./write-output";
 async function main(): Promise<void> {
   loadLocalEnv();
   const urls = readCalendarUrls();
-  const now = new Date();
+  const anchor = syncAnchorDate();
+  const syncedAt = new Date().toISOString();
 
   const feedMeta: Array<{ label: string; slug: string }> = [];
   const allEvents = [];
@@ -36,7 +38,7 @@ async function main(): Promise<void> {
     const slug = slugify(label) || `calendario-${i + 1}`;
     feedMeta.push({ label, slug });
 
-    const events = parseFeed(body, slug, label, now);
+    const events = parseFeed(body, slug, label, anchor);
     allEvents.push(...events);
   }
 
@@ -55,10 +57,16 @@ async function main(): Promise<void> {
       .map((event) => sanitizeCalendarEvent(event, stats)),
   );
 
-  writeGeneratedFile(sources, events, now.toISOString());
-  console.log(
-    `Synced ${events.length} events from ${sources.length} calendar(s).`,
-  );
+  const wrote = writeGeneratedFile(sources, events, syncedAt);
+  if (wrote) {
+    console.log(
+      `Synced ${events.length} events from ${sources.length} calendar(s).`,
+    );
+  } else {
+    console.log(
+      `Checked ${events.length} events from ${sources.length} calendar(s).`,
+    );
+  }
   console.log(
     `Sanitized: ${stats.descriptionsOmitted} descriptions omitted, ${stats.locationsOmitted} locations omitted`,
   );

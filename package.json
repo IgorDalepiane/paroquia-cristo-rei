@@ -14,7 +14,8 @@
     "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
-    "sync:calendar": "tsx scripts/sync-calendar/index.ts"
+    "sync:calendar": "tsx scripts/sync-calendar/index.ts",
+    "test:sync-calendar": "tsx scripts/sync-calendar/test.ts"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.3.0",

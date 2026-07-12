@@ -5,6 +5,7 @@ import ical, {
   type VEvent,
 } from "node-ical";
 import type { CalendarEvent, CalendarSource } from "../../src/content/events";
+import { dayKeyInParish } from "./parish-time";
 import { dedupeSlugs } from "./slugify";
 
 /** Expand RRULE through ~4 months; display trims to 3 calendar months */
@@ -39,11 +40,37 @@ function toIso(date: Date): string {
   return date.toISOString();
 }
 
-function eventId(uid: string, calendarSlug: string, startIso: string): string {
-  return createHash("sha256")
-    .update(`${uid}:${calendarSlug}:${startIso}`)
-    .digest("hex")
-    .slice(0, 16);
+function hash16(value: string): string {
+  return createHash("sha256").update(value).digest("hex").slice(0, 16);
+}
+
+function recurrenceIdKey(event: VEvent): string | undefined {
+  const recurrenceId = event.recurrenceid;
+  if (!recurrenceId) return undefined;
+
+  const date =
+    recurrenceId instanceof Date
+      ? recurrenceId
+      : new Date(recurrenceId as string | number);
+
+  if (Number.isNaN(date.getTime())) return undefined;
+  return dayKeyInParish(date);
+}
+
+export function stableEventId(
+  uid: string,
+  calendarSlug: string,
+  start: Date,
+  isRecurringSeries: boolean,
+  recurrenceId?: string,
+): string {
+  const base = `${uid}:${calendarSlug}`;
+  if (!isRecurringSeries) {
+    return hash16(base);
+  }
+
+  const key = recurrenceId ?? dayKeyInParish(start);
+  return hash16(`${base}:${key}`);
 }
 
 function isPast(end: Date | null, start: Date, now: Date): boolean {
@@ -93,6 +120,7 @@ function instanceToEvent(
   calendarSlug: string,
   calendarLabel: string,
   uid: string,
+  isRecurringSeries: boolean,
 ): CalendarEvent | null {
   const startDate =
     instance.start instanceof Date ? instance.start : new Date(instance.start);
@@ -104,7 +132,13 @@ function instanceToEvent(
   const location = textValue(instance.event.location ?? "") || undefined;
 
   return {
-    id: eventId(uid, calendarSlug, toIso(startDate)),
+    id: stableEventId(
+      uid,
+      calendarSlug,
+      startDate,
+      isRecurringSeries,
+      instance.isOverride ? recurrenceIdKey(instance.event) : undefined,
+    ),
     calendarSlug,
     calendarLabel,
     title,
@@ -128,13 +162,15 @@ export function parseFeed(
 
   const events: CalendarEvent[] = [];
 
-  for (const [uid, component] of Object.entries(data)) {
+  for (const uid of Object.keys(data).sort()) {
+    const component = data[uid];
     if (!component || typeof component !== "object") continue;
     if (component.type !== "VEVENT") continue;
 
     const vevent = component as VEvent;
     if (vevent.status === "CANCELLED") continue;
 
+    const isRecurringSeries = Boolean(vevent.rrule);
     const instances = expandEvent(vevent, now, rangeEnd);
     for (const instance of instances) {
       const mapped = instanceToEvent(
@@ -142,6 +178,7 @@ export function parseFeed(
         calendarSlug,
         calendarLabel,
         uid,
+        isRecurringSeries,
       );
       if (mapped) events.push(mapped);
     }
