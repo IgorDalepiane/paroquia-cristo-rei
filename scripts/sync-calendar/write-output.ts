@@ -58,7 +58,7 @@ export const calendarEvents: CalendarEvent[] = ${serializeEvents(events)};
 export function contentWithoutSyncedAt(content: string): string {
   return content.replace(
     /^export const syncedAt = .*;\n/m,
-    "export const syncedAt = \"<ignored>\";\n",
+    'export const syncedAt = "<ignored>";\n',
   );
 }
 

@@ -10,10 +10,7 @@ import {
   createSanitizeStats,
 } from "./sanitize-pii";
 
-const FIXTURE_PATH = resolve(
-  import.meta.dirname,
-  "__fixtures__/sample.ics",
-);
+const FIXTURE_PATH = resolve(import.meta.dirname, "__fixtures__/sample.ics");
 const FIXED_NOW = new Date("2026-07-12T12:00:00.000Z");
 const SLUG = "fixture-calendar";
 const LABEL = "Fixture Calendar";
@@ -61,7 +58,9 @@ function main(): void {
     "shuffled VEVENT order should not change normalized output",
   );
 
-  const tied = runA.filter((event) => event.start === "2026-07-20T15:00:00.000Z");
+  const tied = runA.filter(
+    (event) => event.start === "2026-07-20T15:00:00.000Z",
+  );
   assert.equal(tied.length, 2, "fixture should include two tied-start events");
   assert.deepEqual(
     tied.map((event) => event.title),
