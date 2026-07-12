@@ -30,6 +30,9 @@ const EMAIL_PATTERN = /\S+@\S+\.\S+/;
 
 const WEDDING_TITLE = /^casamento/i;
 
+/** Routine parish schedule — internal notes must not appear on the public site. */
+export const PARISH_SCHEDULE_CALENDAR_SLUG = "agenda-paroquial";
+
 export function normalizeUnicodeSpaces(value: string): string {
   return value
     .replace(/[\u00a0\u2000-\u200b\u202f\u205f\u3000]/g, " ")
@@ -123,6 +126,7 @@ export function sanitizeCalendarEvent(
   let result: CalendarEvent = { ...event };
 
   const shouldOmitDescription =
+    result.calendarSlug === PARISH_SCHEDULE_CALENDAR_SLUG ||
     isWeddingTitle(result.title) ||
     !result.description ||
     hasPiiInText(result.description);

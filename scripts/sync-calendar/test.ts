@@ -4,6 +4,11 @@ import { resolve } from "node:path";
 import { compareCalendarEvents, normalizeEvents } from "./normalize";
 import { parseFeed, stableEventId } from "./parse-ical";
 import { dayKeyInParish } from "./parish-time";
+import {
+  PARISH_SCHEDULE_CALENDAR_SLUG,
+  sanitizeCalendarEvent,
+  createSanitizeStats,
+} from "./sanitize-pii";
 
 const FIXTURE_PATH = resolve(
   import.meta.dirname,
@@ -120,6 +125,46 @@ function main(): void {
     dayKeyInParish(new Date("2026-07-14T20:00:00.000Z")),
     dayKeyInParish(new Date("2026-07-14T23:00:00.000Z")),
     "parish day key should match for same calendar day",
+  );
+
+  const stats = createSanitizeStats();
+  const parishScheduleEvent = sanitizeCalendarEvent(
+    {
+      id: "abc123",
+      calendarSlug: PARISH_SCHEDULE_CALENDAR_SLUG,
+      calendarLabel: "Agenda Paroquial",
+      title: "Missa Com. Matriz Cristo Rei",
+      description: "Envio Vitor e kauã ao seminário",
+      start: "2026-07-14T21:00:00.000Z",
+      end: "2026-07-14T22:00:00.000Z",
+      allDay: false,
+    },
+    stats,
+  );
+  assert.equal(
+    "description" in parishScheduleEvent,
+    false,
+    "Agenda Paroquial events should never keep descriptions",
+  );
+
+  const festaStats = createSanitizeStats();
+  const festaEvent = sanitizeCalendarEvent(
+    {
+      id: "def456",
+      calendarSlug: "agenda-de-festas",
+      calendarLabel: "Agenda de Festas",
+      title: "Festa da Comunidade",
+      description: "Programação especial na comunidade",
+      start: "2026-07-20T15:00:00.000Z",
+      end: "2026-07-20T18:00:00.000Z",
+      allDay: false,
+    },
+    festaStats,
+  );
+  assert.equal(
+    festaEvent.description,
+    "Programação especial na comunidade",
+    "non-parish calendars may keep safe descriptions",
   );
 
   console.log("sync-calendar tests passed");
