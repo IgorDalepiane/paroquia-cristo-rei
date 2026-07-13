@@ -43,6 +43,7 @@ jobs:
             exit 0
           fi
           cp src/content/events.generated.ts /tmp/events.generated.ts
+          git stash push -m "calendar-sync" -- src/content/events.generated.ts
           git checkout production
           cp /tmp/events.generated.ts src/content/events.generated.ts
           git config user.name "github-actions[bot]"
@@ -50,8 +51,8 @@ jobs:
           git add src/content/events.generated.ts
           git commit -m "chore(calendar): sync events [production]"
           git push origin production
-          git checkout -
-          cp /tmp/events.generated.ts src/content/events.generated.ts
+          git checkout main
+          git stash pop || cp /tmp/events.generated.ts src/content/events.generated.ts
       - name: Create PR if events changed
         id: cpr
         uses: peter-evans/create-pull-request@v7
