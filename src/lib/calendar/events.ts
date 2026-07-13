@@ -1,19 +1,58 @@
 import type { CalendarEvent } from "@/content/events";
+import {
+  PARISH_TIMEZONE,
+  addParishMonths,
+  monthStartDayKey,
+  parishYearMonth,
+  startOfParishDay,
+} from "@/lib/calendar/parish-time";
 
-const PARISH_TIMEZONE = "America/Sao_Paulo";
+/** Months shown: current + next 11 = 12 full calendar months */
+export const DISPLAY_MONTH_COUNT = 12;
 
-/** Months shown: current + next 2 = 3 full calendar months */
-export const DISPLAY_MONTH_COUNT = 3;
-
-/** Sync expands RRULE further; display trims month 4+ */
-export const SYNC_RECURRENCE_BUFFER_DAYS = 120;
+export function startOfDisplayWindow(now: Date): Date {
+  const { year, month } = parishYearMonth(now);
+  return startOfParishDay(monthStartDayKey(year, month));
+}
 
 export function endOfDisplayWindow(now: Date): Date {
-  const lastMonthIndex = now.getMonth() + DISPLAY_MONTH_COUNT - 1;
-  return new Date(now.getFullYear(), lastMonthIndex + 1, 0, 23, 59, 59, 999);
+  const { year, month } = parishYearMonth(now);
+  const target = addParishMonths(year, month, DISPLAY_MONTH_COUNT - 1);
+  const next = addParishMonths(target.year, target.month, 1);
+  const nextStart = startOfParishDay(monthStartDayKey(next.year, next.month));
+  return new Date(nextStart.getTime() - 1);
+}
+
+/** Sync RRULE expansion extends slightly past the display window for edge cases. */
+export function endOfSyncWindow(now: Date): Date {
+  return new Date(endOfDisplayWindow(now).getTime() + 24 * 60 * 60 * 1000);
 }
 
 export const PARISH_SCHEDULE_CALENDAR_SLUG = "agenda-paroquial";
+
+export function eventOverlapsWindow(
+  event: CalendarEvent,
+  windowStart: Date,
+  windowEnd: Date,
+): boolean {
+  const start = new Date(event.start);
+  const end = event.end ? new Date(event.end) : start;
+  return (
+    end.getTime() >= windowStart.getTime() &&
+    start.getTime() <= windowEnd.getTime()
+  );
+}
+
+export function getDisplayEvents(
+  events: CalendarEvent[],
+  now = new Date(),
+): CalendarEvent[] {
+  const windowStart = startOfDisplayWindow(now);
+  const windowEnd = endOfDisplayWindow(now);
+  return events.filter((event) =>
+    eventOverlapsWindow(event, windowStart, windowEnd),
+  );
+}
 
 export function getUpcomingEvents(
   events: CalendarEvent[],

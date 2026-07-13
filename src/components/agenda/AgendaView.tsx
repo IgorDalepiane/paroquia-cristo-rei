@@ -1,10 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CalendarEvent, CalendarSource } from "@/content/events";
+import { agendaPathMatches, buildAgendaPath } from "@/lib/calendar/agenda-url";
 import { buildCalendarColorMap } from "@/lib/calendar/calendar-colors";
-import { endOfDisplayWindow } from "@/lib/calendar/events";
+import {
+  DISPLAY_MONTH_COUNT,
+  endOfDisplayWindow,
+  startOfDisplayWindow,
+} from "@/lib/calendar/events";
 import {
   addDaysToDayKey,
   canGoToNextWeek,
@@ -22,23 +27,25 @@ type AgendaViewProps = {
   sources: CalendarSource[];
   events: CalendarEvent[];
   initialEventId?: string;
+  initialWeekStartKey: string;
 };
 
 export function AgendaView({
   sources,
   events,
   initialEventId,
+  initialWeekStartKey,
 }: AgendaViewProps) {
   const router = useRouter();
+  const hydratedEventIdRef = useRef<string | undefined>(undefined);
   const [hiddenSlugs, setHiddenSlugs] = useState<Set<string>>(() => new Set());
   const [modalState, setModalState] = useState<EventModalState>(null);
 
   const now = useMemo(() => new Date(), []);
+  const windowStart = useMemo(() => startOfDisplayWindow(now), [now]);
   const windowEnd = useMemo(() => endOfDisplayWindow(now), [now]);
 
-  const [weekStartKey, setWeekStartKey] = useState(() =>
-    clampWeekStart(startOfWeekSunday(now), now, windowEnd),
-  );
+  const [weekStartKey, setWeekStartKey] = useState(initialWeekStartKey);
 
   const colorMap = useMemo(
     () => buildCalendarColorMap(sources.map((s) => s.label)),
@@ -48,6 +55,32 @@ export function AgendaView({
   const filtered = useMemo(
     () => events.filter((event) => !hiddenSlugs.has(event.calendarSlug)),
     [events, hiddenSlugs],
+  );
+
+  const syncUrl = useCallback(
+    (week: string, eventId?: string) => {
+      const target = { week, event: eventId };
+      if (
+        agendaPathMatches(
+          window.location.pathname,
+          window.location.search,
+          target,
+        )
+      ) {
+        return;
+      }
+      router.replace(buildAgendaPath(target), { scroll: false });
+    },
+    [router],
+  );
+
+  const setWeek = useCallback(
+    (nextWeek: string, eventId?: string) => {
+      const clamped = clampWeekStart(nextWeek, windowStart, windowEnd);
+      setWeekStartKey(clamped);
+      syncUrl(clamped, eventId);
+    },
+    [syncUrl, windowEnd, windowStart],
   );
 
   const toggleCalendar = useCallback((slug: string) => {
@@ -64,43 +97,69 @@ export function AgendaView({
 
   const openEvent = useCallback(
     (event: CalendarEvent) => {
+      const eventWeek = clampWeekStart(
+        getEventWeekStart(event),
+        windowStart,
+        windowEnd,
+      );
+      setWeekStartKey(eventWeek);
       setModalState({ type: "event", event });
-      router.replace(`/agenda?event=${event.id}`, { scroll: false });
+      hydratedEventIdRef.current = event.id;
+      syncUrl(eventWeek, event.id);
     },
-    [router],
+    [syncUrl, windowEnd, windowStart],
   );
 
   const closeModal = useCallback(() => {
     setModalState(null);
-    router.replace("/agenda", { scroll: false });
-  }, [router]);
+    hydratedEventIdRef.current = undefined;
+    syncUrl(weekStartKey);
+  }, [syncUrl, weekStartKey]);
 
   useEffect(() => {
-    if (!initialEventId) return;
+    if (!initialEventId) {
+      hydratedEventIdRef.current = undefined;
+      return;
+    }
+    if (hydratedEventIdRef.current === initialEventId) return;
+
     const event = events.find((item) => item.id === initialEventId);
     if (!event) return;
 
-    setWeekStartKey(clampWeekStart(getEventWeekStart(event), now, windowEnd));
+    const eventWeek = clampWeekStart(
+      getEventWeekStart(event),
+      windowStart,
+      windowEnd,
+    );
+    setWeekStartKey(eventWeek);
     setModalState({ type: "event", event });
-  }, [initialEventId, events, now, windowEnd]);
+    hydratedEventIdRef.current = initialEventId;
+
+    if (eventWeek !== initialWeekStartKey) {
+      syncUrl(eventWeek, event.id);
+    }
+  }, [
+    initialEventId,
+    initialWeekStartKey,
+    events,
+    syncUrl,
+    windowEnd,
+    windowStart,
+  ]);
 
   const goToPreviousWeek = () => {
-    setWeekStartKey((current) =>
-      clampWeekStart(addDaysToDayKey(current, -7), now, windowEnd),
-    );
+    setWeek(addDaysToDayKey(weekStartKey, -7));
   };
 
   const goToNextWeek = () => {
-    setWeekStartKey((current) =>
-      clampWeekStart(addDaysToDayKey(current, 7), now, windowEnd),
-    );
+    setWeek(addDaysToDayKey(weekStartKey, 7));
   };
 
   const goToToday = () => {
-    setWeekStartKey(clampWeekStart(startOfWeekSunday(now), now, windowEnd));
+    setWeek(startOfWeekSunday(now));
   };
 
-  const canGoPrev = canGoToPreviousWeek(weekStartKey, now);
+  const canGoPrev = canGoToPreviousWeek(weekStartKey, windowStart);
   const canGoNext = canGoToNextWeek(weekStartKey, windowEnd);
 
   return (
@@ -156,7 +215,7 @@ export function AgendaView({
         <p className="rounded-lg border border-dashed border-border bg-surface px-4 py-8 text-center text-sm text-muted">
           {allCalendarsHidden
             ? "Nenhum calendário visível. Toque nos filtros para exibir eventos."
-            : "Nenhum evento nos próximos 3 meses. Volte em breve ou consulte os calendários paroquiais."}
+            : `Nenhum evento nos próximos ${DISPLAY_MONTH_COUNT} meses. Volte em breve ou consulte os calendários paroquiais.`}
         </p>
       ) : (
         <WeekCalendar

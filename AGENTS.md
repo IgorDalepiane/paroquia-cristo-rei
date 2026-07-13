@@ -44,12 +44,24 @@ Cloudflare Workers Builds (single project, Igordalepiane account). Do not use `p
 
 Workers Builds dashboard settings:
 
-| Setting                    | Command                                        |
-| -------------------------- | ---------------------------------------------- |
-| Build                      | _(empty — OpenNext runs inside deploy/upload)_ |
-| Production branch          | `production`                                   |
-| Deploy (production branch) | `pnpm cf:deploy:prod`                          |
-| Non-production deploy      | `pnpm cf:upload`                               |
+| Setting                      | Command                                            |
+| ---------------------------- | -------------------------------------------------- |
+| Build                        | _(empty — OpenNext runs inside deploy/upload)_     |
+| Production branch            | `production`                                       |
+| Deploy (production branch)   | `pnpm cf:deploy:prod`                              |
+| Non-production deploy        | `pnpm cf:upload`                                   |
+| Non-production branch builds | **Enabled** (required for feature-branch previews) |
+
+### Preview URLs
+
+Preview URLs for non-production branches must be configured in [`wrangler.jsonc`](wrangler.jsonc), not only in the Cloudflare dashboard. Wrangler syncs repo config on every deploy; dashboard-only changes are reset.
+
+```jsonc
+"workers_dev": false,   // production served only on custom domain routes
+"preview_urls": true,   // enable *.workers.dev previews for cf:upload
+```
+
+Expected preview URL format: `<branch>-paroquia-cristo-rei.<account>.workers.dev`. Branch aliases are created per upload from `WORKERS_CI_BRANCH`; they are not stored in wrangler config. Production deploy (`cf:deploy:prod`) is unaffected.
 
 **Release:** after merging to `main` and verifying (preview URL or `pnpm preview` locally):
 

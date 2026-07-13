@@ -4,7 +4,12 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { calendarEvents, calendarSources } from "@/content/events.generated";
 import { breadcrumbJsonLd, eventJsonLd, pageMetadata } from "@/lib/seo";
-import { getUpcomingEvents } from "@/lib/calendar/events";
+import {
+  endOfDisplayWindow,
+  getDisplayEvents,
+  startOfDisplayWindow,
+} from "@/lib/calendar/events";
+import { resolveInitialWeekStart } from "@/lib/calendar/agenda-url";
 
 export const metadata: Metadata = pageMetadata({
   title: "Agenda",
@@ -14,17 +19,28 @@ export const metadata: Metadata = pageMetadata({
 });
 
 type AgendaPageProps = {
-  searchParams: Promise<{ event?: string }>;
+  searchParams: Promise<{ event?: string; week?: string }>;
 };
 
 export default async function AgendaPage({ searchParams }: AgendaPageProps) {
   const params = await searchParams;
   const eventId = typeof params.event === "string" ? params.event : undefined;
+  const weekParam = typeof params.week === "string" ? params.week : undefined;
 
-  const upcomingEvents = getUpcomingEvents(calendarEvents);
+  const now = new Date();
+  const windowStart = startOfDisplayWindow(now);
+  const windowEnd = endOfDisplayWindow(now);
+  const initialWeekStartKey = resolveInitialWeekStart(
+    weekParam,
+    windowStart,
+    windowEnd,
+    now,
+  );
+
+  const displayEvents = getDisplayEvents(calendarEvents);
 
   const selectedEvent = eventId
-    ? upcomingEvents.find((event) => event.id === eventId)
+    ? displayEvents.find((event) => event.id === eventId)
     : undefined;
 
   return (
@@ -52,8 +68,9 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
         <div className="container-wide">
           <AgendaView
             sources={calendarSources}
-            events={upcomingEvents}
+            events={displayEvents}
             initialEventId={eventId}
+            initialWeekStartKey={initialWeekStartKey}
           />
         </div>
       </div>
