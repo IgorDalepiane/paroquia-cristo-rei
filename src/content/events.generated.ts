@@ -20,26 +20,6 @@ export const calendarSources: CalendarSource[] =   [
 
 export const calendarEvents: CalendarEvent[] =   [
     {
-      "id": "a2f7c6a021a85d3b",
-      "calendarSlug": "agenda-paroquial",
-      "calendarLabel": "Agenda Paroquial",
-      "title": "Missa Com. Matriz Cristo Rei",
-      "start": "2026-07-01T21:00:00.000Z",
-      "end": "2026-07-01T22:00:00.000Z",
-      "allDay": false,
-      "location": "Igreja Matriz Cristo Rei"
-    },
-    {
-      "id": "be868b885539aade",
-      "calendarSlug": "agenda-paroquial",
-      "calendarLabel": "Agenda Paroquial",
-      "title": "Missa Com. Matriz Cristo Rei",
-      "start": "2026-07-02T21:00:00.000Z",
-      "end": "2026-07-02T22:00:00.000Z",
-      "allDay": false,
-      "location": "Igreja Matriz Cristo Rei"
-    },
-    {
       "id": "874a1948e9eaee1b",
       "calendarSlug": "agenda-paroquial",
       "calendarLabel": "Agenda Paroquial",
