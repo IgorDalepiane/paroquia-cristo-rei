@@ -62,7 +62,10 @@ jobs:
         if: steps.cpr.outputs.pull-request-number
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run ci.yml --ref "${{ steps.cpr.outputs.branch }}"
+          BRANCH: ${{ steps.cpr.outputs.pull-request-branch }}
+        run: |
+          ref="${BRANCH:-bot/calendar-sync}"
+          gh workflow run ci.yml --ref "$ref"
 
   promote-production:
     if: github.event_name == 'push'
