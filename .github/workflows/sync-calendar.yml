@@ -7,15 +7,10 @@ on:
     #   UTC → 11  13  15  17  19  21  23  01
     - cron: "0 1,11,13,15,17,19,21,23 * * *"
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - src/content/events.generated.ts
 
 permissions:
   contents: write
   pull-requests: write
-  actions: write
 
 concurrency:
   group: sync-calendar
@@ -23,10 +18,11 @@ concurrency:
 
 jobs:
   sync:
-    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
         with:
           version: 9
@@ -39,6 +35,23 @@ jobs:
         env:
           AGENDA_ICAL_URLS_JSON_ARRAY: ${{ vars.AGENDA_ICAL_URLS_JSON_ARRAY }}
         run: pnpm sync:calendar
+      - name: Promote calendar events to production
+        run: |
+          git fetch origin production
+          if git diff --quiet origin/production -- src/content/events.generated.ts; then
+            echo "No production calendar changes."
+            exit 0
+          fi
+          cp src/content/events.generated.ts /tmp/events.generated.ts
+          git checkout production
+          cp /tmp/events.generated.ts src/content/events.generated.ts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/events.generated.ts
+          git commit -m "chore(calendar): sync events [production]"
+          git push origin production
+          git checkout -
+          cp /tmp/events.generated.ts src/content/events.generated.ts
       - name: Create PR if events changed
         id: cpr
         uses: peter-evans/create-pull-request@v7
@@ -49,42 +62,10 @@ jobs:
           title: "chore(calendar): sync events"
           body: |
             Automated calendar sync from Google Calendar iCal feeds.
-            Merged automatically if CI passes.
+            Production is updated in the same workflow run; this PR syncs main.
           labels: calendar-sync
       - name: Enable auto-merge
         if: steps.cpr.outputs.pull-request-number
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
-      # Bot commits use [skip ci] (skips pull_request CI + Cloudflare). workflow_dispatch is not
-      # affected by skip ci, so dispatch CI explicitly. Stuck PR recovery: gh workflow run ci.yml --ref bot/calendar-sync
-      - name: Run CI on bot branch
-        if: steps.cpr.outputs.pull-request-number
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: ${{ steps.cpr.outputs.pull-request-branch }}
-        run: |
-          ref="${BRANCH:-bot/calendar-sync}"
-          gh workflow run ci.yml --ref "$ref"
-
-  promote-production:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Promote calendar events to production
-        run: |
-          git fetch origin main production
-          if git diff --quiet origin/production origin/main -- src/content/events.generated.ts; then
-            echo "No production changes needed."
-            exit 0
-          fi
-          git checkout production
-          git checkout origin/main -- src/content/events.generated.ts
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/events.generated.ts
-          git commit -m "chore(calendar): sync events [production]"
-          git push origin production
