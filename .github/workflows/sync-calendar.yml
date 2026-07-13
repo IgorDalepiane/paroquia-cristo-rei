@@ -7,6 +7,10 @@ on:
     #   UTC → 11  13  15  17  19  21  23  01
     - cron: "0 1,11,13,15,17,19,21,23 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - src/content/events.generated.ts
 
 permissions:
   contents: write
@@ -18,6 +22,7 @@ concurrency:
 
 jobs:
   sync:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +42,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "chore(calendar): sync events from Google Calendar"
+          commit-message: "chore(calendar): sync events from Google Calendar [skip ci]"
           branch: bot/calendar-sync
           delete-branch: true
           title: "chore(calendar): sync events"
@@ -50,12 +55,16 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
-      - name: Wait for merge and promote to production
-        if: steps.cpr.outputs.pull-request-number
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  promote-production:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Promote calendar events to production
         run: |
-          gh pr merge --wait "${{ steps.cpr.outputs.pull-request-number }}"
           git fetch origin main production
           git checkout production
           git checkout origin/main -- src/content/events.generated.ts
