@@ -140,10 +140,10 @@ export function groupEventsByDay(
 
 export function clampWeekStart(
   weekStartKey: string,
-  now: Date,
+  windowStart: Date,
   windowEnd: Date,
 ): string {
-  const min = startOfWeekSunday(now);
+  const min = startOfWeekSunday(windowStart);
   const max = startOfWeekSunday(windowEnd);
   if (weekStartKey < min) return min;
   if (weekStartKey > max) return max;
@@ -154,8 +154,11 @@ export function getEventWeekStart(event: CalendarEvent): string {
   return startOfWeekSunday(new Date(event.start));
 }
 
-export function canGoToPreviousWeek(weekStartKey: string, now: Date): boolean {
-  const min = startOfWeekSunday(now);
+export function canGoToPreviousWeek(
+  weekStartKey: string,
+  windowStart: Date,
+): boolean {
+  const min = startOfWeekSunday(windowStart);
   return weekStartKey > min;
 }
 

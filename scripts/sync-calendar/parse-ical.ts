@@ -5,11 +5,12 @@ import ical, {
   type VEvent,
 } from "node-ical";
 import type { CalendarEvent, CalendarSource } from "../../src/content/events";
+import {
+  endOfSyncWindow,
+  startOfDisplayWindow,
+} from "../../src/lib/calendar/events";
 import { dayKeyInParish } from "./parish-time";
 import { dedupeSlugs } from "./slugify";
-
-/** Expand RRULE through ~4 months; display trims to 3 calendar months */
-const RECURRENCE_WINDOW_DAYS = 120;
 
 function stripHtml(value: string): string {
   return value
@@ -73,19 +74,23 @@ export function stableEventId(
   return hash16(`${base}:${key}`);
 }
 
-function isPast(end: Date | null, start: Date, now: Date): boolean {
+function endedBeforeRange(
+  end: Date | null,
+  start: Date,
+  rangeStart: Date,
+): boolean {
   const compare = end ?? start;
-  return compare.getTime() < now.getTime();
+  return compare.getTime() < rangeStart.getTime();
 }
 
 function expandEvent(
   event: VEvent,
-  now: Date,
+  rangeStart: Date,
   rangeEnd: Date,
 ): EventInstance[] {
   if (event.rrule) {
     return ical.expandRecurringEvent(event, {
-      from: now,
+      from: rangeStart,
       to: rangeEnd,
       expandOngoing: true,
     });
@@ -100,7 +105,7 @@ function expandEvent(
         ? new Date(event.end)
         : null;
 
-  if (isPast(end, start, now)) return [];
+  if (endedBeforeRange(end, start, rangeStart)) return [];
 
   return [
     {
@@ -154,11 +159,11 @@ export function parseFeed(
   body: string,
   calendarSlug: string,
   calendarLabel: string,
-  now: Date,
+  referenceDate: Date,
 ): CalendarEvent[] {
   const data: CalendarResponse = ical.sync.parseICS(body);
-  const rangeEnd = new Date(now);
-  rangeEnd.setDate(rangeEnd.getDate() + RECURRENCE_WINDOW_DAYS);
+  const rangeStart = startOfDisplayWindow(referenceDate);
+  const rangeEnd = endOfSyncWindow(referenceDate);
 
   const events: CalendarEvent[] = [];
 
@@ -171,7 +176,7 @@ export function parseFeed(
     if (vevent.status === "CANCELLED") continue;
 
     const isRecurringSeries = Boolean(vevent.rrule);
-    const instances = expandEvent(vevent, now, rangeEnd);
+    const instances = expandEvent(vevent, rangeStart, rangeEnd);
     for (const instance of instances) {
       const mapped = instanceToEvent(
         instance,
