@@ -66,12 +66,12 @@ jobs:
       - name: Promote calendar events to production
         run: |
           git fetch origin main production
-          git checkout production
-          git checkout origin/main -- src/content/events.generated.ts
-          if git diff --quiet -- src/content/events.generated.ts; then
+          if git diff --quiet origin/production origin/main -- src/content/events.generated.ts; then
             echo "No production changes needed."
             exit 0
           fi
+          git checkout production
+          git checkout origin/main -- src/content/events.generated.ts
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/content/events.generated.ts
