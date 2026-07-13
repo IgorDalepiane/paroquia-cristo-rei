@@ -15,6 +15,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
 
 concurrency:
   group: sync-calendar
@@ -55,6 +56,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+      # Bot commits use [skip ci] (skips pull_request CI + Cloudflare). workflow_dispatch is not
+      # affected by skip ci, so dispatch CI explicitly. Stuck PR recovery: gh workflow run ci.yml --ref bot/calendar-sync
+      - name: Run CI on bot branch
+        if: steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run ci.yml --ref "${{ steps.cpr.outputs.branch }}"
 
   promote-production:
     if: github.event_name == 'push'
