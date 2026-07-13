@@ -44,12 +44,12 @@ Cloudflare Workers Builds (single project, Igordalepiane account). Do not use `p
 
 Workers Builds dashboard settings:
 
-| Setting                    | Command                                        |
-| -------------------------- | ---------------------------------------------- |
-| Build                      | _(empty — OpenNext runs inside deploy/upload)_ |
-| Production branch          | `production`                                   |
-| Deploy (production branch) | `pnpm cf:deploy:prod`                          |
-| Non-production deploy      | `pnpm cf:upload`                               |
+| Setting                      | Command                                            |
+| ---------------------------- | -------------------------------------------------- |
+| Build                        | _(empty — OpenNext runs inside deploy/upload)_     |
+| Production branch            | `production`                                       |
+| Deploy (production branch)   | `pnpm cf:deploy:prod`                              |
+| Non-production deploy        | `pnpm cf:upload`                                   |
 | Non-production branch builds | **Enabled** (required for feature-branch previews) |
 
 ### Preview URLs
