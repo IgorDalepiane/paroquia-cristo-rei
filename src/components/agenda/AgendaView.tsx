@@ -2,10 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { CalendarEvent } from "@/content/events";
-import {
-  calendarEvents,
-  calendarSources,
-} from "@/content/events.generated";
+import { calendarEvents, calendarSources } from "@/content/events.generated";
 import { replaceAgendaUrl } from "@/lib/calendar/agenda-url";
 import { buildCalendarColorMap } from "@/lib/calendar/calendar-colors";
 import {
