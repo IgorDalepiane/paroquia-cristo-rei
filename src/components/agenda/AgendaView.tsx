@@ -18,7 +18,7 @@ import {
   clampWeekStart,
   formatWeekRange,
   getEventWeekStart,
-  startOfWeekSunday,
+  startOfWeek,
 } from "@/lib/calendar/week";
 import { CalendarFilter } from "./CalendarFilter";
 import { EventModal, type EventModalState } from "./EventModal";
@@ -141,7 +141,7 @@ export function AgendaView({
   };
 
   const goToToday = () => {
-    setWeek(startOfWeekSunday(now));
+    setWeek(startOfWeek(now));
   };
 
   const canGoPrev = canGoToPreviousWeek(weekStartKey, windowStart);

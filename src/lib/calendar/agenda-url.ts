@@ -1,4 +1,4 @@
-import { clampWeekStart, startOfWeekSunday } from "@/lib/calendar/week";
+import { clampWeekStart, startOfWeek } from "@/lib/calendar/week";
 
 const DAY_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -17,7 +17,7 @@ export function parseWeekParam(value: string | undefined): string | null {
 }
 
 export function normalizeWeekStartKey(dayKey: string): string {
-  return startOfWeekSunday(dateFromDayKey(dayKey));
+  return startOfWeek(dateFromDayKey(dayKey));
 }
 
 export function resolveInitialWeekStart(
@@ -26,11 +26,7 @@ export function resolveInitialWeekStart(
   windowEnd: Date,
   now: Date,
 ): string {
-  const fallback = clampWeekStart(
-    startOfWeekSunday(now),
-    windowStart,
-    windowEnd,
-  );
+  const fallback = clampWeekStart(startOfWeek(now), windowStart, windowEnd);
   const parsed = parseWeekParam(weekParam);
   if (!parsed) return fallback;
   return clampWeekStart(normalizeWeekStartKey(parsed), windowStart, windowEnd);
