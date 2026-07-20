@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AgendaView } from "@/components/agenda/AgendaView";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
-import { calendarEvents, calendarSources } from "@/content/events.generated";
+import { calendarEvents } from "@/content/events.generated";
 import { breadcrumbJsonLd, eventJsonLd, pageMetadata } from "@/lib/seo";
 import {
   endOfDisplayWindow,
@@ -37,10 +37,10 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
     now,
   );
 
-  const displayEvents = getDisplayEvents(calendarEvents);
-
   const selectedEvent = eventId
-    ? displayEvents.find((event) => event.id === eventId)
+    ? getDisplayEvents(calendarEvents, now).find(
+        (event) => event.id === eventId,
+      )
     : undefined;
 
   return (
@@ -67,8 +67,6 @@ export default async function AgendaPage({ searchParams }: AgendaPageProps) {
       <div className="section-padding">
         <div className="container-wide">
           <AgendaView
-            sources={calendarSources}
-            events={displayEvents}
             initialEventId={eventId}
             initialWeekStartKey={initialWeekStartKey}
           />

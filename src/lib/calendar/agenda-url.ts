@@ -63,3 +63,18 @@ export function agendaPathMatches(
 ): boolean {
   return `${pathname}${search}` === buildAgendaPath(target);
 }
+
+/** Sync agenda query params without a Next soft navigation / RSC refetch. */
+export function replaceAgendaUrl(params: AgendaSearchParams): void {
+  if (typeof window === "undefined") return;
+  if (
+    agendaPathMatches(window.location.pathname, window.location.search, params)
+  ) {
+    return;
+  }
+  window.history.replaceState(
+    window.history.state,
+    "",
+    buildAgendaPath(params),
+  );
+}
