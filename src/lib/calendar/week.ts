@@ -4,7 +4,7 @@ const PARISH_TIMEZONE = "America/Sao_Paulo";
 
 const EN_WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 
-export const WEEKDAY_LABELS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+export const WEEKDAY_LABELS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
 
 export const MAX_CHIPS_PER_DAY = 4;
 
@@ -31,10 +31,12 @@ export function addDaysToDayKey(dayKey: string, days: number): string {
   return dayKeyInParish(shifted);
 }
 
-export function startOfWeekSunday(date: Date): string {
+export function startOfWeek(date: Date): string {
   const dayKey = dayKeyInParish(date);
   const weekday = weekdayInParish(date);
-  return addDaysToDayKey(dayKey, -weekday);
+  // weekday: 0=Sun … 6=Sat → days since Monday
+  const daysFromMonday = (weekday + 6) % 7;
+  return addDaysToDayKey(dayKey, -daysFromMonday);
 }
 
 export function endOfWeekDayKey(weekStartKey: string): string {
@@ -143,22 +145,22 @@ export function clampWeekStart(
   windowStart: Date,
   windowEnd: Date,
 ): string {
-  const min = startOfWeekSunday(windowStart);
-  const max = startOfWeekSunday(windowEnd);
+  const min = startOfWeek(windowStart);
+  const max = startOfWeek(windowEnd);
   if (weekStartKey < min) return min;
   if (weekStartKey > max) return max;
   return weekStartKey;
 }
 
 export function getEventWeekStart(event: CalendarEvent): string {
-  return startOfWeekSunday(new Date(event.start));
+  return startOfWeek(new Date(event.start));
 }
 
 export function canGoToPreviousWeek(
   weekStartKey: string,
   windowStart: Date,
 ): boolean {
-  const min = startOfWeekSunday(windowStart);
+  const min = startOfWeek(windowStart);
   return weekStartKey > min;
 }
 
@@ -166,6 +168,6 @@ export function canGoToNextWeek(
   weekStartKey: string,
   windowEnd: Date,
 ): boolean {
-  const max = startOfWeekSunday(windowEnd);
+  const max = startOfWeek(windowEnd);
   return weekStartKey < max;
 }
