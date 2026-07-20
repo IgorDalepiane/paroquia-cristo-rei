@@ -1,13 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import type { CalendarEvent, CalendarSource } from "@/content/events";
-import { agendaPathMatches, buildAgendaPath } from "@/lib/calendar/agenda-url";
+import type { CalendarEvent } from "@/content/events";
+import {
+  calendarEvents,
+  calendarSources,
+} from "@/content/events.generated";
+import { replaceAgendaUrl } from "@/lib/calendar/agenda-url";
 import { buildCalendarColorMap } from "@/lib/calendar/calendar-colors";
 import {
   DISPLAY_MONTH_COUNT,
   endOfDisplayWindow,
+  getDisplayEvents,
   startOfDisplayWindow,
 } from "@/lib/calendar/events";
 import {
@@ -24,19 +28,14 @@ import { EventModal, type EventModalState } from "./EventModal";
 import { WeekCalendar } from "./WeekCalendar";
 
 type AgendaViewProps = {
-  sources: CalendarSource[];
-  events: CalendarEvent[];
   initialEventId?: string;
   initialWeekStartKey: string;
 };
 
 export function AgendaView({
-  sources,
-  events,
   initialEventId,
   initialWeekStartKey,
 }: AgendaViewProps) {
-  const router = useRouter();
   const hydratedEventIdRef = useRef<string | undefined>(undefined);
   const [hiddenSlugs, setHiddenSlugs] = useState<Set<string>>(() => new Set());
   const [modalState, setModalState] = useState<EventModalState>(null);
@@ -44,6 +43,8 @@ export function AgendaView({
   const now = useMemo(() => new Date(), []);
   const windowStart = useMemo(() => startOfDisplayWindow(now), [now]);
   const windowEnd = useMemo(() => endOfDisplayWindow(now), [now]);
+  const sources = calendarSources;
+  const events = useMemo(() => getDisplayEvents(calendarEvents, now), [now]);
 
   const [weekStartKey, setWeekStartKey] = useState(initialWeekStartKey);
 
@@ -57,22 +58,9 @@ export function AgendaView({
     [events, hiddenSlugs],
   );
 
-  const syncUrl = useCallback(
-    (week: string, eventId?: string) => {
-      const target = { week, event: eventId };
-      if (
-        agendaPathMatches(
-          window.location.pathname,
-          window.location.search,
-          target,
-        )
-      ) {
-        return;
-      }
-      router.replace(buildAgendaPath(target), { scroll: false });
-    },
-    [router],
-  );
+  const syncUrl = useCallback((week: string, eventId?: string) => {
+    replaceAgendaUrl({ week, event: eventId });
+  }, []);
 
   const setWeek = useCallback(
     (nextWeek: string, eventId?: string) => {
