@@ -5,7 +5,12 @@ import {
   quickScheduleHighlight,
   SCHEDULE_UNAVAILABLE_FALLBACK,
 } from "@/content/schedules";
-import { navItems, formatContactLines, siteConfig } from "@/content/site";
+import {
+  formatChurchLines,
+  formatContactLines,
+  navItems,
+  siteConfig,
+} from "@/content/site";
 import { getSundayMatrizTimesLine } from "@/lib/calendar/matriz-schedule";
 
 const socialLinks = [
@@ -65,6 +70,7 @@ function SocialIcon({ type }: { type: (typeof socialLinks)[number]["key"] }) {
 export function Footer() {
   const footerNavItems = navItems.filter((item) => item.href !== "/contato");
   const contactLines = formatContactLines();
+  const churchLines = formatChurchLines();
   const sundayTimes = getSundayMatrizTimesLine(calendarEvents);
 
   return (
@@ -160,9 +166,9 @@ export function Footer() {
               Localização
             </h2>
             <p className="mt-5 text-base leading-relaxed text-foreground/80">
-              {contactLines.street}
+              Igreja: {churchLines.street}
               <br />
-              {contactLines.locality}
+              {churchLines.locality}
             </p>
           </div>
 

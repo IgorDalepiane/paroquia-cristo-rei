@@ -7,19 +7,25 @@ export const siteConfig = {
   heroTagline: "Bento Gonçalves — RS",
   heroSubtitle: "Vida pastoral",
   contact: {
-    address: "Av. Dr. Antônio Casagrande, 27-89",
-    neighborhood: "Cidade Alta",
     city: "Bento Gonçalves",
     state: "RS",
-    postalCode: "95700-000",
     country: "BR",
+    phone: "(54) 3452-1093",
+    phoneNote: "Telefone e WhatsApp apenas para mensagens",
+    email: "cristorei@diocesedecaxias.org.br",
+    whatsapp: "555434521093",
+    /** Igreja matriz */
+    address: "Avenida Dr. Casagrande",
+    neighborhood: "Cidade Alta",
+    postalCode: "95700-342",
     geo: {
       latitude: -29.1723674,
       longitude: -51.5202798,
     },
-    phone: "(00) 0000-0000",
-    email: "contato@paroquiacristoreibg.org.br",
-    whatsapp: "",
+    /** Secretaria paroquial */
+    secretaryAddress: "Rua Silva Paes, 121, Sala 01",
+    secretaryNeighborhood: "Cidade Alta",
+    secretaryPostalCode: "95700-378",
   },
   social: {
     instagram: "",
@@ -27,13 +33,11 @@ export const siteConfig = {
     youtube: "",
   },
   secretaryHours: {
-    weekdays: "Segunda a sexta: 8h às 11h45 / 13h30 às 18h",
-    saturday: "Sábado: 9h às 11h45",
+    weekdays: "Segunda a sexta-feira, das 08h30 às 11h45 e das 13h30 às 17h45",
+    saturday: "Sábado, das 08h30 às 11h30",
   },
   churchHours: {
-    weekdays: "Segunda a sexta: 8h às 12h / 13h30 às 19h",
-    saturday: "Sábado: 8h às 12h / 16h às 18h30",
-    sunday: "Domingo: 8h às 12h / 16h às 20h30",
+    open: "De terça a domingo, das 12h às 19h",
   },
 } as const;
 
@@ -47,7 +51,17 @@ export const navItems = [
   { label: "Contato", href: "/contato" },
 ] as const;
 
+/** Endereço da secretaria (contato / rodapé). */
 export function formatContactLines() {
+  const { contact } = siteConfig;
+  return {
+    street: `${contact.secretaryAddress} — ${contact.secretaryNeighborhood}`,
+    locality: `${contact.city} — ${contact.state} · CEP ${contact.secretaryPostalCode}`,
+  };
+}
+
+/** Endereço da igreja matriz. */
+export function formatChurchLines() {
   const { contact } = siteConfig;
   return {
     street: `${contact.address} — ${contact.neighborhood}`,
@@ -56,6 +70,18 @@ export function formatContactLines() {
 }
 
 export function googleMapsUrl() {
+  const { contact } = siteConfig;
+  const query = [
+    contact.secretaryAddress,
+    contact.secretaryNeighborhood,
+    contact.city,
+    contact.state,
+    contact.secretaryPostalCode,
+  ].join(", ");
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+export function googleMapsChurchUrl() {
   const { geo } = siteConfig.contact;
   return `https://www.google.com/maps?q=${geo.latitude},${geo.longitude}`;
 }
