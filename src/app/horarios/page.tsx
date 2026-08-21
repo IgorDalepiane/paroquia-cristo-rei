@@ -104,11 +104,7 @@ export default function HorariosPage() {
               <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
                 Abertura da igreja
               </h2>
-              <p className="text-muted">{siteConfig.churchHours.weekdays}</p>
-              <p className="mt-2 text-muted">
-                {siteConfig.churchHours.saturday}
-              </p>
-              <p className="mt-2 text-muted">{siteConfig.churchHours.sunday}</p>
+              <p className="text-muted">{siteConfig.churchHours.open}</p>
             </section>
           </ScrollReveal>
         </div>

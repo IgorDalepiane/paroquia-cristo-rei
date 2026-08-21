@@ -52,6 +52,7 @@ export default function ContatoPage() {
                     {siteConfig.contact.phone}
                   </a>
                 </p>
+                <p className="text-sm">{siteConfig.contact.phoneNote}</p>
                 <p>
                   <a
                     href={`mailto:${siteConfig.contact.email}`}

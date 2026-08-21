@@ -10,8 +10,9 @@ export type ConfessionSchedule = {
 };
 
 export const confessionSchedules: ConfessionSchedule[] = [
-  { day: "Sábado", times: ["15h às 17h30"] },
-  { day: "Domingo", times: ["30 minutos antes de cada missa"] },
+  { day: "Terça a quinta-feira", times: ["09h às 11h", "14h às 17h"] },
+  { day: "Sexta-feira", times: ["09h às 11h", "14h às 15h"] },
+  { day: "Sábados", times: ["09h às 11h"] },
 ];
 
 export const quickScheduleHighlight = {
