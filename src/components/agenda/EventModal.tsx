@@ -2,27 +2,17 @@
 
 import { useEffect, useRef } from "react";
 import type { CalendarEvent } from "@/content/events";
-import { formatDayLabel } from "@/lib/calendar/week";
 import { EventDetailContent } from "./EventDetail";
 
-export type EventModalState =
-  | { type: "event"; event: CalendarEvent }
-  | { type: "day"; dayKey: string; events: CalendarEvent[] }
-  | null;
+export type EventModalState = CalendarEvent | null;
 
 type EventModalProps = {
   state: EventModalState;
   colorMap: Map<string, string>;
   onClose: () => void;
-  onSelectEvent: (event: CalendarEvent) => void;
 };
 
-export function EventModal({
-  state,
-  colorMap,
-  onClose,
-  onSelectEvent,
-}: EventModalProps) {
+export function EventModal({ state, colorMap, onClose }: EventModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -65,40 +55,10 @@ export function EventModal({
               </span>
             </button>
 
-            {state.type === "event" ? (
-              <EventDetailContent
-                event={state.event}
-                calendarColor={colorMap.get(state.event.calendarLabel)}
-              />
-            ) : (
-              <div>
-                <h2
-                  id="event-modal-title"
-                  className="pr-8 text-lg font-semibold text-foreground"
-                >
-                  {formatDayLabel(state.dayKey)}
-                </h2>
-                <ul className="mt-4 space-y-2">
-                  {state.events.map((event) => (
-                    <li key={event.id}>
-                      <button
-                        type="button"
-                        onClick={() => onSelectEvent(event)}
-                        className="w-full cursor-pointer rounded-md border border-border px-3 py-2 text-left text-sm transition-colors hover:border-accent/30 hover:bg-background"
-                      >
-                        <span
-                          className="mr-2 inline-block h-2 w-2 rounded-full"
-                          style={{
-                            backgroundColor: colorMap.get(event.calendarLabel),
-                          }}
-                        />
-                        {event.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <EventDetailContent
+              event={state}
+              calendarColor={colorMap.get(state.calendarLabel)}
+            />
           </div>
         </div>
       ) : null}

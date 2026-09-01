@@ -6,8 +6,6 @@ const EN_WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] as const;
 
 export const WEEKDAY_LABELS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
 
-export const MAX_CHIPS_PER_DAY = 4;
-
 export function dayKeyInParish(date: Date): string {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: PARISH_TIMEZONE,
@@ -88,16 +86,6 @@ export function formatWeekRange(weekStartKey: string): string {
 function dateFromDayKey(dayKey: string): Date {
   const [year, month, day] = dayKey.split("-").map(Number);
   return new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
-}
-
-export function formatDayLabel(dayKey: string): string {
-  const date = dateFromDayKey(dayKey);
-  return new Intl.DateTimeFormat("pt-BR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    timeZone: PARISH_TIMEZONE,
-  }).format(date);
 }
 
 export function formatDayNumber(dayKey: string): string {
