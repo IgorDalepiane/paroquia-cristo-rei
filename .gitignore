@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# /dev skill local preview shots
+.dev-preview/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
