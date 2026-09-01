@@ -2,7 +2,6 @@
 
 import type { CalendarEvent } from "@/content/events";
 import {
-  MAX_CHIPS_PER_DAY,
   WEEKDAY_LABELS,
   formatDayNumber,
   groupEventsByDay,
@@ -53,7 +52,6 @@ type WeekCalendarProps = {
   weekStartKey: string;
   colorMap: Map<string, string>;
   onEventClick: (event: CalendarEvent) => void;
-  onDayOverflowClick: (dayKey: string, events: CalendarEvent[]) => void;
 };
 
 export function WeekCalendar({
@@ -61,7 +59,6 @@ export function WeekCalendar({
   weekStartKey,
   colorMap,
   onEventClick,
-  onDayOverflowClick,
 }: WeekCalendarProps) {
   const eventsByDay = groupEventsByDay(events, weekStartKey);
   const dayKeys = Array.from(eventsByDay.keys());
@@ -77,7 +74,6 @@ export function WeekCalendar({
             events={eventsByDay.get(dayKey) ?? []}
             colorMap={colorMap}
             onEventClick={onEventClick}
-            onDayOverflowClick={onDayOverflowClick}
           />
         ))}
       </div>
@@ -91,7 +87,6 @@ export function WeekCalendar({
             events={eventsByDay.get(dayKey) ?? []}
             colorMap={colorMap}
             onEventClick={onEventClick}
-            onDayOverflowClick={onDayOverflowClick}
           />
         ))}
       </div>
@@ -105,7 +100,6 @@ type DayProps = {
   events: CalendarEvent[];
   colorMap: Map<string, string>;
   onEventClick: (event: CalendarEvent) => void;
-  onDayOverflowClick: (dayKey: string, events: CalendarEvent[]) => void;
 };
 
 function DayColumn({
@@ -114,11 +108,8 @@ function DayColumn({
   events,
   colorMap,
   onEventClick,
-  onDayOverflowClick,
 }: DayProps) {
   const today = isToday(dayKey);
-  const visible = events.slice(0, MAX_CHIPS_PER_DAY);
-  const overflow = events.length - visible.length;
 
   return (
     <div
@@ -128,10 +119,10 @@ function DayColumn({
     >
       <DayHeader dayKey={dayKey} weekdayLabel={weekdayLabel} today={today} />
       <div className="mt-2 space-y-1.5">
-        {visible.length === 0 ? (
+        {events.length === 0 ? (
           <p className="py-2 text-center text-xs text-muted">—</p>
         ) : (
-          visible.map((event) => (
+          events.map((event) => (
             <EventChip
               key={event.id}
               event={event}
@@ -140,12 +131,6 @@ function DayColumn({
             />
           ))
         )}
-        {overflow > 0 ? (
-          <OverflowButton
-            count={overflow}
-            onClick={() => onDayOverflowClick(dayKey, events)}
-          />
-        ) : null}
       </div>
     </div>
   );
@@ -157,11 +142,8 @@ function DayRow({
   events,
   colorMap,
   onEventClick,
-  onDayOverflowClick,
 }: DayProps) {
   const today = isToday(dayKey);
-  const visible = events.slice(0, MAX_CHIPS_PER_DAY);
-  const overflow = events.length - visible.length;
 
   return (
     <div
@@ -176,10 +158,10 @@ function DayRow({
         compact
       />
       <div className="mt-2 space-y-1.5">
-        {visible.length === 0 ? (
+        {events.length === 0 ? (
           <p className="text-xs text-muted">Sem eventos</p>
         ) : (
-          visible.map((event) => (
+          events.map((event) => (
             <EventChip
               key={event.id}
               event={event}
@@ -188,12 +170,6 @@ function DayRow({
             />
           ))
         )}
-        {overflow > 0 ? (
-          <OverflowButton
-            count={overflow}
-            onClick={() => onDayOverflowClick(dayKey, events)}
-          />
-        ) : null}
       </div>
     </div>
   );
@@ -226,23 +202,5 @@ function DayHeader({
         ) : null}
       </span>
     </div>
-  );
-}
-
-function OverflowButton({
-  count,
-  onClick,
-}: {
-  count: number;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="w-full cursor-pointer rounded px-2 py-1 text-xs font-medium text-accent transition-colors hover:bg-accent/5"
-    >
-      +{count} mais
-    </button>
   );
 }

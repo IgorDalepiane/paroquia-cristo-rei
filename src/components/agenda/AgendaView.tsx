@@ -88,7 +88,7 @@ export function AgendaView({
         windowEnd,
       );
       setWeekStartKey(eventWeek);
-      setModalState({ type: "event", event });
+      setModalState(event);
       hydratedEventIdRef.current = event.id;
       syncUrl(eventWeek, event.id);
     },
@@ -117,7 +117,7 @@ export function AgendaView({
       windowEnd,
     );
     setWeekStartKey(eventWeek);
-    setModalState({ type: "event", event });
+    setModalState(event);
     hydratedEventIdRef.current = initialEventId;
 
     if (eventWeek !== initialWeekStartKey) {
@@ -208,18 +208,10 @@ export function AgendaView({
           weekStartKey={weekStartKey}
           colorMap={colorMap}
           onEventClick={openEvent}
-          onDayOverflowClick={(dayKey, dayEvents) =>
-            setModalState({ type: "day", dayKey, events: dayEvents })
-          }
         />
       )}
 
-      <EventModal
-        state={modalState}
-        colorMap={colorMap}
-        onClose={closeModal}
-        onSelectEvent={openEvent}
-      />
+      <EventModal state={modalState} colorMap={colorMap} onClose={closeModal} />
     </div>
   );
 }
