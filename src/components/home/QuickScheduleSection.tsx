@@ -20,7 +20,8 @@ function ScheduleCardContent({ sundayTimes }: { sundayTimes: string | null }) {
       </p>
       <p className="mt-3 text-muted">{quickScheduleHighlight.location}</p>
       <p className="mt-6 text-sm text-muted">
-        Confissões, secretaria e horários das comunidades na página completa.
+        Confissões e secretaria na página completa. Horários das comunidades nas
+        páginas de cada comunidade.
       </p>
     </>
   );

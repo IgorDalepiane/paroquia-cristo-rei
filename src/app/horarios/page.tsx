@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MassWeeklyList } from "@/components/schedule/MassWeeklyList";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { calendarEvents } from "@/content/events.generated";
 import { siteConfig } from "@/content/site";
-import {
-  confessionSchedules,
-  SCHEDULE_UNAVAILABLE_FALLBACK,
-} from "@/content/schedules";
+import { confessionSchedules } from "@/content/schedules";
 import { getMatrizWeeklySchedule } from "@/lib/calendar/matriz-schedule";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
@@ -35,34 +33,16 @@ export default function HorariosPage() {
           <ScrollReveal>
             <section className="mb-12">
               <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
-                Horários de missas
+                Próximas missas
               </h2>
-              {massSchedules.length > 0 ? (
-                <ul className="space-y-4">
-                  {massSchedules.map((entry) => (
-                    <li
-                      key={entry.day}
-                      className="border-b border-border pb-4 last:border-0"
-                    >
-                      <p className="font-semibold text-accent">{entry.day}:</p>
-                      <p className="mt-1 text-muted">
-                        {entry.times.join(" · ")}
-                      </p>
-                      {entry.note ? (
-                        <p className="mt-1 text-sm text-accent">
-                          * {entry.note}
-                        </p>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-muted">{SCHEDULE_UNAVAILABLE_FALLBACK}</p>
-              )}
+              <MassWeeklyList entries={massSchedules} />
               <p className="mt-6 text-sm text-muted">
-                Horários das comunidades na{" "}
-                <Link href="/agenda" className="text-accent hover:underline">
-                  agenda paroquial
+                Horários das comunidades nas{" "}
+                <Link
+                  href="/comunidades"
+                  className="text-accent hover:underline"
+                >
+                  páginas de cada comunidade
                 </Link>
                 .
               </p>
