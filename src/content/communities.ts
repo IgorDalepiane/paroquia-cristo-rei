@@ -6,7 +6,6 @@ export type Community = {
   summary: string;
   history: string;
   featured?: boolean;
-  massTimes?: string[];
   contact?: string;
 };
 
@@ -72,7 +71,6 @@ function buildCommunity(index: number, name: string): Community {
     summary: `${name} — informações em atualização.`,
     history: PLACEHOLDER_HISTORY,
     featured: index <= 8,
-    massTimes: index % 3 === 0 ? ["Domingo, 19h"] : undefined,
     contact: "Contato local a definir",
   };
 }
