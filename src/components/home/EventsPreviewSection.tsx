@@ -18,7 +18,7 @@ export function EventsPreviewSection() {
   if (preview.length === 0) return null;
 
   return (
-    <section className="section-padding border-b border-border">
+    <section className="section-padding border-b border-border bg-surface">
       <div className="container-wide">
         <ScrollReveal>
           <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
