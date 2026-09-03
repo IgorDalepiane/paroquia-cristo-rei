@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { VitraisEntry } from "@/components/stained-glass/VitraisEntry";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
@@ -60,6 +61,10 @@ export default function ParoquiaPage() {
               </p>
             </section>
           </ScrollReveal>
+        </div>
+
+        <div className="container-wide mx-auto mt-16 max-w-6xl">
+          <VitraisEntry />
         </div>
       </div>
     </>
