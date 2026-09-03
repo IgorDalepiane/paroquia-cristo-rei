@@ -41,17 +41,18 @@ Living document for **approved** design and content decisions.
 - Paróquia → `/paroquia`
 - Comunidades → `/comunidades`
 - Horários → `/horarios`
-- Notícias → `/noticias`
+- Agenda → `/agenda`
+- Galeria → `/galeria`
 - Contato → `/contato`
 
-Galeria: seção na home + link no rodapé (not in main nav).
+Notícias: rotas `/noticias` existem, mas **fora da navegação e da home** por enquanto (conteúdo placeholder).
 
 ### Home section order
 
 1. Hero — matriz photo, name, pastoral tagline
 2. Horários rápidos — summary + link to `/horarios`
-3. Notícias — carousel/cards
-4. Comunidades — 8 featured + link to all 24
+3. Agenda — próximos eventos
+4. Descubra a paróquia — atalhos
 5. Galeria — preview mosaic
 6. Footer
 

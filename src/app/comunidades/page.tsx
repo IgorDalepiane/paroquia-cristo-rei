@@ -37,9 +37,7 @@ export default function ComunidadesPage() {
               atualização.
             </p>
           </ScrollReveal>
-          <ScrollReveal>
-            <CommunityGrid communities={communities} />
-          </ScrollReveal>
+          <CommunityGrid communities={communities} />
         </div>
       </div>
     </>

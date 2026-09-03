@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MassWeeklyList } from "@/components/schedule/MassWeeklyList";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { communities, getCommunityBySlug } from "@/content/communities";
+import { calendarEvents } from "@/content/events.generated";
+import {
+  getCommunityWeeklySchedule,
+  getMatrizWeeklySchedule,
+  MATRIZ_COMMUNITY_SLUG,
+} from "@/lib/calendar/community-mass";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 type PageProps = {
@@ -35,6 +42,11 @@ export default async function ComunidadePage({ params }: PageProps) {
   const { slug } = await params;
   const community = getCommunityBySlug(slug);
   if (!community) notFound();
+
+  const massSchedules =
+    slug === MATRIZ_COMMUNITY_SLUG
+      ? getMatrizWeeklySchedule(calendarEvents)
+      : getCommunityWeeklySchedule(calendarEvents, slug);
 
   return (
     <>
@@ -73,20 +85,14 @@ export default async function ComunidadePage({ params }: PageProps) {
             </section>
           </ScrollReveal>
 
-          {community.massTimes?.length ? (
-            <ScrollReveal>
-              <section className="mt-12 border-t border-border pt-12">
-                <h2 className="mb-4 font-display normal-case text-2xl text-foreground">
-                  Horários de missa
-                </h2>
-                <ul className="space-y-2 text-muted">
-                  {community.massTimes.map((time) => (
-                    <li key={time}>{time}</li>
-                  ))}
-                </ul>
-              </section>
-            </ScrollReveal>
-          ) : null}
+          <ScrollReveal>
+            <section className="mt-12 border-t border-border pt-12">
+              <h2 className="mb-4 font-display normal-case text-2xl text-foreground">
+                Próximas missas
+              </h2>
+              <MassWeeklyList entries={massSchedules} />
+            </section>
+          </ScrollReveal>
 
           {community.contact ? (
             <ScrollReveal>

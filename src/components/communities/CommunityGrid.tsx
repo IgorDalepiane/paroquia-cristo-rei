@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { CommunityCard } from "@/components/communities/CommunityCard";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import type { Community } from "@/content/communities";
 
 type CommunityGridProps = {
@@ -42,7 +43,9 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((community) => (
-            <CommunityCard key={community.slug} community={community} />
+            <ScrollReveal key={community.slug} className="h-full">
+              <CommunityCard community={community} prefetch={false} />
+            </ScrollReveal>
           ))}
         </div>
       )}

@@ -46,7 +46,6 @@ export const navItems = [
   { label: "Comunidades", href: "/comunidades" },
   { label: "Horários", href: "/horarios" },
   { label: "Agenda", href: "/agenda" },
-  { label: "Notícias", href: "/noticias" },
   { label: "Galeria", href: "/galeria" },
   { label: "Contato", href: "/contato" },
 ] as const;

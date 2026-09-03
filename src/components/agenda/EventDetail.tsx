@@ -5,6 +5,7 @@ import {
   formatEventRange,
   googleCalendarAddUrl,
 } from "@/lib/calendar/events";
+import { getCommunityHrefForMassTitle } from "@/lib/calendar/community-mass";
 
 type EventDetailContentProps = {
   event: CalendarEvent;
@@ -16,6 +17,7 @@ export function EventDetailContent({
   calendarColor,
 }: EventDetailContentProps) {
   const timeRange = formatEventRange(event);
+  const communityHref = getCommunityHrefForMassTitle(event.title);
 
   return (
     <>
@@ -50,11 +52,20 @@ export function EventDetailContent({
         </div>
       ) : null}
 
-      <div className="mt-6">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        {communityHref ? (
+          <ButtonLink
+            href={communityHref}
+            variant="outline"
+            className="w-full text-xs sm:w-auto"
+          >
+            Ver comunidade
+          </ButtonLink>
+        ) : null}
         <ButtonLink
           href={googleCalendarAddUrl(event)}
           variant="outline"
-          className="text-xs"
+          className="w-full text-xs sm:w-auto"
         >
           Adicionar ao calendário
         </ButtonLink>
