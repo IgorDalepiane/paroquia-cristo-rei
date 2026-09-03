@@ -63,14 +63,14 @@ If `pnpm lint` dies on an install gate (`ERR_PNPM_IGNORED_BUILDS` or similar), r
 ## 4. Run app + screenshots + UI pass
 
 1. **Pick a live URL for this app.** Port 3000 is often some other Node/Express process. Probe the candidate (`GET /` should be this Next.js site, not a JSON 404). If the port is taken or is the wrong app, use the next free port (`3001`, `3002`, …) and tell the user **that** URL.
-2. Start `pnpm dev` / `next dev --turbopack` on the chosen port. Wait until Ready. Hit the affected route and confirm HTTP 200.
+2. Start `pnpm dev` / `next dev --turbopack` on the chosen port. Wait until Ready. Hit the affected route and confirm HTTP 200. If `pnpm dev` dies on `ERR_PNPM_IGNORED_BUILDS`, start `./node_modules/.bin/next dev --turbopack --port N` instead.
 3. Screenshot **desktop (~1440×900) and mobile (~390×844)** of every affected view (and a nearby state if the change is interactive: overflow gone, modal open, empty day). Save under `.dev-preview/` (gitignored). Do not commit shots.
 4. Capture method, in order:
    - Cursor browser tools if present.
    - Else Playwright Chromium via `npx --yes playwright@1.55.0` (`screenshot --browser=chromium --full-page --wait-for-timeout=2500`). Mobile = `--viewport-size=390,844`, **not** `--device=` (that needs WebKit, which we do not install). Install Chromium once with `npx playwright@1.55.0 install chromium` if the cache is empty.
    - Do not use Brave/Chrome `--headless` on this machine — it hangs with no output even with a timeout.
      Tall week grids: `--full-page` so chips are not cropped.
-5. **Read the images.** Check overflow, clipped text, contrast, unequal columns, missing times, controls that should be gone, mobile stacking. If you find a real UI bug, fix it, re-shot, re-read. Do not hand off a broken layout.
+5. **Read the images.** Check overflow, clipped text, contrast, unequal columns, missing times, controls that should be gone, mobile stacking. Overlay/lightbox controls: confirm they sit where intended (center of the sides vs stuck in a corner). Lightbox arrows must stay on the **viewport** edges after the next photo — not hug the first image’s width. Closed `<dialog>` must stay `display: none` (`hidden open:flex`, never a bare `flex`) or later carousels cover Fechar and steal taps. If you find a real UI bug, fix it, re-shot, re-read. Do not hand off a broken layout.
 
 ## 5. Handoff
 
