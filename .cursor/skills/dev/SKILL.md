@@ -68,8 +68,10 @@ If `pnpm lint` dies on an install gate (`ERR_PNPM_IGNORED_BUILDS` or similar), r
 4. Capture method, in order:
    - Cursor browser tools if present.
    - Else Playwright Chromium via `npx --yes playwright@1.55.0` (`screenshot --browser=chromium --full-page --wait-for-timeout=2500`). Mobile = `--viewport-size=390,844`, **not** `--device=` (that needs WebKit, which we do not install). Install Chromium once with `npx playwright@1.55.0 install chromium` if the cache is empty.
+   - Hit `http://localhost:PORT`, not `127.0.0.1` — Next may show an `allowedDevOrigins` overlay that is not the site UI.
    - Do not use Brave/Chrome `--headless` on this machine — it hangs with no output even with a timeout.
      Tall week grids: `--full-page` so chips are not cropped.
+   - `position: fixed` chips: use `bottom-6 right-6`, never `bottom-[max(…,env(safe-area-inset-bottom))]`. The comma/`max()` often fails to emit CSS; without `bottom`, a `fixed` flex child of `body` pins to the **top**. If a chip sits on the header after a class change, restart `next dev` before assuming the file is wrong (Turbopack can keep the old class).
 5. **Read the images.** Check overflow, clipped text, contrast, unequal columns, missing times, controls that should be gone, mobile stacking. Overlay/lightbox controls: confirm they sit where intended (center of the sides vs stuck in a corner). Lightbox arrows must stay on the **viewport** edges after the next photo — not hug the first image’s width. Closed `<dialog>` must stay `display: none` (`hidden open:flex`, never a bare `flex`) or later carousels cover Fechar and steal taps. If you find a real UI bug, fix it, re-shot, re-read. Do not hand off a broken layout.
 
 ## 5. Handoff
