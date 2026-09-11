@@ -28,7 +28,7 @@ export const siteConfig = {
     secretaryPostalCode: "95700-378",
   },
   social: {
-    instagram: "",
+    instagram: "https://www.instagram.com/paroquiacristoreibg/",
     facebook: "",
     youtube: "",
   },
@@ -46,6 +46,7 @@ export const navItems = [
   { label: "Comunidades", href: "/comunidades" },
   { label: "Horários", href: "/horarios" },
   { label: "Agenda", href: "/agenda" },
+  { label: "Festa", href: "/festa" },
   { label: "Galeria", href: "/galeria" },
   { label: "Contato", href: "/contato" },
 ] as const;

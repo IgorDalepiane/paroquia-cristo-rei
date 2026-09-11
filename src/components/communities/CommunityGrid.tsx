@@ -32,7 +32,7 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
           placeholder="Buscar por nome, bairro ou padroeiro…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full max-w-xl rounded-full border border-border bg-surface px-5 py-3 text-sm outline-none ring-accent/20 transition-shadow focus:ring-2"
+          className="w-full max-w-xl rounded-full border border-border bg-surface px-5 py-3 text-base outline-none ring-accent/20 transition-shadow focus:ring-2"
         />
       </label>
 

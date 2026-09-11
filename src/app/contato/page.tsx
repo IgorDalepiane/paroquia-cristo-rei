@@ -61,6 +61,18 @@ export default function ContatoPage() {
                     {siteConfig.contact.email}
                   </a>
                 </p>
+                {siteConfig.social.instagram ? (
+                  <p>
+                    <a
+                      href={siteConfig.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-accent"
+                    >
+                      Instagram
+                    </a>
+                  </p>
+                ) : null}
               </address>
               <div className="mt-8 space-y-2 text-sm text-muted">
                 <p className="font-semibold text-foreground">

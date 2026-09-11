@@ -94,7 +94,11 @@ export function Footer() {
                     href={item.href}
                     className="inline-flex items-center justify-center rounded-full border border-border bg-white p-3 text-foreground/80 transition-colors hover:border-accent/30 hover:text-accent"
                     aria-label={item.label}
-                    {...(item.href === "#" ? { "aria-disabled": true } : {})}
+                    {...(item.href.startsWith("http")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : item.href === "#"
+                        ? { "aria-disabled": true }
+                        : {})}
                   >
                     <SocialIcon type={item.key} />
                   </a>

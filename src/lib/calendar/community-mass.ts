@@ -1,5 +1,5 @@
 import { COMMUNITY_MASS_ALIASES } from "@/content/community-mass-aliases";
-import { getCommunityBySlug } from "@/content/communities";
+import { communities, getCommunityBySlug } from "@/content/communities";
 import type { CalendarEvent } from "@/content/events";
 import type { MassScheduleEntry } from "@/content/schedules";
 import {
@@ -56,6 +56,65 @@ export function getCommunityHrefForMassTitle(
   if (!alias) return undefined;
   if (!getCommunityBySlug(alias.slug)) return undefined;
   return `/comunidades/${alias.slug}`;
+}
+
+function normalizeCommunityMatch(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[–—−]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function communityNameFragments(): { slug: string; fragment: string }[] {
+  const items: { slug: string; fragment: string }[] = [];
+
+  for (const community of communities) {
+    const names = new Set<string>([community.name]);
+    names.add(community.name.replace(/^Comunidade(?:\s+das)?\s+/i, ""));
+    if (
+      community.patron &&
+      community.neighborhood &&
+      community.neighborhood !== "Bairro a definir"
+    ) {
+      names.add(`${community.patron} - ${community.neighborhood}`);
+    }
+    for (const name of names) {
+      const fragment = normalizeCommunityMatch(name);
+      if (fragment.length >= 8) {
+        items.push({ slug: community.slug, fragment });
+      }
+    }
+  }
+
+  return items.sort((a, b) => b.fragment.length - a.fragment.length);
+}
+
+const communityFragmentsByLongest = communityNameFragments();
+
+export function matchCommunityByEventTitle(title: string) {
+  const trimmed = title.trim();
+  if (/\bpar[oó]quia\b/i.test(trimmed) && !/\bcomunidade\b/i.test(trimmed)) {
+    return undefined;
+  }
+
+  const normalized = normalizeCommunityMatch(trimmed);
+  return communityFragmentsByLongest.find((item) =>
+    normalized.includes(item.fragment),
+  );
+}
+
+export function getCommunityHrefForEventTitle(
+  title: string,
+): string | undefined {
+  const massHref = getCommunityHrefForMassTitle(title);
+  if (massHref) return massHref;
+
+  const match = matchCommunityByEventTitle(title);
+  if (!match || !getCommunityBySlug(match.slug)) return undefined;
+  return `/comunidades/${match.slug}`;
 }
 
 export function formatMassTimeLocal(start: string): string {

@@ -5,7 +5,7 @@ import {
   formatEventRange,
   googleCalendarAddUrl,
 } from "@/lib/calendar/events";
-import { getCommunityHrefForMassTitle } from "@/lib/calendar/community-mass";
+import { getCommunityHrefForEventTitle } from "@/lib/calendar/community-mass";
 
 type EventDetailContentProps = {
   event: CalendarEvent;
@@ -17,7 +17,7 @@ export function EventDetailContent({
   calendarColor,
 }: EventDetailContentProps) {
   const timeRange = formatEventRange(event);
-  const communityHref = getCommunityHrefForMassTitle(event.title);
+  const communityHref = getCommunityHrefForEventTitle(event.title);
 
   return (
     <>
