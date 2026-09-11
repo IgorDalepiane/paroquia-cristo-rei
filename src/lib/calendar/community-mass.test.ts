@@ -4,6 +4,7 @@ import { communities } from "@/content/communities";
 import type { CalendarEvent } from "@/content/events";
 import { calendarEvents } from "@/content/events.generated";
 import {
+  getCommunityHrefForEventTitle,
   getCommunityHrefForMassTitle,
   getCommunityWeeklySchedule,
   getMatrizWeeklySchedule,
@@ -88,6 +89,53 @@ function main(): void {
       "1º Dia do Tríduo Missa 80ª Festa de Cristo Rei - Com. Matriz",
     ),
     undefined,
+  );
+
+  const padroeiroHrefs: Record<string, string | undefined> = {
+    "Visita do Padroeiro - Comunidade das Almas do Purgatório":
+      "/comunidades/comunidade-18",
+    "Visita do Padroeiro - Comunidade Santa Helena":
+      "/comunidades/comunidade-20",
+    "Visita do Padroeiro - Comunidade São Carlos": "/comunidades/comunidade-21",
+    "Missa e Visita do Padroeiro - Comunidade São José – Sertorina":
+      "/comunidades/comunidade-19",
+    "Visita do Padroeiro - Nossa Senhora da Glória – 40 da Leopoldina":
+      "/comunidades/comunidade-22",
+    "Visita do Padroeiro - Comunidade Sagrado Coração de Jesus – Municipal":
+      "/comunidades/comunidade-23",
+    "Visita do Padroeiro - Comunidade Nossa Senhora de Lourdes – Ceará":
+      "/comunidades/comunidade-24",
+    "Visita do Padroeiro - UPA – Hospital Galassi": undefined,
+    "Visita do Padroeiro - Visita à Paróquia Santo Antônio": undefined,
+    "Visita do Padroeiro - Cavalgada de Cristo Rei ABCTG": undefined,
+    "Visita do Padroeiro - Vilarejo Integração": undefined,
+    "Visita do Padroeiro - Cáritas Paroquial Cristo Rei": undefined,
+    "Visita do Padroeiro - Escola ABRACAI – Sinara": undefined,
+    "Visita do Padroeiro - Hospital Tacchini": undefined,
+  };
+
+  const padroeiroTitles = [
+    ...new Set(
+      calendarEvents
+        .map((item) => item.title)
+        .filter((title) => title.includes("Visita do Padroeiro")),
+    ),
+  ].sort();
+  assert.deepEqual(
+    Object.fromEntries(
+      padroeiroTitles.map((title) => [
+        title,
+        getCommunityHrefForEventTitle(title),
+      ]),
+    ),
+    Object.fromEntries(
+      padroeiroTitles.map((title) => [title, padroeiroHrefs[title]]),
+    ),
+    "padroeiro visit → community href map is stale",
+  );
+  assert.equal(
+    getCommunityHrefForEventTitle("Missa Com. Santa Rita"),
+    "/comunidades/comunidade-07",
   );
 
   const weekly = getCommunityWeeklySchedule(
