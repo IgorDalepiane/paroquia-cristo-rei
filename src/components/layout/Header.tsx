@@ -10,7 +10,7 @@ import { useCompactNav } from "@/hooks/useCompactNav";
 const mainNavItems = navItems.filter((item) => item.href !== "/contato");
 
 const navLinkClass = (active: boolean) =>
-  `rounded-full px-3 py-2 text-base font-medium transition-colors xl:px-4 xl:text-[1.05rem] ${
+  `rounded-full px-2.5 py-2 text-[0.95rem] font-medium transition-colors xl:px-3.5 xl:text-[1.05rem] ${
     active ? "text-accent" : "text-foreground/70 hover:text-foreground"
   }`;
 

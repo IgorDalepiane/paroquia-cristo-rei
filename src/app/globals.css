@@ -40,6 +40,10 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+html.bingo-fab-active main {
+  padding-bottom: 5.5rem;
+}
+
 dialog {
   margin: auto;
   border: none;
