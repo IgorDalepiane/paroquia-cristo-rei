@@ -60,6 +60,21 @@ dialog::backdrop {
   background: rgb(0 0 0 / 0.4);
 }
 
+@keyframes agenda-today-flash {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+  }
+  35% {
+    background-color: color-mix(in srgb, var(--accent) 14%, var(--muted-bg));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+}
+
+.agenda-today-flash {
+  animation: agenda-today-flash 0.55s ease-in-out 3;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

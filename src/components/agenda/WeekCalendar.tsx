@@ -52,6 +52,7 @@ type WeekCalendarProps = {
   weekStartKey: string;
   colorMap: Map<string, string>;
   onEventClick: (event: CalendarEvent) => void;
+  todayHighlight?: number;
 };
 
 export function WeekCalendar({
@@ -59,6 +60,7 @@ export function WeekCalendar({
   weekStartKey,
   colorMap,
   onEventClick,
+  todayHighlight = 0,
 }: WeekCalendarProps) {
   const eventsByDay = groupEventsByDay(events, weekStartKey);
   const dayKeys = Array.from(eventsByDay.keys());
@@ -68,12 +70,13 @@ export function WeekCalendar({
       <div className="hidden gap-2 md:grid md:grid-cols-7">
         {dayKeys.map((dayKey, index) => (
           <DayColumn
-            key={dayKey}
+            key={isToday(dayKey) ? `${dayKey}-${todayHighlight}` : dayKey}
             dayKey={dayKey}
             weekdayLabel={WEEKDAY_LABELS[index]}
             events={eventsByDay.get(dayKey) ?? []}
             colorMap={colorMap}
             onEventClick={onEventClick}
+            todayHighlight={todayHighlight}
           />
         ))}
       </div>
@@ -81,12 +84,13 @@ export function WeekCalendar({
       <div className="space-y-2 md:hidden">
         {dayKeys.map((dayKey, index) => (
           <DayRow
-            key={dayKey}
+            key={isToday(dayKey) ? `${dayKey}-${todayHighlight}` : dayKey}
             dayKey={dayKey}
             weekdayLabel={WEEKDAY_LABELS[index]}
             events={eventsByDay.get(dayKey) ?? []}
             colorMap={colorMap}
             onEventClick={onEventClick}
+            todayHighlight={todayHighlight}
           />
         ))}
       </div>
@@ -100,7 +104,13 @@ type DayProps = {
   events: CalendarEvent[];
   colorMap: Map<string, string>;
   onEventClick: (event: CalendarEvent) => void;
+  todayHighlight: number;
 };
+
+function dayShellClass(today: boolean, todayHighlight: number): string {
+  const flash = today && todayHighlight > 0 ? " agenda-today-flash" : "";
+  return today ? `bg-muted-bg ring-1 ring-accent/20${flash}` : "bg-background";
+}
 
 function DayColumn({
   dayKey,
@@ -108,14 +118,14 @@ function DayColumn({
   events,
   colorMap,
   onEventClick,
+  todayHighlight,
 }: DayProps) {
   const today = isToday(dayKey);
 
   return (
     <div
-      className={`min-h-32 rounded-lg border border-border p-2 ${
-        today ? "bg-muted-bg ring-1 ring-accent/20" : "bg-background"
-      }`}
+      data-agenda-day={dayKey}
+      className={`min-h-32 scroll-mt-36 rounded-lg border border-border p-2 ${dayShellClass(today, todayHighlight)}`}
     >
       <DayHeader dayKey={dayKey} weekdayLabel={weekdayLabel} today={today} />
       <div className="mt-2 space-y-1.5">
@@ -142,14 +152,14 @@ function DayRow({
   events,
   colorMap,
   onEventClick,
+  todayHighlight,
 }: DayProps) {
   const today = isToday(dayKey);
 
   return (
     <div
-      className={`rounded-lg border border-border px-3 py-2 ${
-        today ? "bg-muted-bg ring-1 ring-accent/20" : "bg-background"
-      }`}
+      data-agenda-day={dayKey}
+      className={`scroll-mt-36 rounded-lg border border-border px-3 py-2 ${dayShellClass(today, todayHighlight)}`}
     >
       <DayHeader
         dayKey={dayKey}

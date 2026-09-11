@@ -16,6 +16,7 @@ import {
   canGoToNextWeek,
   canGoToPreviousWeek,
   clampWeekStart,
+  dayKeyInParish,
   formatWeekRange,
   getEventWeekStart,
   startOfWeek,
@@ -44,6 +45,7 @@ export function AgendaView({
   const events = useMemo(() => getDisplayEvents(calendarEvents, now), [now]);
 
   const [weekStartKey, setWeekStartKey] = useState(initialWeekStartKey);
+  const [todayHighlight, setTodayHighlight] = useState(0);
 
   const colorMap = useMemo(
     () => buildCalendarColorMap(sources.map((s) => s.label)),
@@ -142,7 +144,30 @@ export function AgendaView({
 
   const goToToday = () => {
     setWeek(startOfWeek(now));
+    setTodayHighlight((n) => n + 1);
   };
+
+  useEffect(() => {
+    if (todayHighlight === 0) return;
+
+    const todayKey = dayKeyInParish(now);
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const nodes = document.querySelectorAll<HTMLElement>(
+      `[data-agenda-day="${todayKey}"]`,
+    );
+    const target = Array.from(nodes).find(
+      (el) => el.getBoundingClientRect().height > 0,
+    );
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: prefersReduced ? "auto" : "smooth",
+      block: "center",
+      inline: "nearest",
+    });
+  }, [now, todayHighlight, weekStartKey]);
 
   const canGoPrev = canGoToPreviousWeek(weekStartKey, windowStart);
   const canGoNext = canGoToNextWeek(weekStartKey, windowEnd);
@@ -208,6 +233,7 @@ export function AgendaView({
           weekStartKey={weekStartKey}
           colorMap={colorMap}
           onEventClick={openEvent}
+          todayHighlight={todayHighlight}
         />
       )}
 
