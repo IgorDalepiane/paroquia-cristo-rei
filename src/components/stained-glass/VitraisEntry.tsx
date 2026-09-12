@@ -2,11 +2,20 @@ import Link from "next/link";
 import { StainedGlassPhoto } from "@/components/stained-glass/StainedGlassPhoto";
 import { stainedGlassEntryWindows } from "@/content/stained-glass";
 
-export function VitraisEntry() {
+type VitraisEntryProps = {
+  href?: string;
+  track?: string;
+};
+
+export function VitraisEntry({
+  href = "/galeria/vitrais",
+  track = "galeria.vitrais",
+}: VitraisEntryProps) {
   return (
     <Link
-      href="/paroquia/vitrais"
+      href={href}
       className="relative block overflow-hidden rounded-3xl bg-foreground"
+      data-track={track}
     >
       <div className="grid h-56 grid-cols-3 gap-1 md:h-80 md:grid-cols-5">
         {stainedGlassEntryWindows.map((piece, index) => (
