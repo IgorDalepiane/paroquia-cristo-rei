@@ -6,6 +6,7 @@ type ButtonLinkProps = {
   children: ReactNode;
   variant?: "primary" | "outline" | "ghost" | "secondary" | "text";
   className?: string;
+  track?: string;
 };
 
 const baseClass =
@@ -28,10 +29,12 @@ export function ButtonLink({
   children,
   variant = "primary",
   className = "",
+  track,
 }: ButtonLinkProps) {
   return (
     <Link
       href={href}
+      data-track={track}
       className={`${baseClass} ${variants[variant]} ${className}`}
     >
       {children}

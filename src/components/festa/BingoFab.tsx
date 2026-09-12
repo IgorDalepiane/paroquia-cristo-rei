@@ -23,6 +23,7 @@ export function BingoFab() {
   return (
     <Link
       href={BINGO_PATH}
+      data-track="festa.bingo.fab"
       className="fixed right-6 bottom-6 z-40 flex flex-col items-start rounded-full bg-accent px-5 py-3 text-white shadow-lg ring-1 ring-black/10 print:hidden hover:bg-accent-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       aria-label={`${festaBingo.title} da ${festaBingo.editionLabel} — ${festaBingo.dateLabel}, ${festaBingo.timeLabel}`}
     >
