@@ -32,7 +32,7 @@ export default function FestaPage() {
             width={festaBingo.logo.width}
             height={festaBingo.logo.height}
             priority
-            className="h-auto w-52 justify-self-start md:w-full"
+            className="mx-auto h-auto w-52 justify-self-center md:mx-0 md:w-full md:justify-self-start"
           />
           <div className="space-y-10">
             <p className="text-lg leading-relaxed text-muted">
