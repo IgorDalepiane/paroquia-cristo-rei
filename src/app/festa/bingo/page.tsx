@@ -31,23 +31,12 @@ export default function FestaBingoPage() {
 
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-4xl space-y-16">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs font-medium tracking-[0.22em] text-muted uppercase">
-              {festaBingo.editionLabel}
-            </p>
-            <p className="mt-3 font-display text-3xl tracking-wide text-accent md:text-4xl">
-              {festaBingo.legalSubtitle}
-            </p>
-            <p className="mt-4 font-display text-xl text-foreground italic">
-              {festaBingo.invite}
-            </p>
-          </div>
-
           <div className="mx-auto max-w-3xl">
             <BingoTicketLightbox />
             <div className="mt-6 flex justify-center">
               <a
                 href="#comprar"
+                data-track="festa.bingo.adquirir"
                 className="inline-flex rounded-full bg-accent px-8 py-2.5 text-sm font-medium tracking-wide text-white uppercase transition-colors hover:bg-accent-light"
               >
                 Adquirir
