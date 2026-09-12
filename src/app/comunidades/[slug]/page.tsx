@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MassWeeklyList } from "@/components/schedule/MassWeeklyList";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { communities, getCommunityBySlug } from "@/content/communities";
+import {
+  communities,
+  getCommunityBySlug,
+  LEGACY_COMMUNITY_SLUGS,
+} from "@/content/communities";
 import { calendarEvents } from "@/content/events.generated";
 import {
   getCommunityWeeklySchedule,
@@ -18,17 +22,21 @@ type PageProps = {
 };
 
 export async function generateStaticParams() {
-  return communities.map((c) => ({ slug: c.slug }));
+  return [
+    ...communities.map((c) => ({ slug: c.slug })),
+    ...Object.keys(LEGACY_COMMUNITY_SLUGS).map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const community = getCommunityBySlug(slug);
+  const current = LEGACY_COMMUNITY_SLUGS[slug] ?? slug;
+  const community = getCommunityBySlug(current);
   if (!community) return { title: "Comunidade não encontrada" };
 
-  const path = `/comunidades/${slug}`;
+  const path = `/comunidades/${current}`;
   return {
     ...pageMetadata({
       title: community.name,
@@ -40,6 +48,9 @@ export async function generateMetadata({
 
 export default async function ComunidadePage({ params }: PageProps) {
   const { slug } = await params;
+  const legacyTarget = LEGACY_COMMUNITY_SLUGS[slug];
+  if (legacyTarget) permanentRedirect(`/comunidades/${legacyTarget}`);
+
   const community = getCommunityBySlug(slug);
   if (!community) notFound();
 
