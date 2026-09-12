@@ -36,7 +36,7 @@ for (const alias of COMMUNITY_MASS_ALIASES) {
   weeklyTitlesBySlug.set(alias.slug, titles);
 }
 
-export const MATRIZ_COMMUNITY_SLUG = "comunidade-01";
+export const MATRIZ_COMMUNITY_SLUG = "igreja-matriz";
 export const MATRIZ_MASS_TITLE = "Missa Com. Matriz Cristo Rei";
 
 export type MassScheduleRange = "next-8-days" | "rest-of-month";

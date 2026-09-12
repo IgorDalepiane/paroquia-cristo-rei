@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { COMMUNITY_MASS_ALIASES } from "@/content/community-mass-aliases";
-import { communities } from "@/content/communities";
+import { communities, LEGACY_COMMUNITY_SLUGS } from "@/content/communities";
 import type { CalendarEvent } from "@/content/events";
 import { calendarEvents } from "@/content/events.generated";
 import {
@@ -28,22 +28,27 @@ function event(title: string, start: string, allDay = false): CalendarEvent {
 }
 
 function main(): void {
+  assert.equal(new Set(communities.map((c) => c.slug)).size, 24);
+  assert.equal(LEGACY_COMMUNITY_SLUGS["comunidade-01"], "igreja-matriz");
+  assert.equal(LEGACY_COMMUNITY_SLUGS["comunidade-07"], "santa-rita");
+  assert.equal(LEGACY_COMMUNITY_SLUGS["comunidade-18"], "almas-do-purgatorio");
+
   assert.equal(
     matchCommunityMassAlias("Missa Com. Santa Rita")?.slug,
-    "comunidade-07",
+    "santa-rita",
   );
   assert.equal(
     getCommunityHrefForMassTitle("Missa Com. Santa Rita"),
-    "/comunidades/comunidade-07",
+    "/comunidades/santa-rita",
   );
 
   assert.equal(
     matchCommunityMassAlias("Missa Novena Com. São Bento")?.slug,
-    "comunidade-17",
+    "sao-bento",
   );
   assert.equal(
     matchCommunityMassAlias("Missa Festiva Com. Santo Expedito")?.slug,
-    "comunidade-10",
+    "santo-expedito",
   );
   assert.equal(
     matchCommunityMassAlias("Missa Com. Matriz Cristo Rei com CRISMA")?.slug,
@@ -58,20 +63,20 @@ function main(): void {
 
   assert.equal(
     matchCommunityMassAlias("Missa Com. São José (Garibaldina)")?.slug,
-    "comunidade-13",
+    "sao-jose-gruta-da-garibaldina",
   );
   assert.equal(
     matchCommunityMassAlias("Missa Com. São José (Sertorina)")?.slug,
-    "comunidade-19",
+    "sao-jose-sertorina",
   );
 
   assert.equal(
     matchCommunityMassAlias("Missa Com. N. Sra. de Fátima")?.slug,
-    "comunidade-06",
+    "nossa-senhora-de-fatima",
   );
   assert.equal(
     matchCommunityMassAlias("Missa Com. N. Sra. Fátima")?.slug,
-    "comunidade-06",
+    "nossa-senhora-de-fatima",
   );
 
   assert.equal(
@@ -93,18 +98,18 @@ function main(): void {
 
   const padroeiroHrefs: Record<string, string | undefined> = {
     "Visita do Padroeiro - Comunidade das Almas do Purgatório":
-      "/comunidades/comunidade-18",
+      "/comunidades/almas-do-purgatorio",
     "Visita do Padroeiro - Comunidade Santa Helena":
-      "/comunidades/comunidade-20",
-    "Visita do Padroeiro - Comunidade São Carlos": "/comunidades/comunidade-21",
+      "/comunidades/santa-helena",
+    "Visita do Padroeiro - Comunidade São Carlos": "/comunidades/sao-carlos",
     "Missa e Visita do Padroeiro - Comunidade São José – Sertorina":
-      "/comunidades/comunidade-19",
+      "/comunidades/sao-jose-sertorina",
     "Visita do Padroeiro - Nossa Senhora da Glória – 40 da Leopoldina":
-      "/comunidades/comunidade-22",
+      "/comunidades/nossa-senhora-da-gloria-40-da-leopoldina",
     "Visita do Padroeiro - Comunidade Sagrado Coração de Jesus – Municipal":
-      "/comunidades/comunidade-23",
+      "/comunidades/sagrado-coracao-de-jesus-municipal",
     "Visita do Padroeiro - Comunidade Nossa Senhora de Lourdes – Ceará":
-      "/comunidades/comunidade-24",
+      "/comunidades/nossa-senhora-de-lourdes-ceara",
     "Visita do Padroeiro - UPA – Hospital Galassi": undefined,
     "Visita do Padroeiro - Visita à Paróquia Santo Antônio": undefined,
     "Visita do Padroeiro - Cavalgada de Cristo Rei ABCTG": undefined,
@@ -135,7 +140,7 @@ function main(): void {
   );
   assert.equal(
     getCommunityHrefForEventTitle("Missa Com. Santa Rita"),
-    "/comunidades/comunidade-07",
+    "/comunidades/santa-rita",
   );
 
   const weekly = getCommunityWeeklySchedule(
@@ -151,7 +156,7 @@ function main(): void {
       event(MATRIZ_MASS_TITLE, "2026-09-06T21:00:00.000Z"),
       event(MATRIZ_MASS_TITLE, "2026-09-06T11:00:00.000Z"),
     ],
-    "comunidade-07",
+    "santa-rita",
     FIXED_NOW,
   );
   assert.deepEqual(weekly, [

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ClickTracker } from "@/components/analytics/ClickTracker";
+import { CloudflareWebAnalytics } from "@/components/analytics/CloudflareWebAnalytics";
 import { BingoFab } from "@/components/festa/BingoFab";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -24,6 +26,8 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <BingoFab />
+        <ClickTracker />
+        <CloudflareWebAnalytics />
       </body>
     </html>
   );

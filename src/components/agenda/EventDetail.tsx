@@ -56,6 +56,7 @@ export function EventDetailContent({
         {communityHref ? (
           <ButtonLink
             href={communityHref}
+            track="agenda.ver-comunidade"
             variant="outline"
             className="w-full text-xs sm:w-auto"
           >

@@ -39,6 +39,16 @@ const COMMUNITY_NAMES = [
   "Comunidade Nossa Senhora de Lourdes - Ceará",
 ] as const;
 
+export function communitySlugFromName(name: string): string {
+  return name
+    .replace(/^Comunidade(?:\s+das)?\s+/i, "")
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function parseCommunityName(name: string): {
   patron?: string;
   neighborhood: string;
@@ -60,11 +70,10 @@ function parseCommunityName(name: string): {
 }
 
 function buildCommunity(index: number, name: string): Community {
-  const num = String(index).padStart(2, "0");
   const { patron, neighborhood } = parseCommunityName(name);
 
   return {
-    slug: `comunidade-${num}`,
+    slug: communitySlugFromName(name),
     name,
     neighborhood,
     patron,
@@ -78,6 +87,15 @@ function buildCommunity(index: number, name: string): Community {
 export const communities: Community[] = COMMUNITY_NAMES.map((name, index) =>
   buildCommunity(index + 1, name),
 );
+
+/** Old `/comunidades/comunidade-NN` URLs → current name slugs. */
+export const LEGACY_COMMUNITY_SLUGS: Record<string, string> =
+  Object.fromEntries(
+    COMMUNITY_NAMES.map((name, index) => [
+      `comunidade-${String(index + 1).padStart(2, "0")}`,
+      communitySlugFromName(name),
+    ]),
+  );
 
 export function getCommunityBySlug(slug: string): Community | undefined {
   return communities.find((c) => c.slug === slug);

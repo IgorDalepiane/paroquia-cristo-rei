@@ -11,9 +11,14 @@ const staticRoutes: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
   {
-    url: `${siteConfig.url}/paroquia/vitrais`,
+    url: `${siteConfig.url}/galeria`,
     changeFrequency: "monthly",
     priority: 0.8,
+  },
+  {
+    url: `${siteConfig.url}/galeria/vitrais`,
+    changeFrequency: "monthly",
+    priority: 0.7,
   },
   {
     url: `${siteConfig.url}/comunidades`,
@@ -44,11 +49,6 @@ const staticRoutes: MetadataRoute.Sitemap = [
     url: `${siteConfig.url}/noticias`,
     changeFrequency: "weekly",
     priority: 0.8,
-  },
-  {
-    url: `${siteConfig.url}/galeria`,
-    changeFrequency: "monthly",
-    priority: 0.7,
   },
   {
     url: `${siteConfig.url}/contato`,

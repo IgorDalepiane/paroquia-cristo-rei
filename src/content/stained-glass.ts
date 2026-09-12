@@ -615,3 +615,23 @@ const entrySlugs = new Set([
 export const stainedGlassEntryWindows = stainedGlassWindows.filter((piece) =>
   entrySlugs.has(piece.slug),
 );
+
+const galleryPreviewSlugs = [
+  "nascimento",
+  "pesca-milagrosa",
+  "batismo-de-jesus",
+  "entrada-em-jerusalem",
+  "paixao",
+  "ressurreicao",
+] as const;
+
+export const stainedGlassGalleryPreview = galleryPreviewSlugs.map((slug) => {
+  const face = stainedGlassFaces.find((item) => item.slug === slug);
+  const piece = stainedGlassWindows.find((window) => window.slug === slug);
+  const src = face?.src ?? piece?.shots[0]?.src;
+  const title = face?.title ?? piece?.title;
+  if (!src || !title) {
+    throw new Error(`missing stained-glass preview for ${slug}`);
+  }
+  return { slug, title, src };
+});

@@ -15,9 +15,10 @@ export const siteConfig = {
     email: "cristorei@diocesedecaxias.org.br",
     whatsapp: "555434521093",
     /** Igreja matriz */
-    address: "Avenida Dr. Casagrande",
+    address: "Av. Dr. Antônio Casagrande, 27-89",
     neighborhood: "Cidade Alta",
     postalCode: "95700-342",
+    churchMapsUrl: "https://maps.app.goo.gl/fmx52WEZs6g73MBo9",
     geo: {
       latitude: -29.1723674,
       longitude: -51.5202798,
@@ -29,7 +30,7 @@ export const siteConfig = {
   },
   social: {
     instagram: "https://www.instagram.com/paroquiacristoreibg/",
-    facebook: "",
+    facebook: "https://www.facebook.com/cristoreibentogoncalves",
     youtube: "",
   },
   secretaryHours: {
@@ -64,8 +65,11 @@ export function formatContactLines() {
 export function formatChurchLines() {
   const { contact } = siteConfig;
   return {
-    street: `${contact.address} — ${contact.neighborhood}`,
-    locality: `${contact.city} — ${contact.state} · CEP ${contact.postalCode}`,
+    title: "Igreja matriz",
+    street: contact.address,
+    neighborhood: contact.neighborhood,
+    locality: `${contact.city} — ${contact.state}`,
+    postal: `CEP ${contact.postalCode}`,
   };
 }
 
@@ -82,6 +86,5 @@ export function googleMapsUrl() {
 }
 
 export function googleMapsChurchUrl() {
-  const { geo } = siteConfig.contact;
-  return `https://www.google.com/maps?q=${geo.latitude},${geo.longitude}`;
+  return siteConfig.contact.churchMapsUrl;
 }

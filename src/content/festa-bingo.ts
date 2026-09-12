@@ -25,9 +25,9 @@ export const festaBingo = {
   instagramHandle: "@paroquiacristoreibg",
   campaignLastDay: "2026-10-02",
   logo: {
-    src: "/images/festa/logo-80-anos.jpg",
-    width: 596,
-    height: 334,
+    src: "/images/festa/logo-80-anos.png",
+    width: 359,
+    height: 317,
     alt: "Selo da 80ª Festa de Cristo Rei — Bento Gonçalves, RS",
   },
   ticket: {

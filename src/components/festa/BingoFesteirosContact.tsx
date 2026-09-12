@@ -38,6 +38,7 @@ export function BingoFesteirosContact() {
           onClick={copyPhone}
           className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors hover:border-accent/30 hover:text-accent"
           aria-label="Copiar número"
+          data-track="festa.bingo.copiar-telefone"
         >
           <CopyIcon />
         </button>
@@ -47,6 +48,7 @@ export function BingoFesteirosContact() {
         href={bingoWhatsappUrl()}
         target="_blank"
         rel="noopener noreferrer"
+        data-track="festa.bingo.whatsapp"
         className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#1ebe5d]"
       >
         <WhatsAppIcon />

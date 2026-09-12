@@ -24,19 +24,20 @@ Living document for **approved** design and content decisions.
 
 ### Routes
 
-| Rota                  | Conteúdo                                                            |
-| --------------------- | ------------------------------------------------------------------- |
-| `/`                   | Hero imersivo + horários rápidos + notícias + comunidades + galeria |
-| `/horarios`           | Missas, confissões, secretaria, abertura                            |
-| `/comunidades`        | Hub das 24 comunidades (grid + busca)                               |
-| `/comunidades/[slug]` | História, fotos, contato local                                      |
-| `/noticias`           | Grid de notícias                                                    |
-| `/noticias/[slug]`    | Artigo                                                              |
-| `/paroquia`           | História, clero, pastorais resumidas                                |
-| `/contato`            | Endereço, formulário, redes, secretaria                             |
-| `/galeria`            | Fotos da paróquia                                                   |
-| `/festa`              | Hub da 80ª Festa de Cristo Rei (bingo em destaque; sem rifa ainda)  |
-| `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso, compra, brindes       |
+| Rota                  | Conteúdo                                                                    |
+| --------------------- | --------------------------------------------------------------------------- |
+| `/`                   | Hero imersivo + horários rápidos + notícias + comunidades + galeria         |
+| `/horarios`           | Missas, confissões, secretaria, abertura                                    |
+| `/comunidades`        | Hub das 24 comunidades (grid + busca)                                       |
+| `/comunidades/[slug]` | História, fotos, contato local — slug pelo nome (`/comunidades/santa-rita`) |
+| `/galeria`            | Hub da galeria: entrada para vitrais + fotos da paróquia (placeholders)     |
+| `/galeria/vitrais`    | Passeio pelos vitrais da matriz                                             |
+| `/noticias`           | Grid de notícias                                                            |
+| `/noticias/[slug]`    | Artigo                                                                      |
+| `/paroquia`           | História, clero, pastorais resumidas                                        |
+| `/contato`            | Secretaria, igreja matriz (Maps), horário                                   |
+| `/festa`              | Hub da 80ª Festa de Cristo Rei (bingo em destaque; sem rifa ainda)          |
+| `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso, compra, brindes               |
 
 ### Navigation
 
@@ -91,19 +92,19 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 
 ## Assets needed from parish
 
-| Asset                          | Status      | Notes                                                                       |
-| ------------------------------ | ----------- | --------------------------------------------------------------------------- |
-| Logo                           | Placeholder | `public/logo.svg` — replace with official PNG/SVG                           |
-| Color palette                  | Provisional | Update `globals.css` tokens when received                                   |
-| Church photos (hero/gallery)   | Placeholder | Gradient/placeholder blocks until photos provided                           |
-| Community list + slugs         | Placeholder | 24 entries in `src/content/communities.ts`                                  |
-| Community stories & photos     | Placeholder | Per-community pages ready for content swap                                  |
-| Mass schedule data             | Placeholder | `src/content/schedules.ts`                                                  |
-| News samples                   | Placeholder | 6 sample articles in `src/content/news.ts`                                  |
-| Hero tagline                   | Placeholder | `src/content/site.ts` — `heroTagline`                                       |
-| Contact address / map / social | Partial     | Instagram `@paroquiacristoreibg` in `site.ts`; Facebook/YouTube still empty |
-| 80ª Festa seal                 | In use      | `public/images/festa/logo-80-anos.jpg` on `/festa`                          |
-| Bingo ticket art               | In use      | `public/images/festa/ingresso-bingo.jpg` on `/festa/bingo`                  |
+| Asset                          | Status      | Notes                                                                   |
+| ------------------------------ | ----------- | ----------------------------------------------------------------------- |
+| Logo                           | Placeholder | `public/logo.svg` — replace with official PNG/SVG                       |
+| Color palette                  | Provisional | Update `globals.css` tokens when received                               |
+| Church photos (hero/gallery)   | Partial     | Hero uses church photo; home mosaic + `/galeria` entry point to vitrais |
+| Community list + slugs         | In use      | Name slugs in `communities.ts`; old `comunidade-NN` URLs redirect       |
+| Community stories & photos     | Placeholder | Per-community pages ready for content swap                              |
+| Mass schedule data             | Placeholder | `src/content/schedules.ts`                                              |
+| News samples                   | Placeholder | 6 sample articles in `src/content/news.ts`                              |
+| Hero tagline                   | Placeholder | `src/content/site.ts` — `heroTagline`                                   |
+| Contact address / map / social | In use      | Instagram + Facebook in `site.ts`; YouTube still empty                  |
+| 80ª Festa seal                 | In use      | Transparent PNG `logo-80-anos.png` on `/festa`                          |
+| Bingo ticket art               | In use      | `public/images/festa/ingresso-bingo.jpg` on `/festa/bingo`              |
 
 ## Reference material
 
@@ -113,3 +114,4 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 
 - **2026-06-28** — V1 scaffold: design tokens, layout (header/footer), all V1 routes, static content placeholders, low-motion scroll reveals.
 - **2026-09-11** — 80ª Festa hub + bingo page (ação entre amigos, no e-commerce, prize names without per-item R$); site-wide Bingo FAB; parish Instagram in footer/contato.
+- **2026-09-11** — `/galeria` hub with vitrais entry; walk at `/galeria/vitrais`; home mosaic uses vitrais; community URLs use name slugs; Cloudflare Web Analytics (pageviews) + Zaraz click names (`pagina.acao`).
