@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { COMMUNITY_MASS_ALIASES } from "@/content/community-mass-aliases";
+import { getCommunityLocation } from "@/content/community-locations";
 import { communities, LEGACY_COMMUNITY_SLUGS } from "@/content/communities";
 import type { CalendarEvent } from "@/content/events";
 import { calendarEvents } from "@/content/events.generated";
@@ -214,7 +215,21 @@ function main(): void {
       weeklySlugs.has(community.slug),
       `missing weekly alias for ${community.slug}`,
     );
+    assert.ok(
+      getCommunityLocation(community.slug),
+      `missing address for ${community.slug}`,
+    );
   }
+
+  assert.equal(
+    getCommunityLocation("santa-rita")?.areaLine,
+    "Bairro Santa Rita",
+  );
+  assert.equal(
+    getCommunityLocation("sao-pedro")?.areaLine,
+    "Vale dos Vinhedos",
+  );
+  assert.equal(getCommunityLocation("igreja-matriz")?.areaLine, "Cidade Alta");
 
   const unmatchedCom = [
     ...new Set(

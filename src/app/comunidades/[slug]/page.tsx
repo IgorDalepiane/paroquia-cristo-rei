@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
+import { CommunityAddress } from "@/components/communities/CommunityAddress";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MassWeeklyList } from "@/components/schedule/MassWeeklyList";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
@@ -54,6 +55,14 @@ export default async function ComunidadePage({ params }: PageProps) {
   const community = getCommunityBySlug(slug);
   if (!community) notFound();
 
+  const patronEyebrow =
+    community.patron &&
+    community.patron.localeCompare(community.neighborhood, "pt-BR", {
+      sensitivity: "accent",
+    }) !== 0
+      ? ` · ${community.patron}`
+      : "";
+
   const massSchedules =
     slug === MATRIZ_COMMUNITY_SLUG
       ? getMatrizWeeklySchedule(calendarEvents)
@@ -78,11 +87,15 @@ export default async function ComunidadePage({ params }: PageProps) {
             />
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
               {community.neighborhood}
-              {community.patron ? ` · ${community.patron}` : ""}
+              {patronEyebrow}
             </p>
             <p className="mt-6 text-lg leading-relaxed text-muted">
               {community.summary}
             </p>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <CommunityAddress slug={slug} />
           </ScrollReveal>
 
           <ScrollReveal>
