@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { CommunityAddress } from "@/components/communities/CommunityAddress";
+import { CommunityHeroPhoto } from "@/components/communities/CommunityHeroPhoto";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MassWeeklyList } from "@/components/schedule/MassWeeklyList";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
@@ -81,10 +82,7 @@ export default async function ComunidadePage({ params }: PageProps) {
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-3xl">
           <ScrollReveal>
-            <div
-              className="mb-8 aspect-[21/9] rounded-2xl placeholder-photo"
-              aria-hidden
-            />
+            <CommunityHeroPhoto slug={slug} variant="page" />
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-accent">
               {community.neighborhood}
               {patronEyebrow}

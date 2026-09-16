@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { COMMUNITY_MASS_ALIASES } from "@/content/community-mass-aliases";
 import { getCommunityLocation } from "@/content/community-locations";
+import { getCommunityHeroPhoto } from "@/content/community-photos";
 import { communities, LEGACY_COMMUNITY_SLUGS } from "@/content/communities";
 import type { CalendarEvent } from "@/content/events";
 import { calendarEvents } from "@/content/events.generated";
@@ -230,6 +231,27 @@ function main(): void {
     "Vale dos Vinhedos",
   );
   assert.equal(getCommunityLocation("igreja-matriz")?.areaLine, "Cidade Alta");
+
+  assert.equal(
+    getCommunityHeroPhoto("sao-bento")?.src,
+    "/images/comunidades/sao-bento.webp",
+  );
+  assert.equal(
+    getCommunityHeroPhoto("igreja-matriz")?.src,
+    "/images/igreja-hero.webp",
+  );
+  assert.equal(
+    getCommunityHeroPhoto("almas-do-purgatorio")?.orientation,
+    "portrait",
+  );
+  assert.equal(getCommunityHeroPhoto("sao-bento")?.orientation, "landscape");
+  assert.equal(getCommunityHeroPhoto("sao-carlos"), undefined);
+  assert.equal(getCommunityHeroPhoto("nossa-senhora-de-fatima"), undefined);
+  assert.equal(getCommunityHeroPhoto("santa-helena"), undefined);
+  assert.equal(
+    getCommunityHeroPhoto("sagrado-coracao-de-jesus-municipal"),
+    undefined,
+  );
 
   const unmatchedCom = [
     ...new Set(

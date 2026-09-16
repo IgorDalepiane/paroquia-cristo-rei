@@ -3,7 +3,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { VitraisEntry } from "@/components/stained-glass/VitraisEntry";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { galleryCategoryLabels, galleryItems } from "@/content/gallery";
+import { PhotoPlaceholder } from "@/components/ui/PhotoPlaceholder";
+import { galleryItems } from "@/content/gallery";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -39,16 +40,9 @@ export default function GaleriaPage() {
                 return (
                   <ScrollReveal key={item.id} className={span}>
                     <figure
-                      className={`group relative h-full min-h-[160px] overflow-hidden rounded-xl placeholder-photo ${span}`}
+                      className={`h-full min-h-[160px] overflow-hidden rounded-xl placeholder-photo ${span}`}
                     >
-                      <figcaption className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-foreground/85 to-transparent p-4">
-                        <span className="text-xs uppercase tracking-wider text-accent-gold">
-                          {galleryCategoryLabels[item.category]}
-                        </span>
-                        <span className="text-sm font-medium text-white">
-                          {item.title}
-                        </span>
-                      </figcaption>
+                      <PhotoPlaceholder compact={index !== 0} />
                     </figure>
                   </ScrollReveal>
                 );
