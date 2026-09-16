@@ -63,7 +63,7 @@ Preview URLs for non-production branches must be configured in [`wrangler.jsonc`
 
 Expected preview URL format: `<branch>-paroquia-cristo-rei.<account>.workers.dev`. Branch aliases are created per upload from `WORKERS_CI_BRANCH`; they are not stored in wrangler config. Production deploy (`cf:deploy:prod`) is unaffected.
 
-**Release:** after merging to `main` and verifying (preview URL or `pnpm preview` locally), say `./patch`, `./minor`, or `./major`. That tags `origin/main` as the next `vX.Y.Z` and pushes it. The `promote-production` workflow then force-pushes `production` to the tag. See [`.cursor/skills/release-tag/SKILL.md`](.cursor/skills/release-tag/SKILL.md).
+**Release:** after merging to `main` and verifying (preview URL or `pnpm preview` locally), run `/patch`, `/minor`, or `/major`. That tags `origin/main` as the next `vX.Y.Z` and pushes it. The `promote-production` workflow then force-pushes `production` to the tag. See [`.cursor/skills/release-tag/SKILL.md`](.cursor/skills/release-tag/SKILL.md).
 
 `pnpm build` is for local quick checks only — not used in CI or Cloudflare pipelines (OpenNext invokes it internally).
 
