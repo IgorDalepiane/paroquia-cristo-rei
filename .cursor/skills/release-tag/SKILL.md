@@ -16,17 +16,18 @@ Pushing `v*` runs `.github/workflows/promote-production.yml`, which force-pushes
 
 ## Bump
 
-| Command | From `vX.Y.Z` |
-|---------|----------------|
-| `/patch` | `vX.Y.(Z+1)` |
-| `/minor` | `vX.(Y+1).0` |
-| `/major` | `v(X+1).0.0` |
+| Command  | From `vX.Y.Z` |
+| -------- | ------------- |
+| `/patch` | `vX.Y.(Z+1)`  |
+| `/minor` | `vX.(Y+1).0`  |
+| `/major` | `v(X+1).0.0`  |
 
 Ignore tags that are not exactly `v` + three integers (skip `v.0.2.3`, `0.2.4`).
 
 ## Steps
 
 1. `git fetch origin main --tags`
+
 2. Latest current tag:
 
 ```bash
@@ -34,7 +35,9 @@ git tag -l 'v*.*.*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | he
 ```
 
 If none, treat current as `v0.0.0`.
+
 3. Compute **next**. Abort if the tag or the GitHub release already exists (`git rev-parse -q --verify "refs/tags/$NEXT"` or `gh release view "$NEXT"`).
+
 4. Tag **origin/main**, not the current branch, then publish the GitHub release (same as Draft a new release):
 
 ```bash
