@@ -1,3 +1,5 @@
+import { getCommunityLocation } from "@/content/community-locations";
+
 export type Community = {
   slug: string;
   name: string;
@@ -70,12 +72,14 @@ function parseCommunityName(name: string): {
 }
 
 function buildCommunity(index: number, name: string): Community {
+  const slug = communitySlugFromName(name);
   const { patron, neighborhood } = parseCommunityName(name);
+  const listedNeighborhood = getCommunityLocation(slug)?.neighborhood;
 
   return {
-    slug: communitySlugFromName(name),
+    slug,
     name,
-    neighborhood,
+    neighborhood: listedNeighborhood ?? neighborhood,
     patron,
     summary: `${name} — informações em atualização.`,
     history: PLACEHOLDER_HISTORY,

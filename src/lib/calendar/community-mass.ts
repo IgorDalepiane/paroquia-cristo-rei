@@ -39,6 +39,11 @@ for (const alias of COMMUNITY_MASS_ALIASES) {
 export const MATRIZ_COMMUNITY_SLUG = "igreja-matriz";
 export const MATRIZ_MASS_TITLE = "Missa Com. Matriz Cristo Rei";
 
+/** 80ª Festa novena at the matriz — not "Missa Novena Com. São Bento" etc. */
+export function isMatrizCristoReiNovena(title: string): boolean {
+  return /novena\s+cristo\s+rei/i.test(title) && /com\.\s*matriz/i.test(title);
+}
+
 export type MassScheduleRange = "next-8-days" | "rest-of-month";
 
 export function matchCommunityMassAlias(title: string) {
@@ -190,14 +195,17 @@ export function getUpcomingMassSchedule(
   const weeklyTitles = weeklyTitlesBySlug.get(slug);
   if (!weeklyTitles || weeklyTitles.size === 0) return [];
 
+  const includeMatrizNovena = slug === MATRIZ_COMMUNITY_SLUG;
   const windowEnd = endOfRange(range, now);
   const byDay = new Map<
     string,
-    { label: string; times: Map<string, number> }
+    { label: string; times: Map<string, { minutes: number; tag?: string }> }
   >();
 
   for (const event of events) {
-    if (event.allDay || !weeklyTitles.has(event.title)) continue;
+    if (event.allDay) continue;
+    const novena = includeMatrizNovena && isMatrizCristoReiNovena(event.title);
+    if (!weeklyTitles.has(event.title) && !novena) continue;
 
     const start = new Date(event.start);
     const end = event.end ? new Date(event.end) : start;
@@ -208,9 +216,13 @@ export function getUpcomingMassSchedule(
     const timeStr = formatMassTimeLocal(event.start);
     const current = byDay.get(dayKey) ?? {
       label: formatMassDayTitle(event.start),
-      times: new Map<string, number>(),
+      times: new Map<string, { minutes: number; tag?: string }>(),
     };
-    current.times.set(timeStr, timeToMinutes(timeStr));
+    const previous = current.times.get(timeStr);
+    current.times.set(timeStr, {
+      minutes: timeToMinutes(timeStr),
+      tag: novena ? "Novena" : previous?.tag,
+    });
     byDay.set(dayKey, current);
   }
 
@@ -219,8 +231,8 @@ export function getUpcomingMassSchedule(
     .map(([, entry]) => ({
       day: entry.label,
       times: [...entry.times.entries()]
-        .sort((a, b) => a[1] - b[1])
-        .map(([time]) => time),
+        .sort((a, b) => a[1].minutes - b[1].minutes)
+        .map(([time, slot]) => (slot.tag ? `${time} (${slot.tag})` : time)),
     }));
 }
 
