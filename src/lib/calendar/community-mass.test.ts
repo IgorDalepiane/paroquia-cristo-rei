@@ -8,6 +8,7 @@ import {
   getCommunityHrefForMassTitle,
   getCommunityWeeklySchedule,
   getMatrizWeeklySchedule,
+  isMatrizCristoReiNovena,
   matchCommunityMassAlias,
   MATRIZ_COMMUNITY_SLUG,
   MATRIZ_MASS_TITLE,
@@ -179,6 +180,28 @@ function main(): void {
   assert.deepEqual(matrizWeekly, [
     { day: "Domingo, 6 de Setembro", times: ["8h", "18h"] },
     { day: "Quarta-feira, 9 de Setembro", times: ["18h"] },
+  ]);
+
+  assert.equal(
+    isMatrizCristoReiNovena("Missa 2º Domingo Novena Cristo Rei - Com. Matriz"),
+    true,
+  );
+  assert.equal(isMatrizCristoReiNovena("Missa Novena Com. São Bento"), false);
+
+  const matrizWithNovena = getMatrizWeeklySchedule(
+    [
+      event(MATRIZ_MASS_TITLE, "2026-09-20T11:00:00.000Z"),
+      event(
+        "Missa 1º Domingo Novena Cristo Rei - Com. Matriz",
+        "2026-09-20T21:00:00.000Z",
+      ),
+      event("Missa Novena Com. São Bento", "2026-09-20T21:00:00.000Z"),
+      event(MATRIZ_MASS_TITLE, "2026-09-20T21:00:00.000Z"),
+    ],
+    new Date("2026-09-15T12:00:00.000-03:00"),
+  );
+  assert.deepEqual(matrizWithNovena, [
+    { day: "Domingo, 20 de Setembro", times: ["8h", "18h (Novena)"] },
   ]);
 
   const weeklySlugs = new Set(
