@@ -41,6 +41,7 @@ Do not proceed if checks fail. Never disable strict/lint to force green unless e
 ## Safety
 - No secrets in tracked files.
 - Deployment/config files are sensitive; edit only when in scope (see `cloudflare-deploy.mdc`).
+- After `gh pr create`, run `gh pr merge --auto --squash`. Never `--merge` or `--rebase`.
 
 ## Context hygiene
 - Keep context lean; reset chat between slices if quality drops.
