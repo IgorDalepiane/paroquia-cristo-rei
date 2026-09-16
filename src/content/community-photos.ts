@@ -12,10 +12,10 @@ export type CommunityHeroPhoto = {
  */
 const COMMUNITY_HERO_PHOTOS: Partial<Record<string, CommunityHeroPhoto>> = {
   "igreja-matriz": {
-    src: "/images/igreja-hero.webp",
-    alt: "Fachada da Paróquia Cristo Rei com torre e cruz",
-    orientation: "landscape",
-    objectPosition: "center 35%",
+    src: "/images/comunidades/igreja-matriz.webp",
+    alt: "Fachada da Paróquia Cristo Rei, com torre gótica e portal dourado",
+    orientation: "portrait",
+    objectPosition: "center 38%",
   },
   "sao-bento": {
     src: "/images/comunidades/sao-bento.webp",
@@ -31,9 +31,9 @@ const COMMUNITY_HERO_PHOTOS: Partial<Record<string, CommunityHeroPhoto>> = {
   },
   "sao-pedro": {
     src: "/images/comunidades/sao-pedro.webp",
-    alt: "Capela São Pedro iluminada à noite",
+    alt: "Capela São Pedro, creme, com torre, rosácea e portas de madeira",
     orientation: "portrait",
-    objectPosition: "center 40%",
+    objectPosition: "center 38%",
   },
   "sao-luis": {
     src: "/images/comunidades/sao-luis.webp",
@@ -93,13 +93,67 @@ const COMMUNITY_HERO_PHOTOS: Partial<Record<string, CommunityHeroPhoto>> = {
     src: "/images/comunidades/nossa-senhora-de-pompeia.webp",
     alt: "Capela Nossa Senhora de Pompéia, com a sigla NSOP na fachada",
     orientation: "portrait",
-    objectPosition: "center 72%",
+    objectPosition: "center 42%",
   },
   "nossa-senhora-aparecida": {
     src: "/images/comunidades/nossa-senhora-aparecida.webp",
-    alt: "Igreja Nossa Senhora Aparecida no Bairro Imigrante, à noite",
+    alt: "Igreja Nossa Senhora Aparecida no Bairro Imigrante, com cruz de vidro na fachada",
+    orientation: "landscape",
+    objectPosition: "center 42%",
+  },
+  "nossa-senhora-de-fatima": {
+    src: "/images/comunidades/nossa-senhora-de-fatima.webp",
+    alt: "Capela Nossa Senhora de Fátima, com a imagem na fachada e escadaria",
     orientation: "portrait",
-    objectPosition: "center 70%",
+    objectPosition: "center 40%",
+  },
+  "santa-rita": {
+    src: "/images/comunidades/santa-rita.webp",
+    alt: "Comunidade Santa Rita, com a placa na fachada",
+    orientation: "landscape",
+    objectPosition: "center 48%",
+  },
+  "imaculado-coracao-de-maria": {
+    src: "/images/comunidades/imaculado-coracao-de-maria.webp",
+    alt: "Comunidade Imaculado Coração de Maria no Bairro Verona",
+    orientation: "landscape",
+    objectPosition: "center 45%",
+  },
+  "santa-marta": {
+    src: "/images/comunidades/santa-marta.webp",
+    alt: "Capela Santa Marta, com torre, cruz e portas de madeira",
+    orientation: "portrait",
+    objectPosition: "center 38%",
+  },
+  "nossa-senhora-de-caravaggio": {
+    src: "/images/comunidades/nossa-senhora-de-caravaggio.webp",
+    alt: "Capela Nossa Senhora de Caravaggio, branca, com torre e porta de madeira",
+    orientation: "portrait",
+    objectPosition: "center 40%",
+  },
+  "santa-helena": {
+    src: "/images/comunidades/santa-helena.webp",
+    alt: "Capela Santa Helena, com portas de madeira e cruz na fachada",
+    orientation: "landscape",
+    objectPosition: "center 48%",
+  },
+  "sao-carlos": {
+    src: "/images/comunidades/sao-carlos.webp",
+    alt: "Capela São Carlos, com torre e medalhão na fachada",
+    orientation: "portrait",
+    objectPosition: "center 40%",
+  },
+  "sagrado-coracao-de-jesus-municipal": {
+    src: "/images/comunidades/sagrado-coracao-de-jesus-municipal.webp",
+    alt: "Capela Sagrado Coração de Jesus, branca, com torre e cruz dourada",
+    orientation: "portrait",
+    objectPosition: "center 35%",
+  },
+  "nossa-senhora-de-lourdes-ceara": {
+    src: "/images/comunidades/nossa-senhora-de-lourdes-ceara.webp",
+    alt: "Gruta de Nossa Senhora de Lourdes na Linha Ceará da Graciema",
+    orientation: "landscape",
+    objectPosition: "25% 48%",
   },
 };
 

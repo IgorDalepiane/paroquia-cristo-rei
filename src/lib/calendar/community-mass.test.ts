@@ -238,19 +238,58 @@ function main(): void {
   );
   assert.equal(
     getCommunityHeroPhoto("igreja-matriz")?.src,
-    "/images/igreja-hero.webp",
+    "/images/comunidades/igreja-matriz.webp",
+  );
+  assert.equal(getCommunityHeroPhoto("igreja-matriz")?.orientation, "portrait");
+  assert.equal(
+    getCommunityHeroPhoto("nossa-senhora-de-pompeia")?.orientation,
+    "portrait",
   );
   assert.equal(
     getCommunityHeroPhoto("almas-do-purgatorio")?.orientation,
     "portrait",
   );
   assert.equal(getCommunityHeroPhoto("sao-bento")?.orientation, "landscape");
-  assert.equal(getCommunityHeroPhoto("sao-carlos"), undefined);
-  assert.equal(getCommunityHeroPhoto("nossa-senhora-de-fatima"), undefined);
-  assert.equal(getCommunityHeroPhoto("santa-helena"), undefined);
+  assert.equal(getCommunityHeroPhoto("sao-carlos")?.orientation, "portrait");
   assert.equal(
-    getCommunityHeroPhoto("sagrado-coracao-de-jesus-municipal"),
-    undefined,
+    getCommunityHeroPhoto("nossa-senhora-de-fatima")?.orientation,
+    "portrait",
+  );
+  assert.equal(
+    getCommunityHeroPhoto("nossa-senhora-aparecida")?.orientation,
+    "landscape",
+  );
+  assert.equal(getCommunityHeroPhoto("sao-pedro")?.orientation, "portrait");
+  assert.equal(getCommunityHeroPhoto("santa-helena")?.orientation, "landscape");
+  assert.equal(
+    getCommunityHeroPhoto("sagrado-coracao-de-jesus-municipal")?.orientation,
+    "portrait",
+  );
+  assert.equal(getCommunityHeroPhoto("santa-marta")?.orientation, "portrait");
+  assert.equal(
+    getCommunityHeroPhoto("nossa-senhora-de-lourdes-ceara")?.src,
+    "/images/comunidades/nossa-senhora-de-lourdes-ceara.webp",
+  );
+
+  assert.equal(
+    getCommunityLocation("sao-carlos")?.street,
+    "Rua Elói Seccondo, 78",
+  );
+  assert.equal(
+    getCommunityLocation("sao-carlos")?.areaLine,
+    "Bairro Conceição",
+  );
+  assert.equal(
+    getCommunityLocation("sao-carlos")?.mapsUrl,
+    "https://maps.app.goo.gl/K5oCfDXwDy1hHoWf8",
+  );
+  assert.equal(
+    getCommunityLocation("nossa-senhora-de-caravaggio")?.mapsUrl,
+    "https://maps.app.goo.gl/LudFCiLRPTshczKd6",
+  );
+  assert.equal(
+    getCommunityLocation("nossa-senhora-de-lourdes-ceara")?.mapsUrl,
+    "https://maps.app.goo.gl/K3EErFerSovZvSEk9",
   );
 
   const unmatchedCom = [

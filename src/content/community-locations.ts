@@ -11,10 +11,6 @@ export type CommunityLocation = {
 
 const LOCALITY = "Bento Gonçalves — RS";
 
-function mapsPin(lat: number, lng: number): string {
-  return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
-}
-
 function mapsSearch(query: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
@@ -87,9 +83,9 @@ const LISTED_LOCATIONS: Record<string, ListedLocation> = {
     ),
   },
   "sao-carlos": {
-    street: "Rua Elói Secondo, 70",
-    neighborhood: "Jardim Glória",
-    mapsUrl: "https://maps.app.goo.gl/QR9qvAjy1Yhxk2CK7",
+    street: "Rua Elói Seccondo, 78",
+    neighborhood: "Conceição",
+    mapsUrl: "https://maps.app.goo.gl/K5oCfDXwDy1hHoWf8",
   },
   "imaculado-coracao-de-maria": {
     street: "Rua Cantineiro Giacomello, s/n",
@@ -131,9 +127,7 @@ const LISTED_LOCATIONS: Record<string, ListedLocation> = {
   "nossa-senhora-de-lourdes-ceara": {
     street: "Linha Ceará da Graciema",
     neighborhood: "Vale dos Vinhedos",
-    mapsUrl: mapsSearch(
-      "Igreja Nossa Senhora de Lourdes, Linha Ceará da Graciema, Vale dos Vinhedos, Bento Gonçalves - RS",
-    ),
+    mapsUrl: "https://maps.app.goo.gl/K3EErFerSovZvSEk9",
   },
   "nossa-senhora-de-pompeia": {
     street: "Rua Davile Sandri, 330",
@@ -150,7 +144,7 @@ const LISTED_LOCATIONS: Record<string, ListedLocation> = {
   "nossa-senhora-de-caravaggio": {
     street: "Rua José Gava, 1270",
     neighborhood: "Tamandaré",
-    mapsUrl: mapsPin(-29.1583438, -51.4893237),
+    mapsUrl: "https://maps.app.goo.gl/LudFCiLRPTshczKd6",
   },
   "sao-jose-sertorina": {
     street: "Linha Sertorina",
