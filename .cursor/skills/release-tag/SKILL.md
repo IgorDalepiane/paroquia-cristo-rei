@@ -1,24 +1,26 @@
 ---
 name: release-tag
 description: >-
-  Cut a semver git tag on origin/main and push it so production promotes.
-  Use when the user types ./patch, ./minor, ./major, /patch, /minor, /major,
-  or asks to tag a release from main.
+  Shared steps to cut a semver git tag on origin/main and push it so production
+  promotes. Used by /patch, /minor, and /major. Do not invoke directly.
+disable-model-invocation: true
 ---
 
 # Release tag from main
 
 Speak Portuguese. Execute; do not only print commands.
 
+The bump type comes from the command that invoked this skill (`/patch`, `/minor`, or `/major`).
+
 Pushing `v*` runs `.github/workflows/promote-production.yml`, which force-pushes that commit to `production`.
 
 ## Bump
 
-| Trigger            | From `vX.Y.Z` |
-| ------------------ | ------------- |
-| `./patch` `/patch` | `vX.Y.(Z+1)`  |
-| `./minor` `/minor` | `vX.(Y+1).0`  |
-| `./major` `/major` | `v(X+1).0.0`  |
+| Command | From `vX.Y.Z` |
+|---------|----------------|
+| `/patch` | `vX.Y.(Z+1)` |
+| `/minor` | `vX.(Y+1).0` |
+| `/major` | `v(X+1).0.0` |
 
 Ignore tags that are not exactly `v` + three integers (skip `v.0.2.3`, `0.2.4`).
 
@@ -31,7 +33,9 @@ Ignore tags that are not exactly `v` + three integers (skip `v.0.2.3`, `0.2.4`).
 git tag -l 'v*.*.*' --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1
 ```
 
-If none, treat current as `v0.0.0`. 3. Compute **next**. Abort if `git rev-parse -q --verify "refs/tags/$NEXT"` exists. 4. Tag **origin/main**, not the current branch:
+If none, treat current as `v0.0.0`.
+3. Compute **next**. Abort if `git rev-parse -q --verify "refs/tags/$NEXT"` exists.
+4. Tag **origin/main**, not the current branch:
 
 ```bash
 SHA=$(git rev-parse origin/main)
