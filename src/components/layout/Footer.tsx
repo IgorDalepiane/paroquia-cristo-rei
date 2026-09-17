@@ -9,9 +9,10 @@ import {
 import {
   formatChurchLines,
   formatContactLines,
+  developerWhatsappUrl,
   googleMapsChurchUrl,
-  navItems,
   siteConfig,
+  visibleNavItems,
 } from "@/content/site";
 import { getSundayMatrizTimesLine } from "@/lib/calendar/matriz-schedule";
 
@@ -35,7 +36,9 @@ function SocialIcon({ type }: { type: (typeof socialLinks)[number]["key"] }) {
 }
 
 export function Footer() {
-  const footerNavItems = navItems.filter((item) => item.href !== "/contato");
+  const footerNavItems = visibleNavItems.filter(
+    (item) => item.href !== "/contato",
+  );
   const contactLines = formatContactLines();
   const churchLines = formatChurchLines();
   const sundayTimes = getSundayMatrizTimesLine(calendarEvents);
@@ -184,9 +187,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border py-6 text-center text-sm text-muted">
-          © {new Date().getFullYear()} {siteConfig.name}. Todos os direitos
-          reservados.
+        <div className="border-t border-border py-6 text-center text-sm leading-relaxed text-muted">
+          <p>
+            Versão {siteConfig.version}
+            <span aria-hidden="true"> · </span>
+            {siteConfig.developer.role} — {siteConfig.developer.name}{" "}
+            <a
+              href={developerWhatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="rodape.desenvolvedor.whatsapp"
+              className="text-accent transition-colors hover:text-accent-light"
+            >
+              {siteConfig.developer.phone}
+            </a>
+          </p>
+          <p className="mt-1">
+            © {new Date().getFullYear()} {siteConfig.name}. Todos os direitos
+            reservados.
+          </p>
         </div>
       </div>
     </footer>

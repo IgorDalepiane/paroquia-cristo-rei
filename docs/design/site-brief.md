@@ -35,13 +35,13 @@ Living document for **approved** design and content decisions.
 | `/noticias`           | Grid de notícias                                                            |
 | `/noticias/[slug]`    | Artigo                                                                      |
 | `/paroquia`           | História, clero, pastorais resumidas                                        |
-| `/contato`            | Secretaria, igreja matriz (Maps), horário                                   |
+| `/contato`            | Igreja, secretaria (com horário) e programador                              |
 | `/festa`              | Hub da 80ª Festa de Cristo Rei (bingo em destaque; sem rifa ainda)          |
 | `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso, compra, brindes               |
 
 ### Navigation
 
-- Paróquia → `/paroquia`
+- Paróquia → `/paroquia` (fora do menu por enquanto; só por URL)
 - Comunidades → `/comunidades`
 - Horários → `/horarios`
 - Agenda → `/agenda`
@@ -114,4 +114,5 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 
 - **2026-06-28** — V1 scaffold: design tokens, layout (header/footer), all V1 routes, static content placeholders, low-motion scroll reveals.
 - **2026-09-11** — 80ª Festa hub + bingo page (ação entre amigos, no e-commerce, prize names without per-item R$); site-wide Bingo FAB; parish Instagram in footer/contato.
-- **2026-09-11** — `/galeria` hub with vitrais entry; walk at `/galeria/vitrais`; home mosaic uses vitrais; community URLs use name slugs; Cloudflare Web Analytics (pageviews) + Zaraz click names (`pagina.acao`).
+- **2026-09-16** — Contato has three cards: church, secretariat (hours included), programmer. Footer shows version and programmer credit above copyright.
+- **2026-09-16** — Paróquia menu item hidden (header, footer, home cards); `/paroquia` still live.

@@ -2,6 +2,8 @@ export const siteConfig = {
   name: "Paróquia Cristo Rei",
   shortName: "Cristo Rei",
   url: "https://paroquiacristoreibg.org.br",
+  /** Footer label; keep aligned with the latest GitHub release (no `v`). */
+  version: "0.5.3",
   description:
     "Paróquia Cristo Rei — comunidade de fé, 24 comunidades, horários de missas e vida pastoral.",
   heroTagline: "Bento Gonçalves — RS",
@@ -40,10 +42,16 @@ export const siteConfig = {
   churchHours: {
     open: "De terça a domingo, das 12h às 19h",
   },
+  developer: {
+    role: "Programador",
+    name: "Igor Dalepiane da Costa",
+    phone: "(54) 9 9616-5918",
+    whatsapp: "5554996165918",
+  },
 } as const;
 
 export const navItems = [
-  { label: "Paróquia", href: "/paroquia" },
+  { label: "Paróquia", href: "/paroquia", hidden: true },
   { label: "Comunidades", href: "/comunidades" },
   { label: "Horários", href: "/horarios" },
   { label: "Agenda", href: "/agenda" },
@@ -51,6 +59,11 @@ export const navItems = [
   { label: "Galeria", href: "/galeria" },
   { label: "Contato", href: "/contato" },
 ] as const;
+
+/** Header, footer and similar menus — hidden items stay reachable by URL. */
+export const visibleNavItems = navItems.filter(
+  (item) => !("hidden" in item && item.hidden),
+);
 
 /** Endereço da secretaria (contato / rodapé). */
 export function formatContactLines() {
@@ -87,4 +100,8 @@ export function googleMapsUrl() {
 
 export function googleMapsChurchUrl() {
   return siteConfig.contact.churchMapsUrl;
+}
+
+export function developerWhatsappUrl() {
+  return `https://wa.me/${siteConfig.developer.whatsapp}`;
 }

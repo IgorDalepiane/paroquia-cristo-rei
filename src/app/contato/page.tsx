@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { DeveloperContact } from "@/components/contato/DeveloperContact";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -107,6 +108,10 @@ export default function ContatoPage() {
                     </a>
                   </p>
                 </address>
+                <div className="mt-6 space-y-3 text-muted">
+                  <p>{siteConfig.secretaryHours.weekdays}</p>
+                  <p>{siteConfig.secretaryHours.saturday}</p>
+                </div>
                 <ExternalAction
                   href={googleMapsUrl()}
                   track="contato.secretaria.maps"
@@ -118,14 +123,12 @@ export default function ContatoPage() {
                 </ExternalAction>
               </section>
 
-              <section className="h-full rounded-2xl border border-border bg-surface p-8 shadow-sm md:col-span-2 lg:col-span-1">
+              <section className="flex h-full flex-col rounded-2xl border border-border bg-surface p-8 shadow-sm">
                 <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
-                  Horário de atendimento
+                  Programador
                 </h2>
-                <div className="space-y-3 text-muted">
-                  <p>{siteConfig.secretaryHours.weekdays}</p>
-                  <p>{siteConfig.secretaryHours.saturday}</p>
-                </div>
+                <p className="text-muted">{siteConfig.developer.name}</p>
+                <DeveloperContact />
               </section>
             </div>
           </ScrollReveal>
