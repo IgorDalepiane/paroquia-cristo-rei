@@ -5,12 +5,18 @@ import { getCommunityHeroPhoto } from "@/content/community-photos";
 type CommunityHeroPhotoProps = {
   slug: string;
   variant: "page" | "card";
+  priority?: boolean;
 };
 
-export function CommunityHeroPhoto({ slug, variant }: CommunityHeroPhotoProps) {
+export function CommunityHeroPhoto({
+  slug,
+  variant,
+  priority = false,
+}: CommunityHeroPhotoProps) {
   const photo = getCommunityHeroPhoto(slug);
   const isPage = variant === "page";
   const portrait = photo?.orientation === "portrait";
+  const eager = isPage || priority;
 
   const frame = !isPage
     ? "relative aspect-[16/10] overflow-hidden"
@@ -29,16 +35,17 @@ export function CommunityHeroPhoto({ slug, variant }: CommunityHeroPhotoProps) {
   return (
     <div className={frame}>
       <Image
-        src={photo.src}
+        src={isPage ? photo.src : photo.cardSrc}
         alt={photo.alt}
         fill
-        priority={isPage}
+        unoptimized
+        priority={eager}
         sizes={
           isPage
             ? portrait
               ? "(max-width: 512px) 100vw, 512px"
               : "(max-width: 768px) 100vw, 768px"
-            : "(max-width: 768px) 100vw, 400px"
+            : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
         }
         className="object-cover"
         style={{

@@ -42,9 +42,13 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((community) => (
+          {filtered.map((community, index) => (
             <ScrollReveal key={community.slug} className="h-full">
-              <CommunityCard community={community} prefetch={false} />
+              <CommunityCard
+                community={community}
+                prefetch={false}
+                priority={index < 2}
+              />
             </ScrollReveal>
           ))}
         </div>
