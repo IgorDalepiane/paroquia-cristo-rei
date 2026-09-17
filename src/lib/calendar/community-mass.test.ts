@@ -237,6 +237,10 @@ function main(): void {
     "/images/comunidades/sao-bento.webp",
   );
   assert.equal(
+    getCommunityHeroPhoto("sao-bento")?.cardSrc,
+    "/images/comunidades/sao-bento.card.webp",
+  );
+  assert.equal(
     getCommunityHeroPhoto("igreja-matriz")?.src,
     "/images/comunidades/igreja-matriz.webp",
   );
