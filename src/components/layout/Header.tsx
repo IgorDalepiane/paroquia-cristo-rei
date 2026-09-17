@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoBrandText, LogoIcon } from "@/components/layout/LogoBrand";
-import { navItems, siteConfig } from "@/content/site";
+import { siteConfig, visibleNavItems } from "@/content/site";
 import { useCompactNav } from "@/hooks/useCompactNav";
 
-const mainNavItems = navItems.filter((item) => item.href !== "/contato");
+const mainNavItems = visibleNavItems.filter((item) => item.href !== "/contato");
 
 const navLinkClass = (active: boolean) =>
   `rounded-full px-2.5 py-2 text-[0.95rem] font-medium transition-colors xl:px-3.5 xl:text-[1.05rem] ${
@@ -36,7 +36,7 @@ function MobileNav({
       aria-label="Principal mobile"
     >
       <ul className="flex flex-col gap-1">
-        {navItems.map((item) => {
+        {visibleNavItems.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(`${item.href}/`);
           return (

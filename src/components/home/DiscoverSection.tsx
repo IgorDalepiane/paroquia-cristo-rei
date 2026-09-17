@@ -4,11 +4,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const discoverCards = [
   {
-    title: "Paróquia",
-    description: "História, clero e vida pastoral da matriz.",
-    href: "/paroquia",
-  },
-  {
     title: "Comunidades",
     description: "Conheça as 24 comunidades de fé do território paroquial.",
     href: "/comunidades",
@@ -32,7 +27,7 @@ export function DiscoverSection() {
             align="center"
           />
         </ScrollReveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
           {discoverCards.map((card) => (
             <ScrollReveal key={card.href}>
               <Link
