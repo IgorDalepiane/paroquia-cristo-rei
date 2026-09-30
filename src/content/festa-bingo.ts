@@ -112,4 +112,3 @@ const campaignDayFormatter = new Intl.DateTimeFormat("en-CA", {
 export function isBingoCampaignLive(now = new Date()): boolean {
   return campaignDayFormatter.format(now) <= festaBingo.campaignLastDay;
 }
-
