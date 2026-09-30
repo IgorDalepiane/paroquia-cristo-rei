@@ -37,7 +37,7 @@ Living document for **approved** design and content decisions.
 | `/paroquia`           | História, clero, pastorais resumidas                                        |
 | `/contato`            | Igreja, secretaria (com horário) e programador                              |
 | `/festa`              | Hub da 80ª Festa de Cristo Rei (bingo em destaque; sem rifa ainda)          |
-| `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso, compra, brindes               |
+| `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso esgotado, brindes              |
 
 ### Navigation
 
@@ -116,3 +116,4 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 - **2026-09-11** — 80ª Festa hub + bingo page (ação entre amigos, no e-commerce, prize names without per-item R$); site-wide Bingo FAB; parish Instagram in footer/contato.
 - **2026-09-16** — Contato has three cards: church, secretariat (hours included), programmer. Footer shows version and programmer credit above copyright.
 - **2026-09-16** — Paróquia menu item hidden (header, footer, home cards); `/paroquia` still live.
+- **2026-09-30** — Bingo tickets sold out: `/festa/bingo` CTA and how-to section show Esgotado (no WhatsApp/Instagram purchase); `/festa` invite updated.

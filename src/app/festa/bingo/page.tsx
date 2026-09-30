@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BingoFesteirosContact } from "@/components/festa/BingoFesteirosContact";
 import { BingoTicketLightbox } from "@/components/festa/BingoTicketLightbox";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { bingoRounds, festaBingo } from "@/content/festa-bingo";
-import { siteConfig } from "@/content/site";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,8 +14,6 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function FestaBingoPage() {
-  const instagramHref = siteConfig.social.instagram;
-
   return (
     <>
       <JsonLd
@@ -34,13 +30,12 @@ export default function FestaBingoPage() {
           <div className="mx-auto max-w-3xl">
             <BingoTicketLightbox />
             <div className="mt-6 flex justify-center">
-              <a
-                href="#comprar"
-                data-track="festa.bingo.adquirir"
-                className="inline-flex rounded-full bg-accent px-8 py-2.5 text-sm font-medium tracking-wide text-white uppercase transition-colors hover:bg-accent-light"
+              <span
+                role="status"
+                className="inline-flex cursor-default rounded-full border border-border bg-muted-bg px-8 py-2.5 text-sm font-medium tracking-wide text-foreground/70 uppercase"
               >
-                Adquirir
-              </a>
+                {festaBingo.soldOutLabel}
+              </span>
             </div>
           </div>
 
@@ -75,31 +70,13 @@ export default function FestaBingoPage() {
               <h2 className="mb-4 font-display normal-case text-2xl text-foreground">
                 Como conseguir o ingresso
               </h2>
-              <p className="mb-6 text-muted">
-                Não há venda online. Reserve com os festeiros pelo WhatsApp ou
-                fale com a paróquia no Instagram.
-              </p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-border bg-surface p-6">
-                  <BingoFesteirosContact />
-                </div>
-                <div className="rounded-2xl border border-border bg-surface p-6">
-                  <h3 className="font-medium text-foreground">Instagram</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {instagramHref ? (
-                      <a
-                        href={instagramHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-medium text-accent hover:text-accent-light"
-                      >
-                        {festaBingo.instagramHandle}
-                      </a>
-                    ) : (
-                      festaBingo.instagramHandle
-                    )}
-                  </p>
-                </div>
+              <div className="rounded-2xl border border-border bg-surface p-6">
+                <h3 className="font-medium text-foreground">
+                  {festaBingo.soldOutTitle}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  {festaBingo.soldOutBody}
+                </p>
               </div>
             </section>
           </div>

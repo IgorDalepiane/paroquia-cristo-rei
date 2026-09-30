@@ -15,14 +15,11 @@ export const festaBingo = {
   foodNote: "Comida e bebida à venda no local.",
   solidarity:
     "Durante o evento serão arrecadados alimentos não perecíveis para a Cáritas — Cristo Rei.",
-  invite: "Reserve seu ingresso e venha com a gente.",
-  buyFesteiros: "Com os festeiros da 80ª Festa",
-  festeiroPhoneLabel: "(54) 9 9616-5918",
-  festeiroPhoneTel: "+5554996165918",
-  festeiroWhatsapp: "5554996165918",
-  whatsappMessage:
-    "Olá, vim pelo site da paróquia e gostaria de adquirir ingressos do bingo.",
-  instagramHandle: "@paroquiacristoreibg",
+  invite: "Ingressos esgotados. Confira a noite e os brindes.",
+  soldOutLabel: "Esgotado",
+  soldOutTitle: "Esgotado",
+  soldOutBody:
+    "Os ingressos para as 8 rodadas acabaram. Cartelas adicionais e a rodada extra continuam à venda no dia do evento.",
   campaignLastDay: "2026-10-02",
   logo: {
     src: "/images/festa/logo-80-anos.png",
@@ -116,7 +113,3 @@ export function isBingoCampaignLive(now = new Date()): boolean {
   return campaignDayFormatter.format(now) <= festaBingo.campaignLastDay;
 }
 
-/** Opens WhatsApp with the draft filled in; does not send. */
-export function bingoWhatsappUrl(): string {
-  return `https://wa.me/${festaBingo.festeiroWhatsapp}?text=${encodeURIComponent(festaBingo.whatsappMessage)}`;
-}
