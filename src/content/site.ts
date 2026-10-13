@@ -105,3 +105,7 @@ export function googleMapsChurchUrl() {
 export function developerWhatsappUrl() {
   return `https://wa.me/${siteConfig.developer.whatsapp}`;
 }
+
+export function secretaryWhatsappUrl() {
+  return `https://wa.me/${siteConfig.contact.whatsapp}`;
+}

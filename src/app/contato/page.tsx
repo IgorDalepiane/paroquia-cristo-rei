@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { DeveloperContact } from "@/components/contato/DeveloperContact";
 import {
   FacebookIcon,
   InstagramIcon,
   MapPinIcon,
+  WhatsAppIcon,
 } from "@/components/ui/BrandIcons";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -14,6 +14,7 @@ import {
   formatContactLines,
   googleMapsChurchUrl,
   googleMapsUrl,
+  secretaryWhatsappUrl,
   siteConfig,
 } from "@/content/site";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
@@ -41,7 +42,7 @@ export default function ContatoPage() {
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-5xl">
           <ScrollReveal>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2">
               <section className="flex h-full flex-col rounded-2xl border border-border bg-surface p-8 shadow-sm">
                 <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
                   {churchLines.title}
@@ -112,23 +113,26 @@ export default function ContatoPage() {
                   <p>{siteConfig.secretaryHours.weekdays}</p>
                   <p>{siteConfig.secretaryHours.saturday}</p>
                 </div>
-                <ExternalAction
-                  href={googleMapsUrl()}
-                  track="contato.secretaria.maps"
-                  variant="outline"
-                  className="mt-8"
-                >
-                  <MapPinIcon />
-                  Ver no Google Maps
-                </ExternalAction>
-              </section>
-
-              <section className="flex h-full flex-col rounded-2xl border border-border bg-surface p-8 shadow-sm">
-                <h2 className="mb-6 font-display normal-case text-2xl text-foreground">
-                  Programador
-                </h2>
-                <p className="text-muted">{siteConfig.developer.name}</p>
-                <DeveloperContact />
+                <div className="mt-8 flex flex-col items-start gap-3">
+                  <a
+                    href={secretaryWhatsappUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="contato.secretaria.whatsapp"
+                    className="inline-flex w-fit items-center gap-2 self-start rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium tracking-wide text-white uppercase transition-colors hover:bg-[#1ebe5d]"
+                  >
+                    <WhatsAppIcon />
+                    Conversar pelo WhatsApp
+                  </a>
+                  <ExternalAction
+                    href={googleMapsUrl()}
+                    track="contato.secretaria.maps"
+                    variant="outline"
+                  >
+                    <MapPinIcon />
+                    Ver no Google Maps
+                  </ExternalAction>
+                </div>
               </section>
             </div>
           </ScrollReveal>
