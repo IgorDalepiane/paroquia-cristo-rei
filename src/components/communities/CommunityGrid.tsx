@@ -13,13 +13,13 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = fold(query);
     if (!q) return communities;
     return communities.filter(
       (c) =>
-        c.name.toLowerCase().includes(q) ||
-        c.neighborhood.toLowerCase().includes(q) ||
-        c.patron?.toLowerCase().includes(q),
+        fold(c.name).includes(q) ||
+        fold(c.neighborhood).includes(q) ||
+        (c.patron ? fold(c.patron).includes(q) : false),
     );
   }, [communities, query]);
 
@@ -55,4 +55,13 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
       )}
     </div>
   );
+}
+
+/** Lowercase and strip accents so "sao" matches "São". */
+function fold(value: string): string {
+  return value
+    .trim()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase();
 }
