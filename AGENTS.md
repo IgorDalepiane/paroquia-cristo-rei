@@ -65,6 +65,8 @@ Expected preview URL format: `<branch>-paroquia-cristo-rei.<account>.workers.dev
 
 **Release:** after merging to `main` and verifying (preview URL or `pnpm preview` locally), run `/patch`, `/minor`, or `/major`. That tags `origin/main` as the next `vX.Y.Z`, publishes the GitHub release, and pushes the tag. The `promote-production` workflow then force-pushes `production` to the tag. See [`.cursor/skills/release-tag/SKILL.md`](.cursor/skills/release-tag/SKILL.md).
 
+The footer version is resolved at build time in `next.config.ts` from the `vX.Y.Z` tag on the built commit (previews show the latest tag). Do not bump it by hand.
+
 `pnpm build` is for local quick checks only — not used in CI or Cloudflare pipelines (OpenNext invokes it internally).
 
 ## Off-limits (without explicit approval)
