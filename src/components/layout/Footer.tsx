@@ -189,7 +189,7 @@ export function Footer() {
 
         <div className="border-t border-border py-6 text-center text-sm leading-relaxed text-muted">
           <p>
-            Versão {siteConfig.version}
+            Versão {process.env.NEXT_PUBLIC_APP_VERSION}
             <span aria-hidden="true"> · </span>
             {siteConfig.developer.role} — {siteConfig.developer.name}{" "}
             <a

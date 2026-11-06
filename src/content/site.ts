@@ -2,8 +2,6 @@ export const siteConfig = {
   name: "Paróquia Cristo Rei",
   shortName: "Cristo Rei",
   url: "https://paroquiacristoreibg.org.br",
-  /** Footer label; keep aligned with the latest GitHub release (no `v`). */
-  version: "0.5.3",
   description:
     "Paróquia Cristo Rei — comunidade de fé, 24 comunidades, horários de missas e vida pastoral.",
   heroTagline: "Bento Gonçalves — RS",
