@@ -41,6 +41,11 @@ const staticRoutes: MetadataRoute.Sitemap = [
     priority: 0.9,
   },
   {
+    url: `${siteConfig.url}/festa/almoco-festivo`,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  },
+  {
     url: `${siteConfig.url}/festa/bingo`,
     changeFrequency: "weekly",
     priority: 0.8,

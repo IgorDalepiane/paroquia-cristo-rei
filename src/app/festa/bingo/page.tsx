@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BingoTicketLightbox } from "@/components/festa/BingoTicketLightbox";
+import { TicketLightbox } from "@/components/festa/TicketLightbox";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PageTitleBar } from "@/components/ui/PageTitleBar";
 import { bingoRounds, festaBingo } from "@/content/festa-bingo";
@@ -28,7 +28,7 @@ export default function FestaBingoPage() {
       <div className="section-padding">
         <div className="container-wide mx-auto max-w-4xl space-y-16">
           <div className="mx-auto max-w-3xl">
-            <BingoTicketLightbox />
+            <TicketLightbox ticket={festaBingo.ticket} />
             <div className="mt-6 flex justify-center">
               <span
                 role="status"

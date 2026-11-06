@@ -2,12 +2,17 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { festaBingo } from "@/content/festa-bingo";
 
-export function BingoTicketLightbox() {
+type Ticket = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+export function TicketLightbox({ ticket }: { ticket: Ticket }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-  const ticket = festaBingo.ticket;
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -31,8 +36,8 @@ export function BingoTicketLightbox() {
           <Image
             src={ticket.src}
             alt={ticket.alt}
-            width={1800}
-            height={1075}
+            width={ticket.width}
+            height={ticket.height}
             priority
             className="h-auto w-full"
             sizes="(min-width: 768px) 48rem, 100vw"

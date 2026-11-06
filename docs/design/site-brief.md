@@ -24,20 +24,21 @@ Living document for **approved** design and content decisions.
 
 ### Routes
 
-| Rota                  | Conteúdo                                                                    |
-| --------------------- | --------------------------------------------------------------------------- |
-| `/`                   | Hero imersivo + horários rápidos + notícias + comunidades + galeria         |
-| `/horarios`           | Missas, confissões, secretaria, abertura                                    |
-| `/comunidades`        | Hub das 24 comunidades (grid + busca)                                       |
-| `/comunidades/[slug]` | História, fotos, contato local — slug pelo nome (`/comunidades/santa-rita`) |
-| `/galeria`            | Hub da galeria: entrada para vitrais + fotos da paróquia (placeholders)     |
-| `/galeria/vitrais`    | Passeio pelos vitrais da matriz                                             |
-| `/noticias`           | Grid de notícias                                                            |
-| `/noticias/[slug]`    | Artigo                                                                      |
-| `/paroquia`           | História, clero, pastorais resumidas                                        |
-| `/contato`            | Igreja, secretaria (com horário) e programador                              |
-| `/festa`              | Hub da 80ª Festa de Cristo Rei (bingo em destaque; sem rifa ainda)          |
-| `/festa/bingo`        | Noite de bingo — ação entre amigos: ingresso esgotado, brindes              |
+| Rota                    | Conteúdo                                                                    |
+| ----------------------- | --------------------------------------------------------------------------- |
+| `/`                     | Hero imersivo + horários rápidos + notícias + comunidades + galeria         |
+| `/horarios`             | Missas, confissões, secretaria, abertura                                    |
+| `/comunidades`          | Hub das 24 comunidades (grid + busca)                                       |
+| `/comunidades/[slug]`   | História, fotos, contato local — slug pelo nome (`/comunidades/santa-rita`) |
+| `/galeria`              | Hub da galeria: entrada para vitrais + fotos da paróquia (placeholders)     |
+| `/galeria/vitrais`      | Passeio pelos vitrais da matriz                                             |
+| `/noticias`             | Grid de notícias                                                            |
+| `/noticias/[slug]`      | Artigo                                                                      |
+| `/paroquia`             | História, clero, pastorais resumidas                                        |
+| `/contato`              | Igreja, secretaria (com horário) e programador                              |
+| `/festa`                | Hub da 80ª Festa de Cristo Rei (almoço em destaque; bingo como realizado)   |
+| `/festa/almoco-festivo` | Almoço festivo: ingresso, missa, cardápio, valores, reserva por WhatsApp    |
+| `/festa/bingo`          | Noite de bingo — ação entre amigos: ingresso esgotado, brindes              |
 
 ### Navigation
 
@@ -81,7 +82,7 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 - [x] Scroll effects — Intersection Observer reveal; `prefers-reduced-motion` respected
 - [x] Gallery in menu — **no** (home + footer only)
 - [x] Floating side button — **no** as default chrome
-- [x] Campaign FAB — Bingo chip (parish red, bottom-right) on all routes except `/festa` and `/festa/bingo`, through 2 Oct 2026 (America/Sao_Paulo); links to `/festa/bingo`
+- [x] Campaign FAB — Almoço festivo chip (parish red, bottom-right, soft pulsing halo; static under reduced motion) on all routes except `/festa*`, through 22 Nov 2026 (America/Sao_Paulo); links to `/festa/almoco-festivo`. Previously the Bingo chip through 2 Oct 2026.
 
 ### Content & data
 
@@ -105,6 +106,7 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 | Contact address / map / social | In use      | Instagram + Facebook in `site.ts`; YouTube still empty                  |
 | 80ª Festa seal                 | In use      | Transparent PNG `logo-80-anos.png` on `/festa`                          |
 | Bingo ticket art               | In use      | `public/images/festa/ingresso-bingo.jpg` on `/festa/bingo`              |
+| Almoço ticket art              | In use      | `public/images/festa/ingresso-almoco.jpg` on `/festa/almoco-festivo`    |
 
 ## Reference material
 
@@ -117,3 +119,4 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 - **2026-09-16** — Contato has three cards: church, secretariat (hours included), programmer. Footer shows version and programmer credit above copyright.
 - **2026-09-16** — Paróquia menu item hidden (header, footer, home cards); `/paroquia` still live.
 - **2026-09-30** — Bingo tickets sold out: `/festa/bingo` CTA and how-to section show Esgotado (no WhatsApp/Instagram purchase); `/festa` invite updated.
+- **2026-11-06** — Almoço festivo page (22 Nov: Missa Solene 9h30 na matriz, almoço 12h na Santa Marta; cardápio; R$ 100 / R$ 50 de 7 a 12 anos / até 6 não pagam; reserva com festeiros por WhatsApp + Instagram; no sponsors list). `/festa` leads with the almoço; bingo card marked Realizado. FAB switched to the almoço with a pulsing halo.
