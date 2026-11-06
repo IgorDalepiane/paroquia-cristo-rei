@@ -59,9 +59,5 @@ export function CommunityGrid({ communities }: CommunityGridProps) {
 
 /** Lowercase and strip accents so "sao" matches "São". */
 function fold(value: string): string {
-  return value
-    .trim()
-    .normalize("NFD")
-    .replace(/\p{M}/gu, "")
-    .toLowerCase();
+  return value.trim().normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 }
