@@ -1,7 +1,5 @@
 export const festaBingo = {
   editionLabel: "80ª Festa de Cristo Rei",
-  hubIntro:
-    "A edição de 2026 da festa da paróquia. A programação completa entra nesta página quando estiver fechada; a Noite de bingo — ação entre amigos — já tem data, local e ingresso.",
   title: "Noite de bingo",
   legalSubtitle: "Ação entre amigos",
   dateLabel: "2 de outubro de 2026",
@@ -15,12 +13,12 @@ export const festaBingo = {
   foodNote: "Comida e bebida à venda no local.",
   solidarity:
     "Durante o evento serão arrecadados alimentos não perecíveis para a Cáritas — Cristo Rei.",
-  invite: "Ingressos esgotados. Confira a noite e os brindes.",
+  pastLabel: "Realizado",
+  pastInvite: "A noite já aconteceu. Confira os brindes de cada rodada.",
   soldOutLabel: "Esgotado",
   soldOutTitle: "Esgotado",
   soldOutBody:
     "Os ingressos para as 8 rodadas acabaram. Cartelas adicionais e a rodada extra continuam à venda no dia do evento.",
-  campaignLastDay: "2026-10-02",
   logo: {
     src: "/images/festa/logo-80-anos.png",
     width: 359,
@@ -100,15 +98,3 @@ export const bingoRounds: BingoRound[] = [
     full: ["Tablet", "Poltrona", "Puff Anceski"],
   },
 ];
-
-const campaignDayFormatter = new Intl.DateTimeFormat("en-CA", {
-  timeZone: "America/Sao_Paulo",
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-});
-
-/** Inclusive through the bingo night (2 Oct 2026) in Bento Gonçalves. */
-export function isBingoCampaignLive(now = new Date()): boolean {
-  return campaignDayFormatter.format(now) <= festaBingo.campaignLastDay;
-}

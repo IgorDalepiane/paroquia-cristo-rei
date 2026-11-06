@@ -40,8 +40,37 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-html.bingo-fab-active main {
+html.festa-fab-active main {
   padding-bottom: 5.5rem;
+}
+
+@keyframes festa-fab-pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.35, 1.6);
+  }
+}
+
+.festa-fab-pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--accent);
+  pointer-events: none;
+  animation: festa-fab-pulse 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .festa-fab-pulse::after {
+    display: none;
+  }
 }
 
 dialog {
