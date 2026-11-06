@@ -58,6 +58,8 @@ pnpm lint
 pnpm exec tsc --noEmit   # when TypeScript-heavy
 ```
 
+If `pnpm` is not on PATH, use `corepack pnpm`. If `node_modules` is missing, run `corepack pnpm install --frozen-lockfile` first; an `ERR_PNPM_IGNORED_BUILDS` exit still leaves `node_modules/.bin` usable.
+
 If `pnpm lint` dies on an install gate (`ERR_PNPM_IGNORED_BUILDS` or similar), run `./node_modules/.bin/next lint` and `./node_modules/.bin/tsc --noEmit` instead. Do not disable lint to go green.
 
 ## 4. Run app + screenshots + UI pass
