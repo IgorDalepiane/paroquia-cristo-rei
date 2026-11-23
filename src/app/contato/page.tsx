@@ -111,7 +111,6 @@ export default function ContatoPage() {
                 </address>
                 <div className="mt-6 space-y-3 text-muted">
                   <p>{siteConfig.secretaryHours.weekdays}</p>
-                  <p>{siteConfig.secretaryHours.saturday}</p>
                 </div>
                 <div className="mt-8 flex flex-col items-start gap-3">
                   <a

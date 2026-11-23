@@ -109,9 +109,6 @@ export function Footer() {
               <li className="pt-1 text-muted">
                 {siteConfig.secretaryHours.weekdays}
               </li>
-              <li className="text-muted">
-                {siteConfig.secretaryHours.saturday}
-              </li>
             </ul>
           </div>
 

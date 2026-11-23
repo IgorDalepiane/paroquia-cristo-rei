@@ -73,9 +73,6 @@ export default function HorariosPage() {
                 Horário da secretaria
               </h2>
               <p className="text-muted">{siteConfig.secretaryHours.weekdays}</p>
-              <p className="mt-2 text-muted">
-                {siteConfig.secretaryHours.saturday}
-              </p>
             </section>
           </ScrollReveal>
 
