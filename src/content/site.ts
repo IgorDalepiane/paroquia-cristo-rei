@@ -34,8 +34,7 @@ export const siteConfig = {
     youtube: "",
   },
   secretaryHours: {
-    weekdays: "Segunda a sexta-feira, das 08h30 às 11h45 e das 13h30 às 17h45",
-    saturday: "Sábado, das 08h30 às 11h30",
+    weekdays: "Segunda a sexta-feira, das 08h às 11h30 e das 13h30 às 18h",
   },
   churchHours: {
     open: "De terça a domingo, das 12h às 19h",
