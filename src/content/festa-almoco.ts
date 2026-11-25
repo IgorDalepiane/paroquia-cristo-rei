@@ -1,7 +1,7 @@
 export const festaAlmoco = {
   title: "Almoço festivo",
   hubIntro:
-    "O Almoço festivo encerra a 80ª Festa de Cristo Rei no domingo, 22 de novembro, depois da Missa Solene na igreja matriz.",
+    "A 80ª Festa de Cristo Rei foi encerrada com o Almoço festivo no domingo, 22 de novembro, depois da Missa Solene na igreja matriz.",
   dateLabel: "22 de novembro de 2026",
   dateShortLabel: "22 nov",
   massTimeLabel: "9h30",
@@ -27,13 +27,12 @@ export const festaAlmoco = {
   ],
   drinksNote: "Água e vinho servidos durante o almoço.",
   motto: "Ele veio morar entre nós como bom Pastor e Rei servidor.",
-  invite: "Reserve seu ingresso e venha celebrar com a gente.",
-  buyFesteiros: "Com os festeiros da 80ª Festa",
-  festeiroPhoneLabel: "(54) 9 9616-5918",
-  festeiroWhatsapp: "5554996165918",
-  whatsappMessage:
-    "Olá, vim pelo site da paróquia e gostaria de adquirir ingressos do almoço festivo.",
-  instagramHandle: "@paroquiacristoreibg",
+  pastLabel: "Realizado",
+  pastInvite:
+    "O almoço já aconteceu. Reveja o ingresso, o cardápio e os valores.",
+  pastTitle: "Evento realizado",
+  pastBody:
+    "O almoço festivo já aconteceu e não há mais venda de ingressos. Obrigado a todos que celebraram com a gente!",
   campaignLastDay: "2026-11-22",
   ticket: {
     src: "/images/festa/ingresso-almoco.jpg",
@@ -53,9 +52,4 @@ const campaignDayFormatter = new Intl.DateTimeFormat("en-CA", {
 /** Inclusive through the lunch day (22 Nov 2026) in Bento Gonçalves. */
 export function isAlmocoCampaignLive(now = new Date()): boolean {
   return campaignDayFormatter.format(now) <= festaAlmoco.campaignLastDay;
-}
-
-/** Opens WhatsApp with the draft filled in; does not send. */
-export function almocoWhatsappUrl(): string {
-  return `https://wa.me/${festaAlmoco.festeiroWhatsapp}?text=${encodeURIComponent(festaAlmoco.whatsappMessage)}`;
 }
