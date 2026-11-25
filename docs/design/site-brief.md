@@ -36,8 +36,8 @@ Living document for **approved** design and content decisions.
 | `/noticias/[slug]`      | Artigo                                                                      |
 | `/paroquia`             | História, clero, pastorais resumidas                                        |
 | `/contato`              | Igreja, secretaria (com horário) e programador                              |
-| `/festa`                | Hub da 80ª Festa de Cristo Rei (almoço em destaque; bingo como realizado)   |
-| `/festa/almoco-festivo` | Almoço festivo: ingresso, missa, cardápio, valores, reserva por WhatsApp    |
+| `/festa`                | Hub da 80ª Festa de Cristo Rei (almoço e bingo como realizados)             |
+| `/festa/almoco-festivo` | Almoço festivo (realizado): ingresso, missa, cardápio, valores              |
 | `/festa/bingo`          | Noite de bingo — ação entre amigos: ingresso esgotado, brindes              |
 
 ### Navigation
@@ -120,3 +120,4 @@ Batismo, Casamento, Catequese, Dízimo, agenda/eventos, vídeos, downloads, vela
 - **2026-09-16** — Paróquia menu item hidden (header, footer, home cards); `/paroquia` still live.
 - **2026-09-30** — Bingo tickets sold out: `/festa/bingo` CTA and how-to section show Esgotado (no WhatsApp/Instagram purchase); `/festa` invite updated.
 - **2026-11-06** — Almoço festivo page (22 Nov: Missa Solene 9h30 na matriz, almoço 12h na Santa Marta; cardápio; R$ 100 / R$ 50 de 7 a 12 anos / até 6 não pagam; reserva com festeiros por WhatsApp + Instagram; no sponsors list). `/festa` leads with the almoço; bingo card marked Realizado. FAB switched to the almoço with a pulsing halo.
+- **2026-11-25** — Almoço festivo marked Realizado: `/festa` card and `/festa/almoco-festivo` show the past state (no Adquirir, no festeiros WhatsApp/Instagram purchase section); `FesteirosContact` and WhatsApp helper removed. FAB already off after 22 Nov.
